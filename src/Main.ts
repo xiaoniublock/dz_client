@@ -142,7 +142,7 @@ class Main extends egret.DisplayObjectContainer {
     protected startCreateScene(): void {
         let applicationFacade: game.ApplicationFacade = game.ApplicationFacade.getInstance();
         applicationFacade.startUp(this.appContainer);
-        applicationFacade.sendNotification(game.LobbyCommand.CHANGE, 1);
+        //applicationFacade.sendNotification(game.LobbyCommand.CHANGE, 1);
     }
     
 }
