@@ -1,0 +1,7 @@
+.wing/
+bin-debug/
+manifest.json
+libs/
+template/
+tsconfig.json
+wingProperties.json
