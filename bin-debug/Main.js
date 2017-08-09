@@ -141,10 +141,11 @@ var Main = (function (_super) {
         }
     };
     Main.prototype.startCreateScene = function () {
-        game.ApplicationFacade.getInstance().startUp(this.appContainer);
-        //game.ApplicationFacade.getInstance().sendNotification(game.LobbyCommand.CHANGE, 1);
+        var applicationFacade = game.ApplicationFacade.getInstance();
+        applicationFacade.startUp(this.appContainer);
+        applicationFacade.sendNotification(game.LobbyCommand.CHANGE, 1);
     };
     return Main;
-}(egret.Sprite));
+}(egret.DisplayObjectContainer));
 __reflect(Main.prototype, "Main");
 //# sourceMappingURL=Main.js.map

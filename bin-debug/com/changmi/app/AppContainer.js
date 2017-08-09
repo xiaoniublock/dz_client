@@ -15,17 +15,17 @@ var game;
 (function (game) {
     var AppContainer = (function (_super) {
         __extends(AppContainer, _super);
-        //public gameScreen: GameScreen = new GameScreen();
         function AppContainer() {
             var _this = _super.call(this) || this;
             _this.lobbyScreen = new game.LobbyScreen();
+            _this.gameScreen = new game.GameScreen();
             return _this;
         }
         AppContainer.prototype.enterLobbyScreen = function () {
-            console.warn("进入大厅");
             this.addChild(this.lobbyScreen);
         };
         AppContainer.prototype.enterGameScreen = function () {
+            this.addChild(this.gameScreen);
         };
         AppContainer.prototype.showSettingWindow = function (data) {
         };

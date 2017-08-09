@@ -27,7 +27,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////
 
-class Main extends egret.Sprite {
+class Main extends egret.DisplayObjectContainer {
     /**
      * 加载进度界面
      * loading process interface
@@ -140,8 +140,9 @@ class Main extends egret.Sprite {
     }
 
     protected startCreateScene(): void {
-        game.ApplicationFacade.getInstance().startUp(this.appContainer);
-        //game.ApplicationFacade.getInstance().sendNotification(game.LobbyCommand.CHANGE, 1);
+        let applicationFacade: game.ApplicationFacade = game.ApplicationFacade.getInstance();
+        applicationFacade.startUp(this.appContainer);
+        applicationFacade.sendNotification(game.LobbyCommand.CHANGE, 1);
     }
     
 }

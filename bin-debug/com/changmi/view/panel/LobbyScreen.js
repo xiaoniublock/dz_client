@@ -21,6 +21,18 @@ var game;
             return _this;
         }
         LobbyScreen.prototype.createCompleteEvent = function () {
+            var sky = this.createBitmapByName("bg_jpg");
+            this.addChild(sky);
+            var stageW = this.stage.stageWidth;
+            var stageH = this.stage.stageHeight;
+            sky.width = stageW;
+            sky.height = stageH;
+        };
+        LobbyScreen.prototype.createBitmapByName = function (name) {
+            var result = new egret.Bitmap();
+            var texture = RES.getRes(name);
+            result.texture = texture;
+            return result;
         };
         return LobbyScreen;
     }(egret.DisplayObjectContainer));
