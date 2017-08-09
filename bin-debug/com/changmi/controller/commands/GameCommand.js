@@ -1,16 +1,11 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var game;
 (function (game) {
     var GameCommand = (function (_super) {
@@ -61,25 +56,25 @@ var game;
                 }
             }
         };
-        GameCommand.NAME = "GameCommand";
-        /**
-         * 开始游戏
-         */
-        GameCommand.START_GAME = "start_game";
-        /**
-         * 结束游戏
-         */
-        GameCommand.FINISH_GAME = "finish_game";
-        /**
-         * 更新分数
-         */
-        GameCommand.UPDATE_SCORE = "update_score";
-        /**
-         * 执行移动 , body  0: 上, 1: 右, 2:下, 3: 左
-         */
-        GameCommand.MOVE_TILE = "move_tile";
         return GameCommand;
     }(puremvc.SimpleCommand));
+    GameCommand.NAME = "GameCommand";
+    /**
+     * 开始游戏
+     */
+    GameCommand.START_GAME = "start_game";
+    /**
+     * 结束游戏
+     */
+    GameCommand.FINISH_GAME = "finish_game";
+    /**
+     * 更新分数
+     */
+    GameCommand.UPDATE_SCORE = "update_score";
+    /**
+     * 执行移动 , body  0: 上, 1: 右, 2:下, 3: 左
+     */
+    GameCommand.MOVE_TILE = "move_tile";
     game.GameCommand = GameCommand;
     __reflect(GameCommand.prototype, "game.GameCommand", ["puremvc.ICommand", "puremvc.INotifier"]);
 })(game || (game = {}));
