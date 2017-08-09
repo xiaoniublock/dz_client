@@ -142,7 +142,7 @@ var Main = (function (_super) {
     };
     Main.prototype.startCreateScene = function () {
         game.ApplicationFacade.getInstance().startUp(this.appContainer);
-        game.ApplicationFacade.getInstance().sendNotification(game.LobbyCommand.CHANGE, 1);
+        //game.ApplicationFacade.getInstance().sendNotification(game.LobbyCommand.CHANGE, 1);
     };
     return Main;
 }(egret.Sprite));

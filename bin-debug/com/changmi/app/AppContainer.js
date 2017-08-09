@@ -15,13 +15,15 @@ var game;
 (function (game) {
     var AppContainer = (function (_super) {
         __extends(AppContainer, _super);
-        //public startScreen: StartScreen = new StartScreen();
         //public gameScreen: GameScreen = new GameScreen();
         function AppContainer() {
-            return _super.call(this) || this;
+            var _this = _super.call(this) || this;
+            _this.lobbyScreen = new game.LobbyScreen();
+            return _this;
         }
         AppContainer.prototype.enterLobbyScreen = function () {
             console.warn("进入大厅");
+            this.addChild(this.lobbyScreen);
         };
         AppContainer.prototype.enterGameScreen = function () {
         };
