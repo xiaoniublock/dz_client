@@ -21,12 +21,18 @@ var game;
             return _this;
         }
         LobbyScreen.prototype.createCompleteEvent = function () {
-            var sky = this.createBitmapByName("bg_jpg");
-            this.addChild(sky);
+            this.sky = this.createBitmapByName("bg_jpg");
+            this.addChild(this.sky);
             var stageW = this.stage.stageWidth;
             var stageH = this.stage.stageHeight;
-            sky.width = stageW;
-            sky.height = stageH;
+            this.sky.width = stageW;
+            this.sky.height = stageH;
+            this.startBtn = new eui.Button();
+            this.startBtn.label = "开始游戏";
+            this.startBtn.horizontalCenter = 0;
+            this.startBtn.verticalCenter = 0;
+            this.addChild(this.startBtn);
+            game.ApplicationFacade.getInstance().registerMediator(new game.LobbyMediator(this));
         };
         LobbyScreen.prototype.createBitmapByName = function (name) {
             var result = new egret.Bitmap();

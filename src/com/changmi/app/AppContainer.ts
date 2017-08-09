@@ -10,10 +10,13 @@ module game {
         }
 
         public enterLobbyScreen(){
+            console.warn("进入大厅");
+            this.removeChildren();
             this.addChild(this.lobbyScreen);
         }
 
         public enterGameScreen(){
+            this.removeChildren();
             this.addChild(this.gameScreen);
         }
 

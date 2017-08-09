@@ -22,9 +22,12 @@ var game;
             return _this;
         }
         AppContainer.prototype.enterLobbyScreen = function () {
+            console.warn("进入大厅");
+            this.removeChildren();
             this.addChild(this.lobbyScreen);
         };
         AppContainer.prototype.enterGameScreen = function () {
+            this.removeChildren();
             this.addChild(this.gameScreen);
         };
         AppContainer.prototype.showSettingWindow = function (data) {

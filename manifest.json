@@ -11,20 +11,22 @@
 		"puremvc/bin/puremvc.js"
 	],
 	"game": [
-		"bin-debug/com/changmi/controller/StartupCommand.js",
-		"bin-debug/AssetAdapter.js",
+		"bin-debug/LoadingUI.js",
+		"bin-debug/com/changmi/controller/ViewPrepCommand.js",
 		"bin-debug/Main.js",
 		"bin-debug/ThemeAdapter.js",
 		"bin-debug/com/changmi/ApplicationFacade.js",
 		"bin-debug/com/changmi/app/AppContainer.js",
 		"bin-debug/com/changmi/controller/ControllerPrepCommand.js",
 		"bin-debug/com/changmi/controller/ModelPrepCommand.js",
-		"bin-debug/LoadingUI.js",
-		"bin-debug/com/changmi/controller/ViewPrepCommand.js",
+		"bin-debug/com/changmi/controller/StartupCommand.js",
+		"bin-debug/AssetAdapter.js",
 		"bin-debug/com/changmi/controller/commands/GameCommand.js",
 		"bin-debug/com/changmi/controller/commands/LobbyCommand.js",
 		"bin-debug/com/changmi/model/GameProxy.js",
 		"bin-debug/com/changmi/view/ApplicationMediator.js",
+		"bin-debug/com/changmi/view/GameMediator.js",
+		"bin-debug/com/changmi/view/LobbyMediator.js",
 		"bin-debug/com/changmi/view/panel/GameScreen.js",
 		"bin-debug/com/changmi/view/panel/LobbyScreen.js"
 	]
