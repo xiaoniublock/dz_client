@@ -1,8 +1,0 @@
-bin-debug/
-template/
-libs/
-.wing/
-template/
-manifest.json
-tsconfig.json
-wingProperties.json
