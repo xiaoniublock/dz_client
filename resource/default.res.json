@@ -1,12 +1,12 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,board_1,board_2,board_3,board_4",
 			"name": "preload"
 		},
 		{
-		"keys":"egret_icon_png",
-		"name":"loading"
+			"keys": "egret_icon_png",
+			"name": "loading"
 		}
 	],
 	"resources": [
@@ -136,9 +136,33 @@
 			"name": "egret_icon_png"
 		},
 		{
-			"name": "description_json",
+			"url": "config/description.json",
 			"type": "json",
-			"url": "config/description.json"
+			"name": "description_json"
+		},
+		{
+			"url": "assets/Board/board_1.json",
+			"type": "sheet",
+			"name": "board_1",
+			"subkeys": "102,103,104,105,106,107,108,109,110,111,112,113,114"
+		},
+		{
+			"url": "assets/Board/board_2.json",
+			"type": "sheet",
+			"name": "board_2",
+			"subkeys": "202,203,204,205,206,207,208,209,210,211,212,213,214"
+		},
+		{
+			"url": "assets/Board/board_3.json",
+			"type": "sheet",
+			"name": "board_3",
+			"subkeys": "302,303,304,305,306,307,308,309,310,311,312,313,314"
+		},
+		{
+			"url": "assets/Board/board_4.json",
+			"type": "sheet",
+			"name": "board_4",
+			"subkeys": "402,403,404,405,406,407,408,409,410,411,412,413,414"
 		}
 	]
 }
