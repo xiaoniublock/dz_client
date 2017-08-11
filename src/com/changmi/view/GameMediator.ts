@@ -4,7 +4,7 @@ module game {
         public static NAME: string = "GameScreenMediator";
 
         public constructor(viewComponent: any) {
-            super(LobbyMediator.NAME, viewComponent);
+            super(GameMediator.NAME, viewComponent);
 
             this.gameScreen.backBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.backButtonClick, this);
         }

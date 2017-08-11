@@ -251,7 +251,7 @@ class CardUtils
     return pkValue;
     }
     /**根据输入的牌组输出最佳牌组 */
-    public getMaxCardsFromSevenCards(cards:Array<Card>):Array<Card>{
+    public getMaxCardsFromSevenCards(cards:Array<Card>):CardGroups{
         let group:Array<Array<Card>>=this.SevenToFiveGroups(cards);
         let maxCardNum=0;
         let maxCardType=0;
@@ -267,8 +267,11 @@ class CardUtils
             maxCardNum=tmp;
             }
         }
+        let cardGroups:CardGroups =new CardGroups();
+        cardGroups.cards=maxCards;
+        cardGroups.cardNum=maxCardNum;
             // console.log("max           "+maxCardNum);
-        return maxCards;
+        return cardGroups;
     }
     
 }
