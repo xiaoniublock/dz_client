@@ -1,12 +1,12 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,lobby_json",
 			"name": "preload"
 		},
 		{
-		"keys":"egret_icon_png",
-		"name":"loading"
+			"keys": "egret_icon_png",
+			"name": "loading"
 		}
 	],
 	"resources": [
@@ -139,6 +139,12 @@
 			"name": "description_json",
 			"type": "json",
 			"url": "config/description.json"
+		},
+		{
+			"name": "lobby_json",
+			"type": "sheet",
+			"url": "assets/dz/lobby.json",
+			"subkeys": "background_png,bottom_background_png,game_png,gold_png,mailbox_png,match_png,ranking_png,setting_png,shopping_png,start_png,activity_png,add_png"
 		}
 	]
 }

@@ -17,6 +17,8 @@ module game{
             this.backBtn.verticalCenter = 0;
             this.addChild(this.backBtn);
 
+            console.warn(this.stage.stageWidth);
+
             ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
         }
 
