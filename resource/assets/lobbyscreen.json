@@ -1,0 +1,12 @@
+{"file":"lobbyscreen.png","frames":{
+"bottom_background":{"x":1,"y":1,"w":1011,"h":110,"offX":0,"offY":0,"sourceW":1011,"sourceH":110},
+"game":{"x":480,"y":325,"w":474,"h":202,"offX":3,"offY":15,"sourceW":477,"sourceH":217},
+"Gold":{"x":958,"y":307,"w":42,"h":41,"offX":0,"offY":1,"sourceW":42,"sourceH":42},
+"mailbox":{"x":958,"y":267,"w":51,"h":38,"offX":1,"offY":10,"sourceW":53,"sourceH":53},
+"match":{"x":480,"y":113,"w":476,"h":210,"offX":0,"offY":5,"sourceW":477,"sourceH":217},
+"plus":{"x":234,"y":332,"w":40,"h":40,"offX":1,"offY":2,"sourceW":42,"sourceH":42},
+"Ranking":{"x":958,"y":215,"w":43,"h":50,"offX":5,"offY":1,"sourceW":53,"sourceH":53},
+"Set_up":{"x":958,"y":166,"w":47,"h":47,"offX":3,"offY":2,"sourceW":53,"sourceH":53},
+"Shopping":{"x":1,"y":332,"w":231,"h":111,"offX":0,"offY":1,"sourceW":231,"sourceH":112},
+"start":{"x":1,"y":113,"w":477,"h":217,"offX":0,"offY":0,"sourceW":477,"sourceH":217},
+"activity":{"x":958,"y":113,"w":51,"h":51,"offX":1,"offY":0,"sourceW":53,"sourceH":53}}}
