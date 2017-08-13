@@ -2,7 +2,6 @@
 module game{
     export class LobbyScreen extends eui.Component {
 
-        // public startBtn: eui.Button;
         public btn_start:eui.Image;
         public btn_match:eui.Image;
         public btn_game:eui.Image;
@@ -26,6 +25,7 @@ module game{
         }
 
         public createCompleteEvent(){
+
            this.skinName = "skins.LobbySkin";
            this.width=this.stage.stageWidth;
            this.height=this.stage.stageHeight;
@@ -36,14 +36,9 @@ module game{
             // this.addChild(this.startBtn);
             // this.btn_start.touchEnabled=true;
            
-            ApplicationFacade.getInstance().registerMediator(new LobbyMediator(this));
-        }
 
-        private createBitmapByName(name: string): egret.Bitmap {
-            let result = new egret.Bitmap();
-            let texture: egret.Texture = RES.getRes(name);
-            result.texture = texture;
-            return result;
+            
+            ApplicationFacade.getInstance().registerMediator(new LobbyMediator(this));
         }
 
     }

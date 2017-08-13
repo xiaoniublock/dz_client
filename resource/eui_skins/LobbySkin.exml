@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="skins.LobbySkin" width="1136" height="700" xmlns:e="http://ns.egret.com/eui">
+	<e:Image width="1136" height="700" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.background_png"/>
+	<e:Image id="startBtn" width="300" height="139" x="788" y="45" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.start_png"/>
+	<e:Image width="300" height="139" x="788" y="176" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.game_png"/>
+	<e:Image width="300" height="139" x="788" y="319" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.match_png"/>
+</e:Skin>

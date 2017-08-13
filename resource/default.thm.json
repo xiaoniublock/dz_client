@@ -21,6 +21,7 @@
     "resource/eui_skins/HScrollBarSkin.exml",
     "resource/eui_skins/HSliderSkin.exml",
     "resource/eui_skins/ItemRendererSkin.exml",
+    "resource/eui_skins/LobbySkin.exml",
     "resource/eui_skins/PanelSkin.exml",
     "resource/eui_skins/ProgressBarSkin.exml",
     "resource/eui_skins/RadioButtonSkin.exml",

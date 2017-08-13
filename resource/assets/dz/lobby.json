@@ -1,0 +1,13 @@
+{"file":"lobby.png","frames":{
+"background_png":{"x":1,"y":1,"w":1334,"h":750,"offX":0,"offY":0,"sourceW":1334,"sourceH":750},
+"bottom_background_png":{"x":1,"y":753,"w":1011,"h":110,"offX":0,"offY":0,"sourceW":1011,"sourceH":110},
+"game_png":{"x":1337,"y":432,"w":474,"h":202,"offX":3,"offY":15,"sourceW":477,"sourceH":217},
+"gold_png":{"x":1963,"y":154,"w":42,"h":41,"offX":0,"offY":1,"sourceW":42,"sourceH":42},
+"mailbox_png":{"x":1963,"y":114,"w":51,"h":38,"offX":1,"offY":10,"sourceW":53,"sourceH":53},
+"match_png":{"x":1337,"y":220,"w":476,"h":210,"offX":0,"offY":5,"sourceW":477,"sourceH":217},
+"ranking_png":{"x":1918,"y":114,"w":43,"h":50,"offX":5,"offY":1,"sourceW":53,"sourceH":53},
+"setting_png":{"x":1869,"y":114,"w":47,"h":47,"offX":3,"offY":2,"sourceW":53,"sourceH":53},
+"shopping_png":{"x":1816,"y":1,"w":231,"h":111,"offX":0,"offY":1,"sourceW":231,"sourceH":112},
+"start_png":{"x":1337,"y":1,"w":477,"h":217,"offX":0,"offY":0,"sourceW":477,"sourceH":217},
+"activity_png":{"x":1816,"y":114,"w":51,"h":51,"offX":1,"offY":0,"sourceW":53,"sourceH":53},
+"add_png":{"x":2007,"y":154,"w":40,"h":40,"offX":1,"offY":2,"sourceW":42,"sourceH":42}}}
