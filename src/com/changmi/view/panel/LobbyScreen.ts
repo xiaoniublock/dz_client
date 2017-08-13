@@ -20,13 +20,12 @@ module game{
         public btn_shop:eui.Image;
         public constructor() {
             super();
-            //  this.skinName = "resource/game_skin/LobbyScreenSkin.exml";
+             this.skinName = "resource/game_skin/LobbyScreenSkin.exml";
             this.once(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
         }
 
         public createCompleteEvent(){
-
-           this.skinName = "skins.LobbySkin";
+            //  this.skinName = "gameSkins.LobbySkin";
            this.width=this.stage.stageWidth;
            this.height=this.stage.stageHeight;
             // this.startBtn = new eui.Button();
