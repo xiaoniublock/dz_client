@@ -20,14 +20,11 @@ module game{
         public btn_shop:eui.Image;
         public constructor() {
             super();
-             this.skinName = "resource/game_skin/LobbyScreenSkin.exml";
             this.once(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
         }
 
         public createCompleteEvent(){
-            //  this.skinName = "gameSkins.LobbySkin";
-           this.width=this.stage.stageWidth;
-           this.height=this.stage.stageHeight;
+            this.skinName = "skins.LobbySkin";
             // this.startBtn = new eui.Button();
             // this.startBtn.label = "开始游戏";
             // this.startBtn.right = 0;

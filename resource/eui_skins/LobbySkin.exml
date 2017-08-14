@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="skins.LobbySkin" width="1334" height="750" xmlns:e="http://ns.egret.com/eui">
 	<e:Image width="1334" height="750" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.background_png"/>
-	<e:Image id="startBtn" width="480" height="220" top="14" right="43" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.start_png"/>
+	<e:Image id="btn_start" width="480" height="220" top="14" right="43" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.start_png"/>
 	<e:Image width="480" height="220" top="220" right="43" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.game_png"/>
 	<e:Image  width="480" height="220" bottom="123" right="43" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.match_png"/>
 	
@@ -16,7 +16,7 @@
 		
 			
 					<e:Image id="btn_activity" width="52" height="57" left="562"  bottom="34" source="lobbyscreen.activity"/>
-					<e:Label text="活动" size="12" width="47" height="23" left="562" bottom="8" textAlign="center"/>
+					<e:Label text="活动" size="12" width="47" height="23" left="565" bottom="8" textAlign="center"/>
 				
 					
 					<e:Image id="btn_emailBox" width="52" height="57" left="685"  bottom="34" source="lobbyscreen.mailbox"/>
@@ -24,11 +24,11 @@
 				
 					
 					<e:Image id="btn_rank" width="52" height="57" left="809"  bottom="34" source="lobbyscreen.Ranking"/>
-					<e:Label text="排行" size="12" width="47" height="23" left="809" bottom="8" textAlign="center"/>
+					<e:Label text="排行" size="12" width="47" height="23" left="811" bottom="8" textAlign="center"/>
 				
 					
 					<e:Image id="btn_setting"  width="52" height="57" left="923" bottom="34" source="lobbyscreen.Set_up"/>
-					<e:Label text="设置" size="12" width="47" height="23" left="923" bottom="8" textAlign="center"/>
+					<e:Label text="设置" size="12" width="47" height="23" left="926" bottom="8" textAlign="center"/>
 
 
 			
