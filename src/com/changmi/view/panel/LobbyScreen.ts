@@ -25,15 +25,7 @@ module game{
 
         public createCompleteEvent(){
             this.skinName = "skins.LobbySkin";
-            // this.startBtn = new eui.Button();
-            // this.startBtn.label = "开始游戏";
-            // this.startBtn.right = 0;
-            // this.startBtn.bottom = 0;
-            // this.addChild(this.startBtn);
-            // this.btn_start.touchEnabled=true;
-           
 
-            
             ApplicationFacade.getInstance().registerMediator(new LobbyMediator(this));
         }
 
