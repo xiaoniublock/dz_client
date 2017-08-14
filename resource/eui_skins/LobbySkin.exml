@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="skins.LobbySkin" width="1136" height="700" xmlns:e="http://ns.egret.com/eui">
-	<e:Image width="1136" height="700" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.background_png"/>
-	<e:Image id="startBtn" width="300" height="139" x="788" y="45" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.start_png"/>
-	<e:Image width="300" height="139" x="788" y="176" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.game_png"/>
-	<e:Image width="300" height="139" x="788" y="319" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.match_png"/>
+<e:Skin class="skins.LobbySkin" width="1334" height="750" xmlns:e="http://ns.egret.com/eui">
+	<e:Image width="1334" height="750" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.background_png"/>
+	<e:Image id="startBtn" width="480" height="220" top="14" right="43" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.start_png"/>
+	<e:Image width="480" height="220" top="220" right="43" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.game_png"/>
+	<e:Image  width="480" height="220" bottom="123" right="43" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.match_png"/>
+	
+			<e:Image width="1020" height="120"   left="147" right="167"  source="lobbyscreen.bottom_background" bottom="0"/>
+			
+				<e:Image id="image_icon" width="129" height="134" left="233" bottom="20"/>
+				<e:Label id="text_username" text="萧新一" width="120" bottom="60"  left="370"  size="17"  bold="true" textAlign="center" verticalAlign="middle" height="29"/>
+				<e:Image id="image_gold" width="39" height="39" left="333" bottom="8"  source="lobbyscreen.Gold"/>
+				<e:Label id="text_count" text="10000000" left="358" bottom="8" size="12" backgroundColor="0x000000" verticalAlign="middle" textAlign="center" width="138" height="37"/>
+				<e:Image id="image_plus" width="37" height="37" left="480" bottom="8" source="lobbyscreen.plus"/>
+		
+		
+			
+					<e:Image id="btn_activity" width="52" height="57" left="562"  bottom="34" source="lobbyscreen.activity"/>
+					<e:Label text="活动" size="12" width="47" height="23" left="562" bottom="8" textAlign="center"/>
+				
+					
+					<e:Image id="btn_emailBox" width="52" height="57" left="685"  bottom="34" source="lobbyscreen.mailbox"/>
+					<e:Label text="邮箱" size="12" width="47" height="23" left="685" bottom="8" textAlign="center"/>
+				
+					
+					<e:Image id="btn_rank" width="52" height="57" left="809"  bottom="34" source="lobbyscreen.Ranking"/>
+					<e:Label text="排行" size="12" width="47" height="23" left="809" bottom="8" textAlign="center"/>
+				
+					
+					<e:Image id="btn_setting"  width="52" height="57" left="923" bottom="34" source="lobbyscreen.Set_up"/>
+					<e:Label text="设置" size="12" width="47" height="23" left="923" bottom="8" textAlign="center"/>
+
+
+			
+	<e:Image id="btn_shop" width="240" height="111" source="lobbyscreen.Shopping"  bottom="0" right="96"/>
+		
 </e:Skin>
