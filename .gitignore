@@ -1,5 +1,6 @@
 .wing/
 bin-debug/
+bin-release/
 manifest.json
 libs/
 tsconfig.json
