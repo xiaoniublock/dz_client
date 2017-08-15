@@ -1,7 +1,7 @@
 
 module game{
 
-    export class GameScreen extends egret.DisplayObjectContainer {
+    export class GameScreen extends eui.Component {
 
         public backBtn: eui.Button;
 
@@ -11,6 +11,7 @@ module game{
         }
 
         public createCompleteEvent(){
+            this.skinName= this.skinName = "skins.GameSkin";
             this.backBtn = new eui.Button();
             this.backBtn.label = "返回";
             this.backBtn.horizontalCenter = 0;
@@ -20,6 +21,10 @@ module game{
             // console.warn(this.stage.stageWidth);
 
             ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
+        }
+
+        public switchBottomState(){
+            
         }
 
     }

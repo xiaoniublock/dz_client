@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="skins.PurpleCheckBoxSkin" width="251" height="66" currentState="normal" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" states="normal,pressed" >
+	<e:Image width="100%" height="100%"  source="gamescreen.purpleCheckBox" horizontalCenter="0" verticalCenter="0" scale9Grid.pressed="89,28,97,19"/>
+	<e:Label id="labelDisplay" text="Label" x="138" left="112" verticalCenter="0" textAlign.pressed="center" verticalAlign.pressed="middle" left.pressed="103" top.pressed="14" verticalCenter.pressed="-4"/>
+	<e:Image width="38" height="38" includeIn="pressed" left="31" bottom="18" source="gamescreen.chooseImg"/>
+</e:Skin>
