@@ -28,21 +28,6 @@ module game{
             this.switchBtn.left = 0;
             this.switchBtn.verticalCenter = 0;
             this.addChild(this.switchBtn);
-            
-            this.vslide = new eui.VSlider;
-            this.vslide.skinName = "skins.RangeMoneySkin";
-            this.vslide.verticalCenter = 0;
-            this.vslide.horizontalCenter = 500;
-		    ///通过 minimum 属性设置最小值。
-            this.vslide.minimum = 0;
-		    ///通过 maximum 属性设置最大值。
-            this.vslide.maximum = 2000;
-		    ///通过 snapInterval 属性设置增加的有效值。
-            this.vslide.snapInterval = 100;
-            this.vslide.pendingValue = 500;
-            ///监听 CHANGE 事件
-            this.vslide.addEventListener(egret.Event.CHANGE,this.onVSLiderChange,this);
-            this.addChild(this.vslide);
 
             ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
         }
@@ -63,10 +48,5 @@ module game{
             console.log(state);
         }
 
-        private onVSLiderChange(e:egret.Event) {
-            var scale = this.vslide.pendingValue / this.vslide.maximum;
-            this.vslide["change"].height = scale * this.vslide.height * 0.82;
-            this.vslide["change"].y = 30 + (1 - scale) * this.vslide.height * 0.82;
-        }
     }
 }
