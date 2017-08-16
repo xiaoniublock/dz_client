@@ -34,6 +34,7 @@
     "resource/eui_skins/PokerImgSkin.exml",
     "resource/eui_skins/ProgressBarSkin.exml",
     "resource/eui_skins/RadioButtonSkin.exml",
+    "resource/eui_skins/RangeMoneySkin.exml",
     "resource/eui_skins/ScrollerSkin.exml",
     "resource/eui_skins/TextInputSkin.exml",
     "resource/eui_skins/ToggleSwitchSkin.exml",
