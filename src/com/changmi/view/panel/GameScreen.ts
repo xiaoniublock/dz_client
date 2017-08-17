@@ -62,11 +62,15 @@ module game{
             this.skin.currentState=state+"";
             console.log(state);
         }
-
+        
         private onVSLiderChange(e:egret.Event) {
             var scale = this.vslide.pendingValue / this.vslide.maximum;
-            this.vslide["change"].height = scale * this.vslide.height * 0.82;
-            this.vslide["change"].y = 30 + (1 - scale) * this.vslide.height * 0.82;
+            // this.vslide["change"].height = scale * this.vslide.height * 0.82;
+            // this.vslide["change"].y = 30 + (1 - scale) * this.vslide.height * 0.82;
+            this.vslide["change"].mask = new egret.Rectangle(0,
+                                                             30 + (1 - scale) * this.vslide.height * 0.82,
+                                                             26,
+                                                             scale * this.vslide.height * 0.82);
         }
     }
 }
