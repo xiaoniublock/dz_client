@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,lobby_json,lobbyScreenBackground_png,lobbyscreen,game_background_png,gamescreen,game_background2_png,gamescreen_json,RangeMoneyGold_png,RangeMoneyGold2_png,RangeMoneyGold3_png,RangeMoneyGold4_png,RangeMoneyGold5_png",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,lobby_json,lobbyScreenBackground_png,lobbyscreen,game_background_png,gamescreen,RangeMoneyGold_png",
 			"name": "preload"
 		},
 		{
@@ -169,40 +169,9 @@
 			"subkeys": "back,chip_1000-2500,chip_2500-5000,chip_300-1000,chip_50-300,chip_5000_more,chooseImg,greenButton,moveButton,orangeButton,poker_left,poker_right,purpleBigButton,purpleCheckBox,purpleNormalButton,rangeMoney,redButton"
 		},
 		{
-			"name": "game_background2_png",
+			"url": "assets/RangeMoneyGold.png",
 			"type": "image",
-			"url": "assets/game_background.png"
-		},
-		{
-			"name": "gamescreen_json",
-			"type": "sheet",
-			"url": "assets/gamescreen.json",
-			"subkeys": "chip_300-1000,chip_1000-2500,chip_2500-5000,chip_5000_more,chooseImg,greenButton,moveButton,orangeButton,poker_left,poker_right,purpleBigButton,purpleCheckBox,purpleNormalButton,rangeMoney,redButton,back,chip_50-300"
-		},
-		{
-			"name": "RangeMoneyGold_png",
-			"type": "image",
-			"url": "assets/RangeMoneyGold.png"
-		},
-		{
-			"name": "RangeMoneyGold2_png",
-			"type": "image",
-			"url": "assets/RangeMoneyGold.png"
-		},
-		{
-			"name": "RangeMoneyGold3_png",
-			"type": "image",
-			"url": "assets/RangeMoneyGold.png"
-		},
-		{
-			"name": "RangeMoneyGold4_png",
-			"type": "image",
-			"url": "assets/RangeMoneyGold.png"
-		},
-		{
-			"name": "RangeMoneyGold5_png",
-			"type": "image",
-			"url": "assets/RangeMoneyGold.png"
+			"name": "RangeMoneyGold_png"
 		}
 	]
 }
