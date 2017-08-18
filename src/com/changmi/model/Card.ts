@@ -11,9 +11,9 @@ class Card extends eui.Image
         this.createCardSource(index,color);
     }
     /**扑克序号,2-14,最小的是2，最大的是A*/
-    private _index : number;
+    public _index : number;
     /**扑克花色，1：黑 2:红，3：花，4：方片 */
-    private _color:number;
+    public _color:number;
     
     public get index() : number {
         return this._index;
@@ -26,6 +26,8 @@ class Card extends eui.Image
     public createCardSource(index:number,color:number){
         this._index=index;
         this._color=color;
+        this.width=78;
+        this.height=117;
         this.source = "board_"+this._color + "."+this._color+""+(this._index<10?("0"+this._index):this._index);
     }
 
