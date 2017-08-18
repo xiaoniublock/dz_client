@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="skins.RangeMoneySkin" minWidth="25" minHeight="30" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" width="99" height="543">
+    <e:Image source="gamescreen_json.rangeMoney" scale9Grid="1,1,4,4" width="75" height="100%" horizontalCenter="0"/>
+    <e:Image id="change" source="RangeMoneyGold_png" width="26" height="453" x="36.5" y="29" fillMode="clip"/>
+    <e:Rect id="track" width="26" height="504" x="36.5" y="0" anchorOffsetX="0" anchorOffsetY="0" fillAlpha="0"/>
+    <e:Image id="thumb"  source="gamescreen_json.moveButton" horizontalCenter="0" width="91" height="91"/>
+</e:Skin>
