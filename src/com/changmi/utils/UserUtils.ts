@@ -1,0 +1,7 @@
+class UserUtils {
+	
+
+	public constructor() {
+		
+	}
+}

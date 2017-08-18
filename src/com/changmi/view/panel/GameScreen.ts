@@ -10,6 +10,9 @@ module game{
         public three_choose:egret.tween.TweenGroup;
         public checkBox_giveUp:eui.CheckBox;
         public vslide:eui.VSlider;
+
+        public user:User;
+
          public constructor() {
             super();
             this.once(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
@@ -41,8 +44,16 @@ module game{
             this.vslide.snapInterval = 100;
             this.vslide.pendingValue = 500;
             ///监听 CHANGE 事件
+            this.vslide["change"].mask = new egret.Rectangle(0,0,0,0);
             this.vslide.addEventListener(egret.Event.CHANGE,this.onVSLiderChange,this);
             this.addChild(this.vslide);
+
+            this.user = new User("xiaoniao","一个亿");//,"a");
+            this.user.x = 200;
+            this.user.y = 300;
+            this.user.width = 126;
+            this.user.height = 174;
+            this.addChild(this.user);
 
             ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
         }
