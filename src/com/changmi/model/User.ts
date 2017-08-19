@@ -4,9 +4,9 @@ class User extends egret.DisplayObjectContainer{
 		this.createUserSource(userName,goldNum);//,headImgData);
 	}
 
-	private hasUser:boolean;
-	private isYourTurn:boolean;
-	private isGiveUp:boolean;
+	private _hasUser:boolean;		//判断是否有用户在这位置上
+	private _isYourTurn:boolean;	//判断是不是该用户的回合
+	private _isGiveUp:boolean;		//判断该用户是否已经放弃游戏
 
 	private _userName:string;
 	private _goldNum:string;
@@ -28,6 +28,23 @@ class User extends egret.DisplayObjectContainer{
 
 	public get headImgData():egret.BitmapData{
 		return this._headImgData;
+	}
+
+	public set hasUser(hasUser:boolean){
+		this._hasUser = hasUser;
+		this.visible = this._hasUser;
+	}
+
+	public set isYourTurn(isYourTurn:boolean){
+		this._isYourTurn = isYourTurn;
+		if(this._isYourTurn){
+			
+		}
+	}
+
+	public set isGiveUp(isGiveUp:boolean){
+		this._isGiveUp = isGiveUp;
+		this.alpha = isGiveUp ? 0.5 : 1;
 	}
 
 	public createUserSource(userName:string,goldNum:string){//,headImgData:egret.BitmapData){

@@ -11,13 +11,24 @@ module game{
         public checkBox_giveUp:eui.CheckBox;
         public vslide:eui.VSlider;
 
-        public user:User;
+        public userArray:Array<User>;
+        public userLocationXArray:Array<number>;
+        public userLocationYArray:Array<number>;
+        public userNameArray:Array<string>;
+        public userMoneyArray:Array<string>;
 
          public constructor() {
             super();
+            this.once(egret.Event.ADDED_TO_STAGE, this.initParameter, this);
             this.once(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
         }
         
+        public initParameter(){
+            this.userLocationXArray = [604,262,102,262,942,1109,942];
+            this.userLocationYArray = [468,468,227,47,47,227,468];
+            this.userNameArray = ["xiaoniao","shaniao","erniao","siniao","douniao","xiaoji","shaji"];
+            this.userMoneyArray = ["468","468","227","47","47","227","468"];
+        }
 
         public createCompleteEvent(){
             this.skinName= this.skinName = "skins.GameSkin";
@@ -31,7 +42,16 @@ module game{
             this.switchBtn.left = 0;
             this.switchBtn.verticalCenter = 0;
             this.addChild(this.switchBtn);
-            
+
+            for(var i = 0;i < 7;i++){
+                var user = new User(this.userNameArray[i],this.userMoneyArray[i]);
+                user.x = this.userLocationXArray[i];
+                user.y = this.userLocationYArray[i];
+                user.width = 126;
+                user.height = 174;
+                this.addChild(user);
+            }
+
             this.vslide = new eui.VSlider;
             this.vslide.skinName = "skins.RangeMoneySkin";
             this.vslide.verticalCenter = 0;
@@ -48,13 +68,6 @@ module game{
             this.vslide.addEventListener(egret.Event.CHANGE,this.onVSLiderChange,this);
             this.addChild(this.vslide);
 
-            this.user = new User("xiaoniao","一个亿");//,"a");
-            this.user.x = 200;
-            this.user.y = 300;
-            this.user.width = 126;
-            this.user.height = 174;
-            this.addChild(this.user);
-
             ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
         }
 
@@ -69,15 +82,15 @@ module game{
               if(state=="three_choose"){
                 this.three_choose.play(0);
             }
-           
+            if(this.vslide.visible){    //不判断会崩
+                this.vslide.visible = false;
+            }
             this.skin.currentState=state+"";
             console.log(state);
         }
         
         private onVSLiderChange(e:egret.Event) {
             var scale = this.vslide.pendingValue / this.vslide.maximum;
-            // this.vslide["change"].height = scale * this.vslide.height * 0.82;
-            // this.vslide["change"].y = 30 + (1 - scale) * this.vslide.height * 0.82;
             this.vslide["change"].mask = new egret.Rectangle(0,
                                                              30 + (1 - scale) * this.vslide.height * 0.82,
                                                              26,
