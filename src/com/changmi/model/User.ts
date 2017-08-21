@@ -1,10 +1,6 @@
 class User extends eui.Component{
-	public constructor(userName:string,goldNum:string){//,headImgData:egret.BitmapData) {
+	public constructor(){
 		super();
-		if(!userName){
-			this._hasUser = false;
-		}
-		this.createUserSource(userName,goldNum);//,headImgData);
 	}
 
 	private _hasUser:boolean;		//判断是否有用户在这位置上
@@ -37,9 +33,9 @@ class User extends eui.Component{
 
 	public set userName(userName:string){
 		this._userName = userName;
-		this.userNameLabel.text = userName;
-		console.log(userName);
+		console.log(this.userNameLabel.text);
 		
+		this.userNameLabel.text = userName;
 	}
 
 	public set goldNum(goldNum:string){
@@ -68,6 +64,7 @@ class User extends eui.Component{
 		this._isGiveUp = isGiveUp;
 		this.alpha = isGiveUp ? 0.5 : 1;
 	}
+<<<<<<< HEAD
 
 	public createUserSource(userName:string,goldNum:string){//,headImgData:egret.BitmapData){
 		this.initUserUI();
@@ -122,4 +119,6 @@ class User extends eui.Component{
 	public stopTimer():void{
 		this.timer.reset();
 	}
+=======
+>>>>>>> 9f5b67a75f855c3ff2309628dca8a16814e86372
 }
