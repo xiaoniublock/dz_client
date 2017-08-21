@@ -44,12 +44,12 @@ module game{
             this.addChild(this.switchBtn);
 
             for(var i = 0;i < 7;i++){
-                var user = new User(this.userNameArray[i],this.userMoneyArray[i]);
-                user.x = this.userLocationXArray[i];
-                user.y = this.userLocationYArray[i];
-                user.width = 126;
-                user.height = 174;
-                this.addChild(user);
+                // var user = new User(this.userNameArray[i],this.userMoneyArray[i]);
+                // user.x = this.userLocationXArray[i];
+                // user.y = this.userLocationYArray[i];
+                // user.width = 126;
+                // user.height = 174;
+                // this.addChild(user);
             }
 
             this.vslide = new eui.VSlider;
