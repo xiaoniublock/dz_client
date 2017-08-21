@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="UserInfoDisplaySkin" width="126" height="174" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
 	<w:Config id="15de5542d81" ></w:Config>
-	<e:Rect width="126" height="174" x="-1" y="0.44" anchorOffsetX="0" anchorOffsetY="1.44" fillAlpha="0.7" fillColor="0x1a1a1a"/>
+	<e:Rect width="126" height="174" x="-1" y="0.44" anchorOffsetX="0" anchorOffsetY="1.44"/>
 	<e:Label id="userNameLabel" text="Label" size="25" horizontalCenter="0" y="0"/>
 	<e:Label id="goldNumLabel" text="Label" size="27" textColor="0xc5b259" bottom="0" horizontalCenter="0"/>
 	<e:Image id="progress" width="120" height="115" x="3" y="32" anchorOffsetX="0" anchorOffsetY="0" source="progressArc_png"/>
