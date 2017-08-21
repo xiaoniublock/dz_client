@@ -34,8 +34,6 @@ class User extends eui.Component{
 	public set userName(userName:string){
 		this._userName = userName;
 		this.userNameLabel.text = userName;
-		console.log(userName);
-		
 	}
 
 	public set goldNum(goldNum:string){
@@ -69,8 +67,6 @@ class User extends eui.Component{
 		this.initUserUI();
         this.userName = userName;
 		this.goldNum = goldNum;
-		// this._headImgData = headImgData;
-		
     }
 
 	public initUserUI(){
