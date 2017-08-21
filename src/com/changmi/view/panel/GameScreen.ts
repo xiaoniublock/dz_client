@@ -19,7 +19,7 @@ module game{
 
          public constructor() {
             super();
-            this.once(egret.Event.ADDED_TO_STAGE, this.initParameter, this);
+            //this.once(egret.Event.ADDED_TO_STAGE, this.initParameter, this);
             this.once(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
         }
         
@@ -31,7 +31,7 @@ module game{
         }
 
         public createCompleteEvent(){
-            this.skinName= this.skinName = "skins.GameSkin";
+            this.skinName = "skins.GameSkin";
             this.backBtn = new eui.Button();
             this.backBtn.label = "返回";
             this.backBtn.horizontalCenter = 0;
@@ -43,13 +43,14 @@ module game{
             this.switchBtn.verticalCenter = 0;
             this.addChild(this.switchBtn);
 
-            for(var i = 0;i < 7;i++){
-                var user = new User(this.userNameArray[i],this.userMoneyArray[i]);
-                user.x = this.userLocationXArray[i];
-                user.y = this.userLocationYArray[i];
-                user.width = 126;
-                user.height = 174;
-                this.addChild(user);
+            for(var i = 1;i < 8;i++){
+                // this["User_"+i] = new User(this.userNameArray[i],this.userMoneyArray[i-1]);
+                // var user = new User(this.userNameArray[i],this.userMoneyArray[i]);
+                // user.x = this.userLocationXArray[i];
+                // user.y = this.userLocationYArray[i];
+                // user.width = 126;
+                // user.height = 174;
+                // this.addChild(user);
             }
 
             this.vslide = new eui.VSlider;

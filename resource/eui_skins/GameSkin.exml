@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="skins.GameSkin" width="1334" height="750" currentState="first_Bet" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*" states="first_Bet,count_choose,three_choose" >
+<e:Skin class="skins.GameSkin" width="1334" height="750" currentState="first_Bet" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*" xmlns:ns1="*" states="first_Bet,count_choose,three_choose" >
 	<w:Declarations>
 		<tween:TweenGroup id="first_Bet">
 			<tween:TweenItem target="{group_1}">
@@ -69,4 +69,13 @@
         <e:Button label="1000" includeIn="count_choose" left="829" y="8" skinName="skins.PurpleNormalButtonSkin"/>
 		<e:Button label="200" includeIn="count_choose" left="1049" y="8" skinName="skins.OrangeButtonSkin"/>
     </e:Group>
+	<e:Group id="UserGroup" width="1133" height="594" x="102" y="47">
+		<ns1:User id="User_1" width="126" height="174" x="502" y="419" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
+		<ns1:User id="User_2" width="126" height="174" x="179" y="419" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
+		<ns1:User id="User_3" width="126" height="174" x="0" y="180" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
+		<ns1:User id="User_4" width="126" height="174" x="179" y="0" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
+		<ns1:User id="User_5" width="126" height="174" x="840" y="0" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
+		<ns1:User id="User_6" width="126" height="174" x="1007" y="180" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
+		<ns1:User id="User_7" width="126" height="174" x="840" y="418" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
+	</e:Group>
 </e:Skin>
