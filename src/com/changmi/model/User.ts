@@ -64,18 +64,17 @@ class User extends eui.Component{
 		this._isGiveUp = isGiveUp;
 		this.alpha = isGiveUp ? 0.5 : 1;
 	}
-<<<<<<< HEAD
 
 	public createUserSource(userName:string,goldNum:string){//,headImgData:egret.BitmapData){
-		this.initUserUI();
+		this.skinName = "UserInfoDisplaySkin";
         this.userName = userName;
 		this.goldNum = goldNum;
 		// this._headImgData = headImgData;
+		this.initUserUI();
 		
     }
 
 	public initUserUI(){
-		this.skinName = "UserInfoDisplaySkin";
 		var w:number = this.progress.width;
     	var h:number = this.progress.height;
 		var r:number = Math.max(w, h) / 2 * 1.8;
@@ -119,6 +118,4 @@ class User extends eui.Component{
 	public stopTimer():void{
 		this.timer.reset();
 	}
-=======
->>>>>>> 9f5b67a75f855c3ff2309628dca8a16814e86372
 }
