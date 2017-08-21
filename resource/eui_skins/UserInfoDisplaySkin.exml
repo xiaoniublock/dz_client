@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="UserInfoDisplaySkin" width="400" height="300" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+<e:Skin class="UserInfoDisplaySkin" width="126" height="174" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
 	<w:Config id="15de5542d81" ></w:Config>
+	<e:Rect width="126" height="174" x="-1" y="0.44" anchorOffsetX="0" anchorOffsetY="1.44"/>
+	<e:Label id="userNameLabel" text="Label" size="25" horizontalCenter="0" y="6"/>
+	<e:Label id="goldNumLabel" text="Label" size="27" textColor="0xc5b259" bottom="0" horizontalCenter="0"/>
+	<e:Image id="headImg" width="115" height="113" x="6" y="32" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Image width="41" height="49" x="96" y="60" source="gamescreen.poker_left"/>
+	<e:Image width="41" height="49" x="104" y="64" source="gamescreen.poker_right"/>
 </e:Skin>
