@@ -64,7 +64,6 @@ class User extends eui.Component{
 		this._isGiveUp = isGiveUp;
 		this.alpha = isGiveUp ? 0.5 : 1;
 	}
-<<<<<<< HEAD
 
 	public createUserSource(userName:string,goldNum:string){//,headImgData:egret.BitmapData){
 		this.initUserUI();
@@ -119,6 +118,4 @@ class User extends eui.Component{
 	public stopTimer():void{
 		this.timer.reset();
 	}
-=======
->>>>>>> 9f5b67a75f855c3ff2309628dca8a16814e86372
 }
