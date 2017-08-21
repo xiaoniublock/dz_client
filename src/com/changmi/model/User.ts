@@ -18,6 +18,10 @@ class User extends eui.Component{
 	public userNameLabel:eui.Label;
 	public goldNumLabel:eui.Label;
 	public headImg:eui.Image;
+	public progress:eui.Image;
+
+	//计时器
+	public timer:egret.Timer= new egret.Timer(50,360);
 
 	public get userName():string{
 		return this._userName;
@@ -75,52 +79,47 @@ class User extends eui.Component{
 
 	public initUserUI(){
 		this.skinName = "UserInfoDisplaySkin";
-		// this.userNameLabel = new egret.TextField();
-		// this.goldNumLabel = new egret.TextField();
-		// this.headImg = new egret.Bitmap();
-		// this.leftCard = new egret.Bitmap(RES.getRes("gamescreen.poker_left"));
-		// this.rightCard = new egret.Bitmap(RES.getRes("gamescreen.poker_right"));
-
-		// var bgImg = new egret.Shape();
-		// bgImg.graphics.beginFill(0x1A1A1A,0.7);
-		// bgImg.graphics.drawRoundRect(0,0,126,174,5,5);
-		// bgImg.graphics.endFill();
-		// this.addChild(bgImg);
-
-		// this.userNameLabel.text = this._userName;
-		// this.goldNumLabel.text = this._goldNum;
-		// this.headImg.texture = RES.getRes("gamescreen.orangeButton");
-
-		// this.userNameLabel.y = 7;
-		// this.userNameLabel.width = 126;
-		// this.userNameLabel.textAlign = egret.HorizontalAlign.CENTER;
-		// this.userNameLabel.size = 25;
-
-		// this.goldNumLabel.y = 147;
-		// this.goldNumLabel.width = 126;
-		// this.goldNumLabel.textAlign = egret.HorizontalAlign.CENTER;
-		// this.goldNumLabel.size = 27;
-		// this.goldNumLabel.textColor = 0xC5B259;
-
-		// this.headImg.x = 6;
-		// this.headImg.y = 32;
-		// this.headImg.width = 115;
-		// this.headImg.height = 113;
-
-		// this.leftCard.x = 96;
-		// this.leftCard.y = 60;
-		// this.leftCard.width = 41;
-		// this.leftCard.height = 49;
-
-		// this.rightCard.x = 104;
-		// this.rightCard.y = 64;
-		// this.rightCard.width = 41;
-		// this.rightCard.height = 49;
-
-		// this.addChild(this.userNameLabel);
-		// this.addChild(this.goldNumLabel);
-		// this.addChild(this.headImg);
-		// this.addChild(this.leftCard);
-		// this.addChild(this.rightCard);
+		var w:number = this.progress.width;
+    	var h:number = this.progress.height;
+		var r:number = Math.max(w, h) / 2 * 1.8;
+    	var shape:egret.Shape = new egret.Shape();
+		shape.anchorOffsetX=0;
+		shape.anchorOffsetY=0;
+    	shape.x = w/ 2;
+    	shape.y =h / 2;
+    	this.progress.mask = shape;
+    	this.addChild(shape);
+    	var angle = 0;
+   		//注册事件侦听器
+        this.timer.addEventListener(egret.TimerEvent.TIMER,timerFunc,this);
+        this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE,timerComFunc,this);
+       
+    	function timerFunc()
+    {	
+       angle += 1;
+        changeGraphics(angle);
+        angle = angle % 360;
+    }
+    function timerComFunc()
+    {
+        console.log("计时结束");
+    }
+    
+    function changeGraphics(angle) {
+        shape.graphics.clear();
+        shape.graphics.beginFill(0x00ffff, 1);
+        shape.graphics.lineTo(r, 0);
+        shape.graphics.drawArc(0, 0, r, 0, angle * Math.PI / 180, true);
+        shape.graphics.lineTo(0, 0);
+        shape.graphics.endFill();
+    }
+	}
+	//开始计时
+	public startTimer():void{
+        this.timer.start();
+	}
+	//停止并初始化
+	public stopTimer():void{
+		this.timer.reset();
 	}
 }
