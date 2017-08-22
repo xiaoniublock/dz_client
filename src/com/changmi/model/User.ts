@@ -1,6 +1,9 @@
 class User extends eui.Component{
 	public constructor(){
 		super();
+		this.addEventListener(egret.Event.ADDED_TO_STAGE,():void=>{
+			this.initUserUI();
+		},this);
 	}
 
 	private _hasUser:boolean;		//判断是否有用户在这位置上
@@ -66,7 +69,7 @@ class User extends eui.Component{
 	}
 
 	public createUserSource(userName:string,goldNum:string){//,headImgData:egret.BitmapData){
-		this.initUserUI();
+		//this.initUserUI();
         this.userName = userName;
 		this.goldNum = goldNum;
 		// this._headImgData = headImgData;
@@ -74,7 +77,6 @@ class User extends eui.Component{
     }
 
 	public initUserUI(){
-		this.skinName = "UserInfoDisplaySkin";
 		var w:number = this.progress.width;
     	var h:number = this.progress.height;
 		var r:number = Math.max(w, h) / 2 * 1.8;
@@ -89,7 +91,6 @@ class User extends eui.Component{
    		//注册事件侦听器
         this.timer.addEventListener(egret.TimerEvent.TIMER,timerFunc,this);
         this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE,timerComFunc,this);
-       
     	function timerFunc()
     {	
        angle += 1;
