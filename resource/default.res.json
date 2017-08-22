@@ -174,9 +174,9 @@
 			"name": "RangeMoneyGold_png"
 		},
 		{
-			"name": "progressArc_png",
+			"url": "assets/progressArc.png",
 			"type": "image",
-			"url": "assets/progressArc.png"
+			"name": "progressArc_png"
 		}
 	]
 }
