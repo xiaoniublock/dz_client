@@ -9,11 +9,9 @@ module game{
         public count_choose:egret.tween.TweenGroup;
         public three_choose:egret.tween.TweenGroup;
         public checkBox_giveUp:eui.CheckBox;
-        public vslide:eui.VSlider;
+        public RangeMoneySlider:eui.VSlider;
 
         public userArray:Array<User>;
-        public userLocationXArray:Array<number>;
-        public userLocationYArray:Array<number>;
         public userNameArray:Array<string>;
         public userMoneyArray:Array<string>;
 
@@ -24,8 +22,6 @@ module game{
         }
         
         public initParameter(){
-            this.userLocationXArray = [604,262,102,262,942,1109,942];
-            this.userLocationYArray = [468,468,227,47,47,227,468];
             this.userNameArray = ["xiaoniao","shaniao","erniao","siniao","douniao","xiaoji","shaji"];
             this.userMoneyArray = ["468","468","227","47","47","227","468"];
         }
@@ -44,6 +40,8 @@ module game{
             this.addChild(this.switchBtn);
 
             for(var i = 0;i < 7;i++){
+                this["User_"+(i+1)].userName = this.userNameArray[i];
+                this["User_"+(i+1)].goldNum = this.userMoneyArray[i];
                 // var user = new User(this.userNameArray[i],this.userMoneyArray[i]);
                 // user.x = this.userLocationXArray[i];
                 // user.y = this.userLocationYArray[i];
@@ -52,21 +50,8 @@ module game{
                 // this.addChild(user);
             }
 
-            this.vslide = new eui.VSlider;
-            this.vslide.skinName = "skins.RangeMoneySkin";
-            this.vslide.verticalCenter = 0;
-            this.vslide.horizontalCenter = 500;
-		    ///通过 minimum 属性设置最小值。
-            this.vslide.minimum = 0;
-		    ///通过 maximum 属性设置最大值。
-            this.vslide.maximum = 2000;
-		    ///通过 snapInterval 属性设置增加的有效值。
-            this.vslide.snapInterval = 100;
-            this.vslide.pendingValue = 500;
-            ///监听 CHANGE 事件
-            this.vslide["change"].mask = new egret.Rectangle(0,0,0,0);
-            this.vslide.addEventListener(egret.Event.CHANGE,this.onVSLiderChange,this);
-            this.addChild(this.vslide);
+            this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,0,0,0);
+            this.RangeMoneySlider.addEventListener(egret.Event.CHANGE,this.onVSLiderChange,this);
 
             ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
         }
@@ -82,19 +67,19 @@ module game{
               if(state=="three_choose"){
                 this.three_choose.play(0);
             }
-            if(this.vslide.visible){    //不判断会崩
-                this.vslide.visible = false;
+            if(this.RangeMoneySlider.visible){    //不判断会崩
+                this.RangeMoneySlider.visible = false;
             }
             this.skin.currentState=state+"";
             console.log(state);
         }
         
         private onVSLiderChange(e:egret.Event) {
-            var scale = this.vslide.pendingValue / this.vslide.maximum;
-            this.vslide["change"].mask = new egret.Rectangle(0,
-                                                             30 + (1 - scale) * this.vslide.height * 0.82,
+            var scale = this.RangeMoneySlider.pendingValue / this.RangeMoneySlider.maximum;
+            this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,
+                                                             30 + (1 - scale) * this.RangeMoneySlider.height * 0.82,
                                                              26,
-                                                             scale * this.vslide.height * 0.82);
+                                                             scale * this.RangeMoneySlider.height * 0.82);
         }
     }
 }
