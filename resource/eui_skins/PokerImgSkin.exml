@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="PokerImgSkin" width="49" height="49" xmlns:e="http://ns.egret.com/eui">
-	<e:Image width="31" height="39" x="9" y="5" source="gamescreen.poker_left"/>
-	<e:Image width="31" height="39" x="15" y="9" source="gamescreen.poker_right"/>
-</e:Skin>
