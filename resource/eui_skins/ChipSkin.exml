@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="skins.ChipSkin" width="128" height="32" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="128" height="32" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" ellipseWidth="32" ellipseHeight="32" fillAlpha="0.5"/>
+	<e:Image id="chipIcon" width="32" height="32" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Label id="chipLabel" text="Label" x="32" y="3" size="26" anchorOffsetX="0" width="95" textAlign="center"/>
+</e:Skin>

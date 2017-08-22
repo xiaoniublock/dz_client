@@ -36,8 +36,6 @@ class User extends eui.Component{
 
 	public set userName(userName:string){
 		this._userName = userName;
-		console.log(this.userNameLabel.text);
-		
 		this.userNameLabel.text = userName;
 	}
 
@@ -77,6 +75,7 @@ class User extends eui.Component{
     }
 
 	public initUserUI(){
+		this.startTimer();
 		var w:number = this.progress.width;
     	var h:number = this.progress.height;
 		var r:number = Math.max(w, h) / 2 * 1.8;
