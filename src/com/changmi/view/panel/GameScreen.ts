@@ -10,6 +10,7 @@ module game{
         public three_choose:egret.tween.TweenGroup;
         public checkBox_giveUp:eui.CheckBox;
         public RangeMoneySlider:eui.VSlider;
+        public RangeMoneyBtn:eui.Button;
 
         public userArray:Array<User>;
         public userNameArray:Array<string>;
@@ -23,7 +24,7 @@ module game{
         
         public initParameter(){
             this.userNameArray = ["xiaoniao","shaniao","erniao","siniao","douniao","xiaoji","shaji"];
-            this.userMoneyArray = ["468","468","227","47","47","227","468"];
+            this.userMoneyArray = ["3000","7000","100","2500","5000","500","200"];
         }
 
         public createCompleteEvent(){
@@ -42,16 +43,14 @@ module game{
             for(var i = 0;i < 7;i++){
                 this["User_"+(i+1)].userName = this.userNameArray[i];
                 this["User_"+(i+1)].goldNum = this.userMoneyArray[i];
-                // var user = new User(this.userNameArray[i],this.userMoneyArray[i]);
-                // user.x = this.userLocationXArray[i];
-                // user.y = this.userLocationYArray[i];
-                // user.width = 126;
-                // user.height = 174;
-                // this.addChild(user);
+                this["Chip_"+(i+1)].chipNum = this.userMoneyArray[i];
+                this["Chip_"+(i+1)].isRight = !(i == 1 || i == 2 || i == 3);
             }
 
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,0,0,0);
             this.RangeMoneySlider.addEventListener(egret.Event.CHANGE,this.onVSLiderChange,this);
+
+            this.RangeMoneyBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.tapRangeMoney,this);
 
             ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
         }
@@ -77,9 +76,18 @@ module game{
         private onVSLiderChange(e:egret.Event) {
             var scale = this.RangeMoneySlider.pendingValue / this.RangeMoneySlider.maximum;
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,
-                                                             30 + (1 - scale) * this.RangeMoneySlider.height * 0.82,
-                                                             26,
-                                                             scale * this.RangeMoneySlider.height * 0.82);
+            30 + (1 - scale) * this.RangeMoneySlider.height * 0.82,
+            26,
+            scale * this.RangeMoneySlider.height * 0.82);
+            this.RangeMoneyBtn.label = "" + this.RangeMoneySlider.pendingValue;
+        }
+
+        private tapRangeMoney(e:egret.Event){
+            if(this.RangeMoneySlider.visible){    //不判断会崩
+                this.RangeMoneySlider.visible = false;
+            }else{
+                this.RangeMoneySlider.visible = true;
+            }
         }
     }
 }

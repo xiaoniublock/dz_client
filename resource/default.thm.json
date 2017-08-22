@@ -19,6 +19,7 @@
   "exmls": [
     "resource/eui_skins/ButtonSkin.exml",
     "resource/eui_skins/CheckBoxSkin.exml",
+    "resource/eui_skins/ChipSkin.exml",
     "resource/eui_skins/CountProgressBarSkin.exml",
     "resource/eui_skins/PurpleBigButtonSkin.exml",
     "resource/eui_skins/RedButtonSkin.exml",
