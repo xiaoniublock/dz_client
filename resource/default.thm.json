@@ -26,6 +26,8 @@
     "resource/eui_skins/OrangeButtonSkin.exml",
     "resource/eui_skins/PurpleCheckBoxSkin.exml",
     "resource/eui_skins/PurpleNormalButtonSkin.exml",
+    "resource/eui_skins/UserInfoDisplaySkin.exml",
+    "resource/eui_skins/RangeMoneySkin.exml",
     "resource/eui_skins/GameSkin.exml",
     "resource/eui_skins/HScrollBarSkin.exml",
     "resource/eui_skins/HSliderSkin.exml",
@@ -35,11 +37,9 @@
     "resource/eui_skins/PokerImgSkin.exml",
     "resource/eui_skins/ProgressBarSkin.exml",
     "resource/eui_skins/RadioButtonSkin.exml",
-    "resource/eui_skins/RangeMoneySkin.exml",
     "resource/eui_skins/ScrollerSkin.exml",
     "resource/eui_skins/TextInputSkin.exml",
     "resource/eui_skins/ToggleSwitchSkin.exml",
-    "resource/eui_skins/UserInfoDisplaySkin.exml",
     "resource/eui_skins/VScrollBarSkin.exml",
     "resource/eui_skins/VSliderSkin.exml"
   ]
