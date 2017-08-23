@@ -15,6 +15,7 @@ module game{
         public userArray:Array<User>;
         public userNameArray:Array<string>;
         public userMoneyArray:Array<string>;
+        public baseChip:number;
 
          public constructor() {
             super();
@@ -23,6 +24,7 @@ module game{
         }
         
         public initParameter(){
+            this.baseChip = 0;
             this.userNameArray = ["xiaoniao","shaniao","erniao","siniao","douniao","xiaoji","shaji"];
             this.userMoneyArray = ["3000","7000","100","2500","5000","500","200"];
         }
@@ -45,6 +47,7 @@ module game{
                 this["User_"+(i+1)].goldNum = this.userMoneyArray[i];
                 this["Chip_"+(i+1)].chipNum = this.userMoneyArray[i];
                 this["Chip_"+(i+1)].isRight = !(i == 1 || i == 2 || i == 3);
+                this.gotoBaseAnimation(this["Chip_"+(i+1)]);
             }
 
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,0,0,0);
@@ -89,5 +92,21 @@ module game{
                 this.RangeMoneySlider.visible = true;
             }
         }
+
+        private gotoBaseAnimation(chip:Chip){
+		    var x:number = chip.x;
+		    var y:number = chip.y;
+		    var tween:egret.Tween = egret.Tween.get(chip);
+            tween.to({alpha : 0.4,x : this["baseChipNum"].x,y : this["baseChipNum"].y},1000,egret.Ease.sineOut);
+		    tween.call(function(){
+			    chip.visible = false;
+			    chip.x = x;
+			    chip.y = y;
+			    chip.alpha = 1;
+                this.baseChip += parseInt("" + chip.chipNum);
+                chip.chipNum = 0;
+                this["baseChipNum"].text = "" + this.baseChip;
+		    },this);
+	    }
     }
 }
