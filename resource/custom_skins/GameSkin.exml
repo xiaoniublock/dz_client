@@ -45,30 +45,6 @@
 		</tween:TweenGroup>
 	</w:Declarations>
 	<e:Image id="image" width="100%" height="100%"  source="game_background_png"/>
-	<e:Group id="group_1" width="100%" height="82" y="668" visible.count_choose="false" visible.three_choose="false">
-		<e:Button label="3X 大盲" top="0" left="15" skinName="skins.PurpleBigButtonSkin"/>
-		<e:Button label="1X 底池" top="0" left="176" skinName="skins.PurpleBigButtonSkin"/>
-		<e:Button label="4X 大盲" left="333" top="0" skinName="skins.PurpleBigButtonSkin"/>
-		<e:Button label="弃    牌" top="0" left="513" skinName="skins.RedButtonSkin"/>
-		<e:Button label="让    牌" top="0" left="774" skinName="skins.GreenButtonSkin"/>
-		<e:Button label="加    注" top="0" left="1049" skinName="skins.OrangeButtonSkin"/>
-		
-
-
-	</e:Group>
-    <e:Group id="group_2" width="100%" height="82" y="668" visible.count_choose="false">
-        <e:CheckBox id="checkBox_giveUp" label="让 或 弃" includeIn="three_choose" left="514" skinName="skins.PurpleCheckBoxSkin" y="8"/>
-        <e:CheckBox label="跟任何注" includeIn="three_choose" left="1048" skinName="skins.PurpleCheckBoxSkin" verticalCenter="0"/>
-		<e:CheckBox label="自动让牌" includeIn="three_choose" left="781" skinName="skins.PurpleCheckBoxSkin" verticalCenter="0"/>
-    </e:Group>
-    <e:Group id="group_3" width="100%" height="82" y="668" visible.three_choose="false">
-		<e:Button label="500" includeIn="count_choose" left="23" y="8" skinName="skins.PurpleNormalButtonSkin"/>
-        <e:Button label="1000" includeIn="count_choose" left="225" y="8" skinName="skins.PurpleNormalButtonSkin"/>
-        <e:Button label="2500" includeIn="count_choose" left="425" y="8" skinName="skins.PurpleNormalButtonSkin"/>
-        <e:Button label="5000" includeIn="count_choose" left="626" y="8" skinName="skins.PurpleNormalButtonSkin"/>
-        <e:Button label="1000" includeIn="count_choose" left="829" y="8" skinName="skins.PurpleNormalButtonSkin"/>
-		<e:Button id="RangeMoneyBtn" label="200" includeIn="count_choose" left="1049" y="8" skinName="skins.OrangeButtonSkin"/>
-    </e:Group>
 	<e:Group id="UserGroup" width="1133" height="594" x="102" y="47">
 		<ns1:User id="User_1" width="126" height="174" x="502" y="419" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
 		<ns1:User id="User_2" width="126" height="174" x="179" y="419" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
@@ -100,5 +76,26 @@
 		<ns1:Card width="78" height="117" x="249" source="poker_bg_png" visible="false"/>
 		<ns1:Card width="78" height="117" x="332" source="poker_bg_png" visible="true"/>
 	</e:Group>
-	<e:VSlider id="RangeMoneySlider" width="103" height="543" x="1123" y="134" anchorOffsetX="0" anchorOffsetY="0" skinName="skins.RangeMoneySkin" minimum="200" maximum="1000" snapInterval="100" visible="false"/>
+	<e:Group id="group_1" width="100%" height="82" y="668" visible.count_choose="false" visible.three_choose="false">
+		<e:Button label="3X 大盲" top="0" left="15" skinName="skins.PurpleBigButtonSkin"/>
+		<e:Button label="1X 底池" top="0" left="176" skinName="skins.PurpleBigButtonSkin"/>
+		<e:Button label="4X 大盲" left="333" top="0" skinName="skins.PurpleBigButtonSkin"/>
+		<e:Button label="弃    牌" top="0" left="513" skinName="skins.RedButtonSkin"/>
+		<e:Button label="让    牌" top="0" left="774" skinName="skins.GreenButtonSkin"/>
+		<e:Button label="加    注" top="0" left="1049" skinName="skins.OrangeButtonSkin"/>
+	</e:Group>
+	<e:Group id="group_2" width="100%" height="82" y="668" visible.count_choose="false">
+		<e:CheckBox id="checkBox_giveUp" label="让 或 弃" includeIn="three_choose" left="514" skinName="skins.PurpleCheckBoxSkin" y="8"/>
+		<e:CheckBox label="跟任何注" includeIn="three_choose" left="1048" skinName="skins.PurpleCheckBoxSkin" verticalCenter="0"/>
+		<e:CheckBox label="自动让牌" includeIn="three_choose" left="781" skinName="skins.PurpleCheckBoxSkin" verticalCenter="0"/>
+	</e:Group>
+	<e:Group id="group_3" width="100%" height="82" y="668" visible.three_choose="false">
+		<e:Button label="500" includeIn="count_choose" left="23" y="8" skinName="skins.PurpleNormalButtonSkin"/>
+		<e:Button label="1000" includeIn="count_choose" left="225" y="8" skinName="skins.PurpleNormalButtonSkin"/>
+		<e:Button label="2500" includeIn="count_choose" left="425" y="8" skinName="skins.PurpleNormalButtonSkin"/>
+		<e:Button label="5000" includeIn="count_choose" left="626" y="8" skinName="skins.PurpleNormalButtonSkin"/>
+		<e:Button label="1000" includeIn="count_choose" left="829" y="8" skinName="skins.PurpleNormalButtonSkin"/>
+		<e:Button id="RangeMoneyBtn" label="200" includeIn="count_choose" left="1049" y="8" skinName="skins.OrangeButtonSkin"/>
+		<e:VSlider id="RangeMoneySlider" width="103" height="543" x="1123" y="-531" anchorOffsetX="0" anchorOffsetY="0" skinName="skins.RangeMoneySkin" minimum="200" maximum="1000" snapInterval="100"/>
+	</e:Group>
 </e:Skin>

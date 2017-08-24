@@ -23,12 +23,33 @@ module game{
             super();
             this.once(egret.Event.ADDED_TO_STAGE, this.initParameter, this);
             this.once(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
+            this.once(egret.Event.ADDED_TO_STAGE, this.beginAnimation, this);
         }
         
         public initParameter(){
             this.baseChip = 0;
             this.userNameArray = ["xiaoniao","shaniao","erniao","siniao","douniao","xiaoji","shaji"];
             this.userMoneyArray = ["3000","7000","100","2500","5000","500","200"];
+        }
+
+        public beginAnimation(){
+            for(var i = 0;i < 14;i++){
+                if(this.userNameArray[i%7] != ""){  //如果这个位置有人
+                    var card:eui.Image = new eui.Image();
+                    card.texture = RES.getRes("gamescreen.poker_right");
+                    card.x = 652;
+                    card.y = 187;
+                    this.addChild(card);
+                    var tween:egret.Tween = egret.Tween.get(card);
+                    tween.to({x : this["User_"+(i%7+1)].x + 102 + 104,y : this["User_"+(i%7+1)].y + 47 + 64},600,egret.Ease.sineOut);
+                    tween.call(this.sendCard,this,[card,i % 7]);
+                }
+            }
+        }
+
+        public sendCard(card : eui.Image,userIndex : number){
+            this.removeChild(card);
+            this["User_"+(userIndex+1)].cardNum++;
         }
 
         public createCompleteEvent(){
@@ -72,9 +93,9 @@ module game{
               if(state=="three_choose"){
                 this.three_choose.play(0);
             }
-            if(this.RangeMoneySlider.visible){    //不判断会崩
-                this.RangeMoneySlider.visible = false;
-            }
+            // if(this.RangeMoneySlider.visible){    //不判断会崩
+            //     this.RangeMoneySlider.visible = false;
+            // }
             this.skin.currentState=state+"";
             console.log(state);
         }
@@ -100,7 +121,7 @@ module game{
 		    var x:number = chip.x;
 		    var y:number = chip.y;
 		    var tween:egret.Tween = egret.Tween.get(chip);
-            tween.to({alpha : 0.4,x : this["baseChipNum"].x,y : this["baseChipNum"].y},1000,egret.Ease.sineOut);
+            tween.to({alpha : 0.4,x : this["baseChipNum"].x,y : this["baseChipNum"].y},800,egret.Ease.sineOut);
 		    tween.call(function(){
 			    chip.visible = false;
 			    chip.x = x;

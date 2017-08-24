@@ -9,15 +9,19 @@ class User extends eui.Component{
 	private _hasUser:boolean;		//判断是否有用户在这位置上
 	private _isYourTurn:boolean;	//判断是不是该用户的回合
 	private _isGiveUp:boolean;		//判断该用户是否已经放弃游戏
+	private _isCardVisible:boolean;	//设置是否可见该玩家的牌
 
 	private _userName:string;
 	private _goldNum:string;
 	private _headImgData:egret.BitmapData;
+	private _cardNum:number;
 
 	public userNameLabel:eui.Label;
 	public goldNumLabel:eui.Label;
 	public headImg:eui.Image;
 	public progress:eui.Image;
+	public leftCard:eui.Image;
+	public rightCard:eui.Image;
 
 	//计时器
 	public timer:egret.Timer= new egret.Timer(50,360);
@@ -49,6 +53,23 @@ class User extends eui.Component{
 		this.headImg.bitmapData = headImgData;
 	}
 
+	public set cardNum(cardNum:number){
+		this._cardNum = cardNum;
+		if(this._isCardVisible == false){
+			
+		}
+		if(cardNum == 0){
+			this.leftCard.visible = false;
+			this.rightCard.visible = false;
+		}else if(cardNum == 1){
+			this.leftCard.visible = false;
+			this.rightCard.visible = true;
+		}else{
+			this.leftCard.visible = true;
+			this.rightCard.visible = true;
+		}
+	}
+
 	public set hasUser(hasUser:boolean){
 		this._hasUser = hasUser;
 		this.visible = this._hasUser;
@@ -64,6 +85,7 @@ class User extends eui.Component{
 	public set isGiveUp(isGiveUp:boolean){
 		this._isGiveUp = isGiveUp;
 		this.alpha = isGiveUp ? 0.5 : 1;
+		this.cardNum = 0;
 	}
 
 	public createUserSource(userName:string,goldNum:string){//,headImgData:egret.BitmapData){
