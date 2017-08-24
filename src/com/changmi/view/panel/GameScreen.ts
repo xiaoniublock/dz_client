@@ -17,6 +17,8 @@ module game{
         public userMoneyArray:Array<string>;
         public baseChip:number;
 
+        public publicCardsGroup:eui.Group;
+
          public constructor() {
             super();
             this.once(egret.Event.ADDED_TO_STAGE, this.initParameter, this);
@@ -49,7 +51,8 @@ module game{
                 this["Chip_"+(i+1)].isRight = !(i == 1 || i == 2 || i == 3);
                 this.gotoBaseAnimation(this["Chip_"+(i+1)]);
             }
-
+            console.log((<Card>this.publicCardsGroup.getChildAt(0)).startrotate()) ;
+            
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,0,0,0);
             this.RangeMoneySlider.addEventListener(egret.Event.CHANGE,this.onVSLiderChange,this);
 

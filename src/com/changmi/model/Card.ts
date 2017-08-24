@@ -13,6 +13,10 @@ class Card extends eui.Image
     public _index : number;
     /**扑克花色，1：黑 2:红，3：花，4：方片 */
     public _color:number;
+
+    private smaller:boolean=true;
+
+    private playCount:number=0;
     
     public get index() : number {
         return this._index;
@@ -36,6 +40,43 @@ class Card extends eui.Image
         this.width=78;
         this.height=117;
         this.source = "board_"+this._color + "."+this._color+""+(this._index<10?("0"+this._index):this._index);
+    }
+
+     public createCardSourceNoPram(){
+         this.source = "board_"+this._color + "."+this._color+""+(this._index<10?("0"+this._index):this._index);
+     }
+
+    public startrotateAndChangeSource(){
+        this.addEventListener(egret.Event.ENTER_FRAME,this.rotate,this);
+    }
+    public stoprotate(){
+        this.removeEventListener(egret.Event.ENTER_FRAME,this.rotate,this)
+    }
+    
+    private rotate():void{
+        if(this.playCount==2){
+            this.stoprotate();
+            this.createCardSourceNoPram();
+            return;
+        }
+        if(this.scaleX>=0.16&&this.smaller){
+       this.scaleX-=0.16;
+       this.x+=8;
+        }else{
+            if(this.scaleX<=1){
+            this.smaller=false;
+            this.scaleX+=0.16;
+            this.x-=8;
+            }else{
+                this.playCount++;
+                this.smaller=true;
+            }
+        }
+        console.log( this.x);
+    }
+
+    public translate():void{
+        //let tween=egret.Tween.get(new eui.Image())
     }
 
     
