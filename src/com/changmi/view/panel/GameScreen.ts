@@ -49,7 +49,7 @@ module game{
             card.y = 187;
             this.addChild(card);
             var tween:egret.Tween = egret.Tween.get(card);
-            tween.to({x : x,y : y},600,egret.Ease.sineOut);
+            tween.to({x : x,y : y,scale:0,alpha:0},600,egret.Ease.sineOut);
             params.push(card);
             tween.call(finishAnimationFunction,this,params);
         }
@@ -58,6 +58,7 @@ module game{
             this.removeChild(card);
             this["User_"+(userIndex+1)].cardNum++;
         }
+
 
         public createCompleteEvent(){
             this.skinName= this.skinName = "skins.GameSkin";
@@ -84,7 +85,7 @@ module game{
             let card=(<Card>this.publicCardsGroup.getChildAt(i));
             card.index=10;
             card.color=1;
-            console.log(card.startrotateAndChangeSource()) ;
+            this.cardAnimationWithOrigin(this.publicCardsGroup.x+card.x,this.publicCardsGroup.y+card.y,this.sendPublicCard,[card]);
             }
             
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,0,0,0);
@@ -94,7 +95,10 @@ module game{
 
             ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
         }
-
+            public sendPublicCard(card : Card,card1 : eui.Image){
+                this.removeChild(card1);
+                console.log(card.startrotateAndChangeSource());
+            }
         public switchBottomState(state:String){
             if(state=="first_Bet"){
                 this.first_Bet.play(0);
