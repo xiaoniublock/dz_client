@@ -65,9 +65,9 @@
 		<e:Label id="baseChipNum" text="0" x="530" y="163" textAlign="center" anchorOffsetX="0" width="118" textColor="0xfeff86" size="22" scaleX="1" scaleY="1"/>
 	</e:Group>
 
-	<e:Group id="userCardsGroup" width="165" height="117" left="753" top="496">
-		<ns1:Card width="78" height="117" left="0" source="board_1.103"/>
-		<ns1:Card width="78" height="117" right="0" source="board_1.112"/>
+	<e:Group id="userCardsGroup" width="165" height="117" x="753" y="496">
+		<ns1:Card width="78" height="117" x="0" source="poker_bg_png"/>
+		<ns1:Card width="78" height="117" x="94" source="poker_bg_png"/>
 	</e:Group>
 	<e:Group id="publicCardsGroup" width="418" height="117" x="410" y="290">
 		<ns1:Card width="78" height="117" x="0" source="poker_bg_png" />
