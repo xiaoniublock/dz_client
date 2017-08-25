@@ -50,7 +50,7 @@ module game{
             card.y = 187;
             this.addChild(card);
             var tween:egret.Tween = egret.Tween.get(card);
-            tween.to({x : x,y : y,scale:0,alpha:0},3000,egret.Ease.sineOut);
+            tween.to({x : x,y : y,scale:0,alpha:0},600,egret.Ease.sineOut);
             params.push(card);
             tween.call(finishAnimationFunction,this,params);
         }
@@ -79,7 +79,7 @@ module game{
                 this["User_"+(i+1)].goldNum = this.userMoneyArray[i];
                 this["Chip_"+(i+1)].chipNum = this.userMoneyArray[i];
                 this["Chip_"+(i+1)].isRight = !(i == 1 || i == 2 || i == 3);
-                this["Chip_"+(i+1)].isCardVisible = i == 0;
+                this["Chip_"+(i+1)].isCardVisible = (i == 0);
                 this.gotoBaseAnimation(this["Chip_"+(i+1)]);
             }
             for(var i=0 ;i<this.publicCardsGroup.numChildren;i++){
@@ -96,7 +96,6 @@ module game{
             this.cardAnimationWithOrigin(this.userCardsGroup.x+card.x,this.userCardsGroup.y+card.y,this.sendPublicCard,[card]);
             }
             
-            
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,0,0,0);
             this.RangeMoneySlider.addEventListener(egret.Event.CHANGE,this.onVSLiderChange,this);
 
@@ -104,19 +103,21 @@ module game{
 
             ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
         }
-            public sendPublicCard(card : Card,card1 : eui.Image){
-                this.removeChild(card1);
-                console.log(card.startrotateAndChangeSource());
-            }
+
+        public sendPublicCard(card : Card,card1 : eui.Image){
+            this.removeChild(card1);
+            console.log(card.startrotateAndChangeSource());
+        }
+
         public switchBottomState(state:String){
             if(state=="first_Bet"){
                 this.first_Bet.play(0);
             }
-              if(state=="count_choose"){
+            if(state=="count_choose"){
                 this.count_choose.play(0);
 
             }
-              if(state=="three_choose"){
+            if(state=="three_choose"){
                 this.three_choose.play(0);
             }
             // if(this.RangeMoneySlider.visible){    //不判断会崩
