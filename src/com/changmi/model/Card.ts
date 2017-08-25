@@ -72,12 +72,6 @@ class Card extends eui.Image
                 this.smaller=true;
             }
         }
-        console.log( this.x);
     }
-
-    public translate():void{
-        //let tween=egret.Tween.get(new eui.Image())
-    }
-
     
 }

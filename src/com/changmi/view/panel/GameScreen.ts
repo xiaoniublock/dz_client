@@ -51,7 +51,12 @@ module game{
                 this["Chip_"+(i+1)].isRight = !(i == 1 || i == 2 || i == 3);
                 this.gotoBaseAnimation(this["Chip_"+(i+1)]);
             }
-            console.log((<Card>this.publicCardsGroup.getChildAt(0)).startrotate()) ;
+            for(var i=0 ;i<5;i++){
+            let card=(<Card>this.publicCardsGroup.getChildAt(i));
+            card.index=10;
+            card.color=1;
+            console.log(card.startrotateAndChangeSource()) ;
+            }
             
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,0,0,0);
             this.RangeMoneySlider.addEventListener(egret.Event.CHANGE,this.onVSLiderChange,this);
