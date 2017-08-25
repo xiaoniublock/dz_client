@@ -89,7 +89,7 @@
 		<e:CheckBox label="跟任何注" includeIn="three_choose" left="1048" skinName="skins.PurpleCheckBoxSkin" verticalCenter="0"/>
 		<e:CheckBox label="自动让牌" includeIn="three_choose" left="781" skinName="skins.PurpleCheckBoxSkin" verticalCenter="0"/>
 	</e:Group>
-	<e:Group id="group_3" width="100%" height="82" y="668" visible.three_choose="false">
+	<e:Group id="group_3" width="100%" height="82" y="668" visible.three_choose="false" visible.first_Bet="false">
 		<e:Button label="500" includeIn="count_choose" left="23" y="8" skinName="skins.PurpleNormalButtonSkin"/>
 		<e:Button label="1000" includeIn="count_choose" left="225" y="8" skinName="skins.PurpleNormalButtonSkin"/>
 		<e:Button label="2500" includeIn="count_choose" left="425" y="8" skinName="skins.PurpleNormalButtonSkin"/>
