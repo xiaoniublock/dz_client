@@ -38,6 +38,10 @@ class User extends eui.Component{
 		return this._headImgData;
 	}
 
+	public get isCardVisible():boolean{
+		return this._isCardVisible;
+	}
+
 	public set userName(userName:string){
 		this._userName = userName;
 		this.userNameLabel.text = userName;
@@ -55,18 +59,22 @@ class User extends eui.Component{
 
 	public set cardNum(cardNum:number){
 		this._cardNum = cardNum;
-		if(this._isCardVisible == false){
-			
-		}
-		if(cardNum == 0){
+		console.log(this.userName + this.isCardVisible);
+		
+		if(this.isCardVisible == true){
 			this.leftCard.visible = false;
 			this.rightCard.visible = false;
-		}else if(cardNum == 1){
-			this.leftCard.visible = false;
-			this.rightCard.visible = true;
 		}else{
-			this.leftCard.visible = true;
-			this.rightCard.visible = true;
+			if(cardNum == 0){
+				this.leftCard.visible = false;
+				this.rightCard.visible = false;
+			}else if(cardNum == 1){
+				this.leftCard.visible = false;
+				this.rightCard.visible = true;
+			}else{
+				this.leftCard.visible = true;
+				this.rightCard.visible = true;
+			}
 		}
 	}
 

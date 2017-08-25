@@ -34,20 +34,27 @@ module game{
 
         public beginAnimation(){
             for(var i = 0;i < 14;i++){
+                var x:number = this["User_"+(i%7+1)].x + 102 + 104; //一个是group的位置偏移，一个是user位置偏移
+                var y:number = this["User_"+(i%7+1)].y + 47 + 64;
                 if(this.userNameArray[i%7] != ""){  //如果这个位置有人
-                    var card:eui.Image = new eui.Image();
-                    card.texture = RES.getRes("gamescreen.poker_right");
-                    card.x = 652;
-                    card.y = 187;
-                    this.addChild(card);
-                    var tween:egret.Tween = egret.Tween.get(card);
-                    tween.to({x : this["User_"+(i%7+1)].x + 102 + 104,y : this["User_"+(i%7+1)].y + 47 + 64},600,egret.Ease.sineOut);
-                    tween.call(this.sendCard,this,[card,i % 7]);
+                    this.cardAnimationWithOrigin(x,y,this.sendCardFinish,[i%7]);
                 }
             }
         }
 
-        public sendCard(card : eui.Image,userIndex : number){
+        public cardAnimationWithOrigin(x:number,y:number,finishAnimationFunction:Function,params?:any[]){
+            var card:eui.Image = new eui.Image();
+            card.texture = RES.getRes("gamescreen.poker_right");
+            card.x = 652;
+            card.y = 187;
+            this.addChild(card);
+            var tween:egret.Tween = egret.Tween.get(card);
+            tween.to({x : x,y : y},600,egret.Ease.sineOut);
+            params.push(card);
+            tween.call(finishAnimationFunction,this,params);
+        }
+
+        public sendCardFinish(userIndex : number,card : eui.Image){
             this.removeChild(card);
             this["User_"+(userIndex+1)].cardNum++;
         }
@@ -70,6 +77,7 @@ module game{
                 this["User_"+(i+1)].goldNum = this.userMoneyArray[i];
                 this["Chip_"+(i+1)].chipNum = this.userMoneyArray[i];
                 this["Chip_"+(i+1)].isRight = !(i == 1 || i == 2 || i == 3);
+                this["Chip_"+(i+1)].isCardVisible = i == 0;
                 this.gotoBaseAnimation(this["Chip_"+(i+1)]);
             }
             console.log((<Card>this.publicCardsGroup.getChildAt(0)).startrotate()) ;
