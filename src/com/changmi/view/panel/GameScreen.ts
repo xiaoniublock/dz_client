@@ -23,12 +23,40 @@ module game{
             super();
             this.once(egret.Event.ADDED_TO_STAGE, this.initParameter, this);
             this.once(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
+            this.once(egret.Event.ADDED_TO_STAGE, this.beginAnimation, this);
         }
         
         public initParameter(){
             this.baseChip = 0;
             this.userNameArray = ["xiaoniao","shaniao","erniao","siniao","douniao","xiaoji","shaji"];
             this.userMoneyArray = ["3000","7000","100","2500","5000","500","200"];
+        }
+
+        public beginAnimation(){
+            for(var i = 0;i < 14;i++){
+                var x:number = this["User_"+(i%7+1)].x + 102 + 104; //一个是group的位置偏移，一个是user位置偏移
+                var y:number = this["User_"+(i%7+1)].y + 47 + 64;
+                if(this.userNameArray[i%7] != ""){  //如果这个位置有人
+                    this.cardAnimationWithOrigin(x,y,this.sendCardFinish,[i%7]);
+                }
+            }
+        }
+
+        public cardAnimationWithOrigin(x:number,y:number,finishAnimationFunction:Function,params?:any[]){
+            var card:eui.Image = new eui.Image();
+            card.texture = RES.getRes("gamescreen.poker_right");
+            card.x = 652;
+            card.y = 187;
+            this.addChild(card);
+            var tween:egret.Tween = egret.Tween.get(card);
+            tween.to({x : x,y : y},600,egret.Ease.sineOut);
+            params.push(card);
+            tween.call(finishAnimationFunction,this,params);
+        }
+
+        public sendCardFinish(userIndex : number,card : eui.Image){
+            this.removeChild(card);
+            this["User_"+(userIndex+1)].cardNum++;
         }
 
         public createCompleteEvent(){
@@ -49,6 +77,7 @@ module game{
                 this["User_"+(i+1)].goldNum = this.userMoneyArray[i];
                 this["Chip_"+(i+1)].chipNum = this.userMoneyArray[i];
                 this["Chip_"+(i+1)].isRight = !(i == 1 || i == 2 || i == 3);
+                this["Chip_"+(i+1)].isCardVisible = i == 0;
                 this.gotoBaseAnimation(this["Chip_"+(i+1)]);
             }
             for(var i=0 ;i<5;i++){
@@ -77,9 +106,9 @@ module game{
               if(state=="three_choose"){
                 this.three_choose.play(0);
             }
-            if(this.RangeMoneySlider.visible){    //不判断会崩
-                this.RangeMoneySlider.visible = false;
-            }
+            // if(this.RangeMoneySlider.visible){    //不判断会崩
+            //     this.RangeMoneySlider.visible = false;
+            // }
             this.skin.currentState=state+"";
             console.log(state);
         }
@@ -105,7 +134,7 @@ module game{
 		    var x:number = chip.x;
 		    var y:number = chip.y;
 		    var tween:egret.Tween = egret.Tween.get(chip);
-            tween.to({alpha : 0.4,x : this["baseChipNum"].x,y : this["baseChipNum"].y},1000,egret.Ease.sineOut);
+            tween.to({alpha : 0.4,x : this["baseChipNum"].x,y : this["baseChipNum"].y},800,egret.Ease.sineOut);
 		    tween.call(function(){
 			    chip.visible = false;
 			    chip.x = x;
