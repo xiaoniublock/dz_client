@@ -80,9 +80,9 @@
 		<e:Button label="3X 大盲" top="0" left="15" skinName="skins.PurpleBigButtonSkin"/>
 		<e:Button label="1X 底池" top="0" left="176" skinName="skins.PurpleBigButtonSkin"/>
 		<e:Button label="4X 大盲" left="333" top="0" skinName="skins.PurpleBigButtonSkin"/>
-		<e:Button label="弃    牌" top="0" left="513" skinName="skins.RedButtonSkin"/>
-		<e:Button label="让    牌" top="0" left="774" skinName="skins.GreenButtonSkin"/>
-		<e:Button label="加    注" top="0" left="1049" skinName="skins.OrangeButtonSkin"/>
+		<e:Button id="giveUpBtn" label="弃    牌" top="0" left="513" skinName="skins.RedButtonSkin"/>
+		<e:Button id="passBtn" label="让    牌" top="0" left="774" skinName="skins.GreenButtonSkin"/>
+		<e:Button id="addChipBtn" label="加    注" top="0" left="1049" skinName="skins.OrangeButtonSkin"/>
 	</e:Group>
 	<e:Group id="group_2" width="100%" height="82" y="668" visible.count_choose="false">
 		<e:CheckBox id="checkBox_giveUp" label="让 或 弃" includeIn="three_choose" left="514" skinName="skins.PurpleCheckBoxSkin" y="8"/>
