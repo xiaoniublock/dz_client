@@ -6,6 +6,10 @@ module game{
         public backBtn: eui.Button;
         public switchBtn:eui.Button;
         public first_Bet:egret.tween.TweenGroup;
+        public giveUpBtn:eui.Button;
+        public passBtn:eui.Button;
+        public addChipBtn:eui.Button;
+        
         public count_choose:egret.tween.TweenGroup;
         public three_choose:egret.tween.TweenGroup;
         public checkBox_giveUp:eui.CheckBox;
@@ -64,7 +68,6 @@ module game{
             this.removeChild(card);
             this["User_"+(index%7+1)].cardNum = Math.ceil(index/7);
         }
-
 
         public createCompleteEvent(){
             this.skinName= this.skinName = "skins.GameSkin";

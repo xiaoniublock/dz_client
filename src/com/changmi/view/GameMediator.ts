@@ -8,6 +8,10 @@ module game {
             this.gameScreen.backBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.backButtonClick, this);
             this.gameScreen.switchBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.switchButtonClick, this);
             this.gameScreen.checkBox_giveUp.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onChange,this);
+            this.gameScreen.giveUpBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.giveupAction,this);
+            this.gameScreen.passBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.passAction,this);
+            this.gameScreen.addChipBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.addChipAction,this);
+        
              console.log( this.gameScreen.checkBox_giveUp.label);
         }
     ///处理复选框的change事件回调
@@ -57,5 +61,16 @@ module game {
             return <GameScreen><any>(this.viewComponent);
         }
 
+        public giveupAction(event:egret.TouchEvent){
+            
+        }
+
+        public passAction(event:egret.TouchEvent){
+            
+        }
+
+        public addChipAction(event:egret.TouchEvent){
+            this.sendNotification(GameProxy.CHANGE_STATE, "count_choose");
+        }
     }
 }
