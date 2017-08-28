@@ -38,4 +38,22 @@ class Chip extends eui.Component{
 			this.chipLabel.x = 0;
 		}
 	}
+
+	public gotoBaseAnimation(base:eui.Label){
+		    var x:number = this.x;
+		    var y:number = this.y;
+			var baseChip:number;
+		    var tween:egret.Tween = egret.Tween.get(this);
+            tween.to({alpha : 0.4,x : base.x,y : base.y},800,egret.Ease.sineOut);
+		    tween.call(function(){
+			    this.visible = false;
+			    this.x = x;
+			    this.y = y;
+			    this.alpha = 1;
+				baseChip = parseInt(base.text);
+                baseChip += parseInt("" + this.chipNum);
+                this.chipNum = 0;
+                base.text = "" + baseChip;
+		    },this);
+	    }
 }
