@@ -19,14 +19,14 @@ module game {
         public static FINISH_GAME: string = "finish_game";
 
         /**
-         * 更新分数
+         * 更新底池
          */
-        public static UPDATE_SCORE: string = "update_score";
+        public static UPDATE_POT: string = "update_pot";
 
         /**
-         * 执行移动 , body  0: 上, 1: 右, 2:下, 3: 左
+         * 执行操作 , body  0: Bet, 1: Call, 2:Fold, 3: Check,4: raise 5 All-in
          */
-        public static MOVE_TILE: string = "move_tile";
+        public static ACTION: string = "action";
 
         /**
          * 注册消息
@@ -34,8 +34,8 @@ module game {
         public register(): void {
             this.facade.registerCommand(GameCommand.START_GAME, GameCommand);
             this.facade.registerCommand(GameCommand.FINISH_GAME, GameCommand);
-            this.facade.registerCommand(GameCommand.UPDATE_SCORE, GameCommand);
-            this.facade.registerCommand(GameCommand.MOVE_TILE, GameCommand);
+            this.facade.registerCommand(GameCommand.UPDATE_POT, GameCommand);
+            this.facade.registerCommand(GameCommand.ACTION, GameCommand);
         }
 
         public execute(notification: puremvc.INotification): void {
@@ -44,18 +44,19 @@ module game {
             var data: any = notification.getBody();
             switch (notification.getName()) {
                 case GameCommand.START_GAME: {
-                    this.sendNotification(LobbyCommand.CHANGE, 2);
+                    gameProxy.matchPlayer();
                     //gameProxy.reset();
                     //gridProxy.reset();
                     //gridProxy.addStartTiles();
                     break;
                 }
-                case GameCommand.UPDATE_SCORE: {
+                case GameCommand.UPDATE_POT: {
                     //gameProxy.updateScore(data);
                     break;
                 }
-                case GameCommand.MOVE_TILE: {
+                case GameCommand.ACTION: {
                     //gridProxy.move(<number><any>data);
+                    gameProxy.playAction(<any>data);
                     break;
                 }
                 case GameCommand.FINISH_GAME: {

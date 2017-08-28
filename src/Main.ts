@@ -143,6 +143,7 @@ class Main extends egret.DisplayObjectContainer {
         let applicationFacade: game.ApplicationFacade = game.ApplicationFacade.getInstance();
         applicationFacade.startUp(this.appContainer);
         applicationFacade.sendNotification(game.LobbyCommand.CHANGE, 1);
+        NetController.getInstance().connect();
     }
     
 }
