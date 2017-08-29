@@ -42,7 +42,7 @@ module game {
         }
           public listNotificationInterests(): Array<any> {
             return [
-                GameProxy.CHANGE_STATE
+                GameProxy.CHANGE_STATE,GameProxy.MATCHPLAYER
             ];
         }
 
@@ -52,6 +52,10 @@ module game {
                 case GameProxy.CHANGE_STATE: {
                     this.gameScreen.switchBottomState(<String><any>data);
                     break;
+                }
+                case GameProxy.MATCHPLAYER:{
+                    console.log(<BaseMsg>data.content.roomId);
+                    
                 }
 
                

@@ -9,9 +9,11 @@ module game {
          */
 		public static CHANGE_STATE: string = "change_state";
 		/**
-		 * 
+		 * 匹配成功返回这张桌子上的玩家数据
 		 */
-       
+       	public static MATCHPLAYER: string = "match_player";
+
+
 		public constructor() {
 			super(GameProxy.NAME);
 			console.log(GameProxy.NAME);
@@ -21,16 +23,17 @@ module game {
 		 /**开始匹配游戏*/
     	public matchPlayer()
     	{
-			this.sendNotification(LobbyCommand.CHANGE, 2);
+		this.sendNotification(LobbyCommand.CHANGE, 2);
         // this.start.enabled = false;
         // this.tipTween();
-
-        // var data = new BaseMsg();
-        // data.command = Commands.MATCH_PLAYER;
-        // this.playerName = Math.floor(Math.random() * 100) + "";
-        // data.content = { "name": this.playerName };
-        // NetController.getInstance().sendData(data, this.onMatchPlayerBack, this);
+        var data = new BaseMsg();
+        data.command = Commands.MATCH_PLAYER;
+        data.content = { "name": "112" };
+        NetController.getInstance().sendData(data, this.onMatchPlayerBack, this);
     	}
+		private onMatchPlayerBack(data:BaseMsg){
+			this.sendNotification(GameProxy.MATCHPLAYER,data);
+		  }
 
 		/**玩家action */
 		public playAction(data: BaseMsg){
