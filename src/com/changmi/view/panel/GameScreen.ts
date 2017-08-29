@@ -13,6 +13,8 @@ module game{
         public count_choose:egret.tween.TweenGroup;
         public three_choose:egret.tween.TweenGroup;
         public checkBox_giveUp:eui.CheckBox;
+        public checkBox_autoPass:eui.CheckBox;
+        public checkBox_followAny:eui.CheckBox;
         public RangeMoneySlider:eui.VSlider;
         public RangeMoneyBtn:eui.Button;
 
@@ -71,11 +73,6 @@ module game{
 
         public createCompleteEvent(){
             this.skinName= this.skinName = "skins.GameSkin";
-            this.backBtn = new eui.Button();
-            this.backBtn.label = "返回";
-            this.backBtn.horizontalCenter = 0;
-            this.backBtn.verticalCenter = 0;
-            this.addChild(this.backBtn);
             this.switchBtn=new eui.Button();
             this.switchBtn.label = "切换你";
             this.switchBtn.left = 0;
@@ -111,8 +108,6 @@ module game{
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,0,0,0);
             this.RangeMoneySlider.addEventListener(egret.Event.CHANGE,this.onVSLiderChange,this);
 
-            this.RangeMoneyBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.tapRangeMoney,this);
-
             ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
         }
 
@@ -146,14 +141,6 @@ module game{
             26,
             scale * this.RangeMoneySlider.height * 0.82);
             this.RangeMoneyBtn.label = "" + this.RangeMoneySlider.pendingValue;
-        }
-
-        private tapRangeMoney(e:egret.Event){
-            if(this.RangeMoneySlider.visible){    //不判断会崩
-                this.RangeMoneySlider.visible = false;
-            }else{
-                this.RangeMoneySlider.visible = true;
-            }
         }
     }
 }
