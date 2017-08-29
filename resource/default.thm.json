@@ -17,6 +17,7 @@
   },
   "autoGenerateExmlsList": true,
   "exmls": [
+    "resource/custom_skins/BackBtnSkin.exml",
     "resource/custom_skins/ChipSkin.exml",
     "resource/custom_skins/CountProgressBarSkin.exml",
     "resource/custom_skins/UserInfoDisplaySkin.exml",

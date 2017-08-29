@@ -8,6 +8,8 @@ module game {
             this.gameScreen.backBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.backButtonClick, this);
             this.gameScreen.switchBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.switchButtonClick, this);
             this.gameScreen.checkBox_giveUp.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onChange,this);
+            this.gameScreen.checkBox_autoPass.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onChange,this);
+            this.gameScreen.checkBox_followAny.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onChange,this);
             this.gameScreen.giveUpBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.giveupAction,this);
             this.gameScreen.passBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.passAction,this);
             this.gameScreen.addChipBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.addChipAction,this);
@@ -18,6 +20,29 @@ module game {
     private onChange(event:egret.TouchEvent) {
         ///获得当前复选框
         var checkBox:eui.CheckBox = <eui.CheckBox>event.target;
+
+        switch (checkBox.name){ //强行单选化
+            case "giveUp":{
+                console.log(checkBox.name);
+                this.gameScreen.checkBox_autoPass.selected = false;
+                this.gameScreen.checkBox_followAny.selected = false;
+                break;
+            }
+            case "autoPass":{
+                console.log(checkBox.name);
+                this.gameScreen.checkBox_giveUp.selected = false;
+                this.gameScreen.checkBox_followAny.selected = false;
+                break;
+            }
+            case "followAny":{
+                console.log(checkBox.name);
+                this.gameScreen.checkBox_giveUp.selected = false;
+                this.gameScreen.checkBox_autoPass.selected = false;
+                break;
+            }
+        }
+        
+        
 
         if (checkBox.currentState === "disabled" || checkBox.currentState === "disabledAndSelected" ) {
             // label.text = "禁用状态，无法选择";

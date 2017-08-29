@@ -44,7 +44,7 @@ class Chip extends eui.Component{
 		    var y:number = this.y;
 			var baseChip:number;
 		    var tween:egret.Tween = egret.Tween.get(this);
-            tween.to({alpha : 0.4,x : base.x,y : base.y},800,egret.Ease.sineOut);
+            tween.to({alpha : 0.4,x : base.x,y : base.y},400,egret.Ease.sineOut);
 		    tween.call(function(){
 			    this.visible = false;
 			    this.x = x;
