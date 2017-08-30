@@ -99,7 +99,7 @@ module game{
                 this["User_"+(i+1)].goldNum = this.userMoneyArray[i];
                 this["Chip_"+(i+1)].chipNum = this.userMoneyArray[i];
                 this["Chip_"+(i+1)].isRight = !(i == 1 || i == 2 || i == 3);
-                this["User_"+(i+1)]._isCardVisible = (i == 0);
+                this["User_"+(i+1)].isCardVisible = (i == 0);
                 this["Chip_"+(i+1)].gotoBaseAnimation(this["baseChipNum"]);
             }
             
@@ -164,9 +164,6 @@ module game{
             if(state=="three_choose"){
                 this.three_choose.play(0);
             }
-            // if(this.RangeMoneySlider.visible){    //不判断会崩
-            //     this.RangeMoneySlider.visible = false;
-            // }
             this.skin.currentState=state+"";
             console.log(state);
         }

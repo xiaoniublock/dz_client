@@ -63,6 +63,7 @@
 		<e:Rect width="214" height="36" x="453" y="156" anchorOffsetX="0" anchorOffsetY="0" fillAlpha="0.5" ellipseWidth="54" ellipseHeight="54" scaleX="1" scaleY="1"/>
 		<e:Label text="底池：" x="470" y="163" size="22" scaleX="1" scaleY="1"/>
 		<e:Label id="baseChipNum" text="0" x="530" y="163" textAlign="center" anchorOffsetX="0" width="118" textColor="0xfeff86" size="22" scaleX="1" scaleY="1"/>
+		<e:Label id="yourCardShape" text="同花顺..不存在的" x="651" y="572" size="22" textColor="0x7eff00" anchorOffsetX="0" width="168" textAlign="center"/>
 	</e:Group>
 
 	<e:Group id="userCardsGroup" width="165" height="117" x="753" y="496">

@@ -20,6 +20,7 @@ class User extends eui.Component{
 	public goldNumLabel:eui.Label;
 	public headImg:eui.Image;
 	public progress:eui.Image;
+	public smallCardGroup:eui.Group;
 	public leftCard:eui.Image;
 	public rightCard:eui.Image;
 
@@ -57,24 +58,28 @@ class User extends eui.Component{
 		this.headImg.bitmapData = headImgData;
 	}
 
+	public set isCardVisible(isCardVisible:boolean){
+		this._isCardVisible = isCardVisible;
+		this.smallCardGroup.visible = !isCardVisible;
+	}
+
 	public set cardNum(cardNum:number){
 		this._cardNum = cardNum;
+<<<<<<< Updated upstream
 		//console.log(this.userName + this.isCardVisible);
 		
 		if(this.isCardVisible == true){
+=======
+		if(cardNum == 0){
+>>>>>>> Stashed changes
 			this.leftCard.visible = false;
 			this.rightCard.visible = false;
+		}else if(cardNum == 1){
+			this.leftCard.visible = false;
+			this.rightCard.visible = true;
 		}else{
-			if(cardNum == 0){
-				this.leftCard.visible = false;
-				this.rightCard.visible = false;
-			}else if(cardNum == 1){
-				this.leftCard.visible = false;
-				this.rightCard.visible = true;
-			}else{
-				this.leftCard.visible = true;
-				this.rightCard.visible = true;
-			}
+			this.leftCard.visible = true;
+			this.rightCard.visible = true;
 		}
 	}
 

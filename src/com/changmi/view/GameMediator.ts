@@ -105,11 +105,12 @@ module game {
         }
 
         public giveupAction(event:egret.TouchEvent){
+            console.log("giveup");
             
         }
 
         public passAction(event:egret.TouchEvent){
-            
+            console.log("pass");
         }
 
         public addChipAction(event:egret.TouchEvent){

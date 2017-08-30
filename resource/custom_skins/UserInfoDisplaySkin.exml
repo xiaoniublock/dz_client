@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="UserInfoDisplaySkin" width="126" height="174" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+<e:Skin class="UserInfoDisplaySkin" width="126" height="174" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
 	<w:Config id="15de5542d81" ></w:Config>
 	<e:Rect width="126" height="174" x="-1" y="0.44" anchorOffsetX="0" anchorOffsetY="1.44" fillAlpha="0.7" fillColor="0x1a1a1a" ellipseWidth="10" ellipseHeight="10"/>
 	<e:Label id="userNameLabel" text="Label" size="25" horizontalCenter="0" y="0"/>
 	<e:Label id="goldNumLabel" text="Label" size="27" textColor="0xc5b259" bottom="0" horizontalCenter="0"/>
 	<e:Image id="progress" width="120" height="115" x="3" y="32" anchorOffsetX="0" anchorOffsetY="0" source="progressArc_png"/>
 	<e:Image id="headImg" width="115" height="113" x="6" y="33" anchorOffsetX="0" anchorOffsetY="0"/>
-	<e:Image id="leftCard" width="41" height="49" x="96" y="60" source="gamescreen.poker_left" visible="false"/>
-	<e:Image id="rightCard" width="41" height="49" x="104" y="64" source="gamescreen.poker_right" visible="false"/>
+	<e:Group id="playerCardGroup" width="112" height="113" x="6" y="32" anchorOffsetX="0" anchorOffsetY="0" visible="false">
+		<ns1:Card width="78" height="113" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="poker_bg_png" scaleX="1" scaleY="1"/>
+		<ns1:Card width="78" height="113" x="36" y="0" anchorOffsetX="0" anchorOffsetY="0" source="poker_bg_png" scaleX="1" scaleY="1"/>
+	</e:Group>
+	<e:Group id="smallCardGroup" width="49" height="52" x="91" y="63" anchorOffsetX="0" anchorOffsetY="0">
+		<e:Image id="leftCard" width="41" height="49" x="5" y="-3" source="gamescreen.poker_left" visible="false" scaleX="1" scaleY="1"/>
+		<e:Image id="rightCard" width="41" height="49" x="13" y="1" source="gamescreen.poker_right" visible="false" scaleX="1" scaleY="1"/>
+	</e:Group>
 </e:Skin>
