@@ -15,20 +15,20 @@
 		
 		
 			
-					<e:Image id="btn_activity" width="52" height="57" left="562"  bottom="34" source="lobbyscreen.activity"/>
-					<e:Label text="活动" size="12" width="47" height="23" left="565" bottom="8" textAlign="center"/>
+					<e:Image id="btn_activity" width="48" height="48" left="565"  bottom="34" source="lobbyscreen.activity"/>
+					<e:Label text="活动" size="12" width="47" height="22" left="566" bottom="8" textAlign="center"/>
 				
 					
-					<e:Image id="btn_emailBox" width="52" height="57" left="685"  bottom="34" source="lobbyscreen.mailbox"/>
-					<e:Label text="邮箱" size="12" width="47" height="23" left="685" bottom="8" textAlign="center"/>
+					<e:Image id="btn_emailBox" width="48" height="48" left="685"  bottom="34" source="lobbyscreen.mailbox"/>
+					<e:Label text="邮箱" size="12" width="47" height="22" left="685" bottom="8" textAlign="center"/>
 				
 					
-					<e:Image id="btn_rank" width="52" height="57" left="809"  bottom="34" source="lobbyscreen.Ranking"/>
-					<e:Label text="排行" size="12" width="47" height="23" left="811" bottom="8" textAlign="center"/>
+					<e:Image id="btn_rank" width="48" height="48" left="809"  bottom="34" source="lobbyscreen.Ranking"/>
+					<e:Label text="排行" size="12" width="47" height="22" left="811" bottom="8" textAlign="center"/>
 				
 					
-					<e:Image id="btn_setting"  width="52" height="57" left="923" bottom="34" source="lobbyscreen.Set_up"/>
-					<e:Label text="设置" size="12" width="47" height="23" left="926" bottom="8" textAlign="center"/>
+					<e:Image id="btn_setting"  width="48" height="48" left="926" bottom="34" source="lobbyscreen.Set_up"/>
+					<e:Label text="设置" size="12" width="47" height="22" left="925" bottom="8" textAlign="center"/>
 
 
 			

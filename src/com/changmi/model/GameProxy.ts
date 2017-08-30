@@ -16,8 +16,9 @@ module game {
 
 		public constructor() {
 			super(GameProxy.NAME);
-			console.log(GameProxy.NAME);
-			
+        	NetController.getInstance().addListener(Commands.PLAYERBET, this);
+			NetController.getInstance().addListener(Commands.PUSH_PUBLICCARD, this);
+			NetController.getInstance().addListener(Commands.PUSH_OWNCARD, this);
 		}
 
 		 /**开始匹配游戏*/
@@ -40,5 +41,52 @@ module game {
 
 		}
       
+	    /**收到服务器消息*/
+    private onReciveMsg(data:BaseMsg)
+    {
+        let command = data.command;
+        console.warn('onReciveMsg', command);
+        switch (command)
+        {
+            case Commands.PLAYERBET:
+                this.onRecivePlayGame(data.content);
+                break;
+            case Commands.PUSH_PUBLICCARD:
+                //this.onRecivePlayGame(data.content);
+                break;
+            case Commands.PUSH_OWNCARD:
+                //this.onRecivePlayGame(data.content);
+                break;
+            /*留下其他*/
+        }
+    }
+
+    /**房间消息*/
+    private onRecivePlayGame(content):void
+    {
+        //0是玩家下注, 1是玩家让, 2是玩家弃牌，3得出结果
+        let state = content.state;
+        console.warn('state', state);
+        if(state == undefined) return;
+        switch(state)
+        {
+            case 0 :
+                // this.my_cards = content.cards.sort(function(a,b){return b-a});
+                // this.refreshMyCard(this.my_cards);
+                break;
+            case 1 :
+                //this.onGamePlay(content);
+                break;
+            case 2 :
+                //this.onGameOver(content);
+                break;
+			case 3 :
+                //this.onGameOver(content);
+                break;
+           
+        }
+    }
+
+
 	}
 }

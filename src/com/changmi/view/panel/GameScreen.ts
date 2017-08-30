@@ -24,7 +24,19 @@ module game{
 
         public publicCardsGroup:eui.Group;
         public userCardsGroup:eui.Group;
+        
+        public MoneyBtnSmallest: eui.Button;
+        public MoneyBtnSmall:eui.Button;
+        public MoneyBtnNormal:eui.Button;
+        public MoneyBtnBig:eui.Button;
+        public MoneyBtnBiggest:eui.Button;
 
+
+        public multipleBtn1:eui.Button;
+        public multipleBtn2:eui.Button;
+        public multipleBtn3:eui.Button;
+
+        
          public constructor() {
             super();
             this.once(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
@@ -90,30 +102,55 @@ module game{
                 this["User_"+(i+1)]._isCardVisible = (i == 0);
                 this["Chip_"+(i+1)].gotoBaseAnimation(this["baseChipNum"]);
             }
-
-            for(var i=0 ;i<this.publicCardsGroup.numChildren;i++){
-                let card=(<Card>this.publicCardsGroup.getChildAt(i));
-                card.index=10;
-                card.color=1;
-                this.cardAnimationWithOrigin(this.publicCardsGroup.x+card.x,this.publicCardsGroup.y+card.y,this.sendPublicCard,[card]);
-            }
-
-            for(var i=0 ;i<this.userCardsGroup.numChildren;i++){
-                let card=(<Card>this.userCardsGroup.getChildAt(i));
-                card.index=11;
-                card.color=2;
-                this.cardAnimationWithOrigin(this.userCardsGroup.x+card.x,this.userCardsGroup.y+card.y,this.sendPublicCard,[card]);
-            }
             
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,0,0,0);
             this.RangeMoneySlider.addEventListener(egret.Event.CHANGE,this.onVSLiderChange,this);
-
+            
             ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
         }
 
-        public sendPublicCard(card : Card,card1 : eui.Image){
+        public sendCard(card : Card,card1 : eui.Image){
             this.removeChild(card1);
-            console.log(card.startrotateAndChangeSource());
+            card.visible=true;
+            card.startrotateAndChangeSource();
+        }
+
+        /**
+         * 发公共牌，有三个回合，第一回合发三张，后面两回合每次发一张
+         */
+        public sendPublicCard(round:number, cards:Array<Card>){
+            switch(round){
+                case 1:{
+                     for(var i=0 ;i<3;i++){
+                        let card=(<Card>this.publicCardsGroup.getChildAt(i));
+                        card.index=cards[i].index;
+                        card.color=cards[i].color;
+                        this.cardAnimationWithOrigin(this.publicCardsGroup.x+card.x,this.publicCardsGroup.y+card.y,this.sendCard,[card]);
+                        }
+                    break;
+                }
+                case 2:
+                case 3:{
+                        let card=(<Card>this.publicCardsGroup.getChildAt(round+1));
+                        card.index=cards[0].index;
+                        card.color=cards[0].color;
+                        this.cardAnimationWithOrigin(this.publicCardsGroup.x+card.x,this.publicCardsGroup.y+card.y,this.sendCard,[card]);
+                    break;
+                }
+                
+            }
+            
+        }
+        /**
+         * 发玩家的手牌，一次发两张
+         */
+        public sendOwnCard(cards:Array<Card>){
+            for(var i=0 ;i<this.userCardsGroup.numChildren;i++){
+                let card=(<Card>this.userCardsGroup.getChildAt(i));
+                card.index=cards[i].index;
+                card.color=cards[i].color;
+                this.cardAnimationWithOrigin(this.userCardsGroup.x+card.x,this.userCardsGroup.y+card.y,this.sendCard,[card]);
+            }
         }
 
         public switchBottomState(state:String){

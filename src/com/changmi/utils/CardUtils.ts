@@ -25,15 +25,16 @@ class CardUtils
     public  SevenToFiveGroups (cards:Array<Card>):Array<Array<Card>>
     {
         let group:Array<Array<Card>>=[];
-        for (let a = 0; a < 3; a++)
+        let cardnum=cards.length;
+        for (let a = 0; a < cardnum-4; a++)
         {
-            for (let b = a + 1; b < 4; b++)
+            for (let b = a + 1; b <  cardnum-3; b++)
             {
-                for (let c = b + 1; c < 5; c++)
+                for (let c = b + 1; c <  cardnum-2; c++)
                 {
-                    for (let d = c + 1; d < 6; d++)
+                    for (let d = c + 1; d <  cardnum-1; d++)
                     {
-                        for (let e = d + 1; e < 7; e++)
+                        for (let e = d + 1; e <  cardnum; e++)
                         {
                             let pukeGroup:Array<Card> = [];
                             pukeGroup.push(cards[a]);
@@ -267,8 +268,7 @@ class CardUtils
             maxCardNum=tmp;
             }
         }
-        let cardGroups:CardGroups =new CardGroups();
-        cardGroups.cards=maxCards;
+        let cardGroups:CardGroups =new CardGroups(maxCards);
         cardGroups.cardNum=maxCardNum;
             // console.log("max           "+maxCardNum);
         return cardGroups;

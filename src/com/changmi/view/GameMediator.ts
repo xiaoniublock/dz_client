@@ -13,8 +13,21 @@ module game {
             this.gameScreen.giveUpBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.giveupAction,this);
             this.gameScreen.passBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.passAction,this);
             this.gameScreen.addChipBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.addChipAction,this);
-        
-             console.log( this.gameScreen.checkBox_giveUp.label);
+            
+            this.gameScreen.MoneyBtnSmallest.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
+            this.gameScreen.MoneyBtnSmall.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
+            this.gameScreen.MoneyBtnNormal.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
+            this.gameScreen.MoneyBtnBig.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
+            this.gameScreen.MoneyBtnBiggest.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
+            this.gameScreen.RangeMoneyBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
+
+
+            this.gameScreen.multipleBtn1.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
+            this.gameScreen.multipleBtn2.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
+            this.gameScreen.multipleBtn3.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
+
+
+
         }
     ///处理复选框的change事件回调
     private onChange(event:egret.TouchEvent) {
@@ -67,7 +80,8 @@ module game {
         }
           public listNotificationInterests(): Array<any> {
             return [
-                GameProxy.CHANGE_STATE,GameProxy.MATCHPLAYER
+                GameProxy.CHANGE_STATE,
+                GameProxy.MATCHPLAYER
             ];
         }
 
@@ -100,6 +114,10 @@ module game {
 
         public addChipAction(event:egret.TouchEvent){
             this.sendNotification(GameProxy.CHANGE_STATE, "count_choose");
+        }
+        public countBet(event:egret.TouchEvent){
+            console.log(<eui.Button>event.currentTarget.label);
+            
         }
     }
 }

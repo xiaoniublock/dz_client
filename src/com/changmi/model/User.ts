@@ -59,7 +59,7 @@ class User extends eui.Component{
 
 	public set cardNum(cardNum:number){
 		this._cardNum = cardNum;
-		console.log(this.userName + this.isCardVisible);
+		//console.log(this.userName + this.isCardVisible);
 		
 		if(this.isCardVisible == true){
 			this.leftCard.visible = false;
