@@ -65,13 +65,8 @@ class User extends eui.Component{
 
 	public set cardNum(cardNum:number){
 		this._cardNum = cardNum;
-<<<<<<< Updated upstream
-		//console.log(this.userName + this.isCardVisible);
-		
-		if(this.isCardVisible == true){
-=======
+
 		if(cardNum == 0){
->>>>>>> Stashed changes
 			this.leftCard.visible = false;
 			this.rightCard.visible = false;
 		}else if(cardNum == 1){
