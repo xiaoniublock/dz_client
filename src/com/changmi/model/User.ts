@@ -15,6 +15,7 @@ class User extends eui.Component{
 	private _goldNum:string;
 	private _headImgData:egret.BitmapData;
 	private _cardNum:number;
+	private _seat:number;
 
 	public userNameLabel:eui.Label;
 	public goldNumLabel:eui.Label;
@@ -26,6 +27,10 @@ class User extends eui.Component{
 
 	//计时器
 	public timer:egret.Timer= new egret.Timer(50,360);
+
+	public get seat():number{
+		return this._seat;
+	}
 
 	public get userName():string{
 		return this._userName;
@@ -41,6 +46,10 @@ class User extends eui.Component{
 
 	public get isCardVisible():boolean{
 		return this._isCardVisible;
+	}
+
+	public set seat(seat:number){
+		this._seat=seat;
 	}
 
 	public set userName(userName:string){

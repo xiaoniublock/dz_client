@@ -152,6 +152,12 @@ module game{
                 this.cardAnimationWithOrigin(this.userCardsGroup.x+card.x,this.userCardsGroup.y+card.y,this.sendCard,[card]);
             }
         }
+        /**
+         * 显示手牌
+         */
+        public showPlayerCards(){
+            
+        }
 
         public switchBottomState(state:String){
             if(state=="first_Bet"){
