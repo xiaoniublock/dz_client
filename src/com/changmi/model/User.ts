@@ -11,11 +11,11 @@ class User extends eui.Component{
 	private _isGiveUp:boolean;		//判断该用户是否已经放弃游戏
 	private _isCardVisible:boolean;	//设置是否可见该玩家的牌
 
-	private _userName:string;
-	private _goldNum:string;
-	private _headImgData:egret.BitmapData;
-	private _cardNum:number;
-	private _seat:number;
+	private _userName:string;//用户名
+	private _goldNum:string;//筹码
+	private _headImgData:string;//头像地址
+	private _cardNum:number;//手牌大小
+	private _seat:number;//所处作为
 
 	public userNameLabel:eui.Label;
 	public goldNumLabel:eui.Label;
@@ -24,6 +24,9 @@ class User extends eui.Component{
 	public smallCardGroup:eui.Group;
 	public leftCard:eui.Image;
 	public rightCard:eui.Image;
+
+	//加载用户头像加载器
+	private  imageLoader:egret.ImageLoader=new egret.ImageLoader();
 
 	//计时器
 	public timer:egret.Timer= new egret.Timer(50,360);
@@ -40,7 +43,7 @@ class User extends eui.Component{
 		return this._goldNum;
 	}
 
-	public get headImgData():egret.BitmapData{
+	public get headImgData():string{
 		return this._headImgData;
 	}
 
@@ -62,9 +65,12 @@ class User extends eui.Component{
 		this.goldNumLabel.text = goldNum;
 	}
 
-	public set headImgData(headImgData:egret.BitmapData){
+	public set headImgData(headImgData:string){
 		this._headImgData = headImgData;
-		this.headImg.bitmapData = headImgData;
+		this.imageLoader.once(egret.Event.COMPLETE,(e:egret.Event)=>{
+			this.headImg.bitmapData = e.currentTarget.data;
+		},this);
+        this.imageLoader.load(headImgData);
 	}
 
 	public set isCardVisible(isCardVisible:boolean){

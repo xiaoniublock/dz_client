@@ -37,7 +37,8 @@ class UserUtils {
 			}
 			for(var i=0;i<this.userPools.length;i++){
 				if(this.userPools[i].seat!=4){
-					this.userPools[i].seat=(i+1+Math.abs(4-ownIndex))%7
+					let userseat:number=(i+1+Math.abs(4-ownIndex))%7;
+					this.userPools[i].seat=(userseat==0?7:userseat);
 				}
 				
 			}

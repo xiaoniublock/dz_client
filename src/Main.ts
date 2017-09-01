@@ -140,6 +140,9 @@ class Main extends egret.DisplayObjectContainer {
     }
 
     protected startCreateScene(): void {
+        //图片跨域加载
+        egret.ImageLoader.crossOrigin = "anonymous";
+        
         let applicationFacade: game.ApplicationFacade = game.ApplicationFacade.getInstance();
         applicationFacade.startUp(this.appContainer);
         applicationFacade.sendNotification(game.LobbyCommand.CHANGE, 1);
