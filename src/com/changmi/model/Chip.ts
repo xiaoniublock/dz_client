@@ -57,22 +57,22 @@ class Chip extends eui.Component{
 		},this);
 	}
 
-	public addChipAnimation(user:User,chipNum:number){
-		var x:number = this.x;
-		var y:number = this.y;
+	// public addChipAnimation(user:User,chipNum:number){
+	// 	var x:number = this.x;
+	// 	var y:number = this.y;
 
-		var chip:eui.Label = new eui.Label();
-		chip.size = 27;
-		chip.textColor = 0xC5B259;
-		chip.text = "" + chipNum;
-		chip.x = user.x;
-		chip.y = user.y;
+	// 	var chip:eui.Label = new eui.Label();
+	// 	chip.size = 27;
+	// 	chip.textColor = 0xC5B259;
+	// 	chip.text = "" + chipNum;
+	// 	chip.x = user.x;
+	// 	chip.y = user.y;
 
-		var tween:egret.Tween = egret.Tween.get(chip);
-        tween.to({alpha : 0.4,x : x,y : y},300,egret.Ease.sineOut);
-		tween.call(function(){
-			this.visible = true;
+	// 	var tween:egret.Tween = egret.Tween.get(chip);
+    //     tween.to({alpha : 0.4,x : x,y : y},300,egret.Ease.sineOut);
+	// 	tween.call(function(){
+	// 		this.visible = true;
 			
-		},this);
-	}
+	// 	},this);
+	// }
 }
