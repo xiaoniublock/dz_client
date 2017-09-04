@@ -6,8 +6,9 @@
 */
 class Card extends eui.Image
 {
-    public constructor(){
+    public constructor(index:number,color:number){
         super();
+        this.createCardSource(index,color);
     }
     /**扑克序号,2-14,最小的是2，最大的是A*/
     public _index : number;

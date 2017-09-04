@@ -24,6 +24,7 @@ module game{
 
         public publicCardsGroup:eui.Group;
         public userCardsGroup:eui.Group;
+        public UserGroup:eui.Group;
         
         public MoneyBtnSmallest: eui.Button;
         public MoneyBtnSmall:eui.Button;
@@ -52,7 +53,16 @@ module game{
 
             function sendCardToUserTimer()
             {
+               
                 var index:number = this.sendCardToUserTimer.currentCount;
+                if(index==2){
+                  this["User_"+index].playerOut();
+                }
+                if((index==3||index==10)){
+                    // this.sendOwnCard(index/7,UserUtils.getInstance().getOwnUser().cards.cards[index/7]);
+                   this.sendOwnCard(index/7,new Card(8,3));
+                    return;
+                }
                 var x:number = this["User_"+(index%7+1)].x + 102 + 104; //一个是group的位置偏移，一个是user位置偏移
                 var y:number = this["User_"+(index%7+1)].y + 47 + 64;
                 if(this.userNameArray[index%7] != ""){  //如果这个位置有人
@@ -63,6 +73,11 @@ module game{
             function sendCardToUserTimerOver()
             {	
                 //游戏开始
+                let cards:Array<Card>=[];
+                cards.push(new Card(10,1));
+                cards.push(new Card(11,1));
+                cards.push(new Card(12,1));
+                this.sendPublicCard(1,cards);
             }
         }
 
@@ -99,7 +114,7 @@ module game{
                 this["User_"+(i+1)].goldNum = this.userMoneyArray[i];
                 this["Chip_"+(i+1)].chipNum = this.userMoneyArray[i];
                 this["Chip_"+(i+1)].isRight = !(i == 1 || i == 2 || i == 3);
-                this["User_"+(i+1)].isCardVisible = (i == 0);
+                this["User_"+(i+1)].isCardVisible = (i == 3);
                 this["Chip_"+(i+1)].gotoBaseAnimation(this["baseChipNum"]);
             }
             
@@ -125,7 +140,9 @@ module game{
                         let card=(<Card>this.publicCardsGroup.getChildAt(i));
                         card.index=cards[i].index;
                         card.color=cards[i].color;
+                        egret.setTimeout(function(card:Card){
                         this.cardAnimationWithOrigin(this.publicCardsGroup.x+card.x,this.publicCardsGroup.y+card.y,this.sendCard,[card]);
+                     },this,i*300,card);
                         }
                     break;
                 }
@@ -142,21 +159,25 @@ module game{
             
         }
         /**
-         * 发玩家的手牌，一次发两张
+         * 发玩家的手牌
          */
-        public sendOwnCard(cards:Array<Card>){
-            for(var i=0 ;i<this.userCardsGroup.numChildren;i++){
-                let card=(<Card>this.userCardsGroup.getChildAt(i));
-                card.index=cards[i].index;
-                card.color=cards[i].color;
+        public sendOwnCard(index:number,data:Card){
+                let card=(<Card>this.userCardsGroup.getChildAt(index));
+                card.index=data.index;
+                card.color=data.color;
                 this.cardAnimationWithOrigin(this.userCardsGroup.x+card.x,this.userCardsGroup.y+card.y,this.sendCard,[card]);
-            }
         }
         /**
          * 显示手牌
          */
-        public showPlayerCards(){
-            
+        public showPlayerCards(index:number,cardGroup:Array<Card>){
+           let user:User= UserUtils.getInstance().getUserFromIndex(index);
+           user.playerCardGroup.visible=true;
+           for(let i=0;i<user.playerCardGroup.numChildren;i++){
+               let card:Card=<Card>user.playerCardGroup.getChildAt(i);
+              card.index=cardGroup[i].index;
+              card.color=cardGroup[i].color;
+           }
         }
 
         public switchBottomState(state:String){

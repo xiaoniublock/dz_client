@@ -25,6 +25,9 @@ class UserUtils {
 	public saveOwnUser(user:User){
 		this.ownUser=user;
 	}
+	public getOwnUser():User{
+		return this.ownUser;
+	}
 	public sortUsersSeats(){
 		let ownIndex:number;
 		if(this.userPools.length!=0&&this.ownUser){
