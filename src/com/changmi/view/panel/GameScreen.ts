@@ -24,6 +24,7 @@ module game{
 
         public publicCardsGroup:eui.Group;
         public userCardsGroup:eui.Group;
+        public UserGroup:eui.Group;
         
         public MoneyBtnSmallest: eui.Button;
         public MoneyBtnSmall:eui.Button;
@@ -64,18 +65,6 @@ module game{
             {	
                 //游戏开始
             }
-        }
-
-        public cardAnimationWithOrigin(x:number,y:number,finishAnimationFunction:Function,params?:any[]){
-            var card:eui.Image = new eui.Image();
-            card.texture = RES.getRes("gamescreen.poker_right");
-            card.x = 652;
-            card.y = 187;
-            this.addChild(card);
-            var tween:egret.Tween = egret.Tween.get(card);
-            tween.to({x : x,y : y,scale:0.5,alpha:0.5},300,egret.Ease.sineOut);
-            params.push(card);
-            tween.call(finishAnimationFunction,this,params);
         }
 
         public sendCardFinish(index : number,card : eui.Image){
@@ -152,12 +141,6 @@ module game{
                 this.cardAnimationWithOrigin(this.userCardsGroup.x+card.x,this.userCardsGroup.y+card.y,this.sendCard,[card]);
             }
         }
-        /**
-         * 显示手牌
-         */
-        public showPlayerCards(){
-            
-        }
 
         public switchBottomState(state:String){
             if(state=="first_Bet"){
@@ -171,6 +154,7 @@ module game{
                 this.three_choose.play(0);
             }
             this.skin.currentState=state+"";
+            this.giveChipAction(4190,1);    //测试用
             console.log(state);
         }
         
@@ -182,5 +166,93 @@ module game{
             scale * this.RangeMoneySlider.height * 0.82);
             this.RangeMoneyBtn.label = "" + this.RangeMoneySlider.pendingValue;
         }
+
+        //下面都是动画效果
+
+        //通用发牌效果
+        public cardAnimationWithOrigin(x:number,y:number,finishAnimationFunction:Function,params?:any[]){
+            var card:eui.Image = new eui.Image();
+            card.texture = RES.getRes("gamescreen.poker_right");
+            card.x = 652;
+            card.y = 187;
+            this.addChild(card);
+            var tween:egret.Tween = egret.Tween.get(card);
+            tween.to({x : x,y : y,scale:0.5,alpha:0.5},300,egret.Ease.sineOut);
+            params.push(card);
+            tween.call(finishAnimationFunction,this,params);
+        }
+
+        //给钱动画——未完成
+        public giveChipAction(chip:number,userPosition:number){
+            var chipNumArray:Array<number> = [5000,2500,1000,300,50];
+            var chipNameArray:Array<string> = ["gamescreen.chip_5000_more","gamescreen.chip_2500-5000",
+                "gamescreen.chip_1000-2500","gamescreen.chip_300-1000","gamescreen.chip_50-300"];
+            var chipArray:Array<string> = new Array();
+            var chipNow:number = 0;         //记录当前计算的筹码
+            for(var i = 0;i < chipNumArray.length;i++){
+                while(chipNow + chipNumArray[i] < chip){
+                    chipNow += chipNumArray[i];
+                    chipArray.push(chipNameArray[i]);
+                }
+            }
+
+            var timer = new egret.Timer(200,chipArray.length);
+            timer.addEventListener(egret.TimerEvent.TIMER,giveChip,this);
+            timer.start();
+
+            this.changeLabelNumber(this["baseChipNum"],this["baseChipNum"].text - chip);
+            this.changeLabelNumber(this["User_"+(userPosition)].goldNumLabel,parseInt(this["User_"+(userPosition)].goldNumLabel.text) + chip);
+            
+            function giveChip(){
+                this.giveChipAnimation(this["User_"+(userPosition)].x,this["User_"+(userPosition)].y,chipArray[timer.currentCount]);
+            }
+        }
+
+        public giveChipAnimation(x:number,y:number,type:string){
+            var chipImg:eui.Image = new eui.Image();
+            chipImg.texture = RES.getRes(type);
+            chipImg.x = this["baseChipNum"].x;
+            chipImg.y = this["baseChipNum"].y;
+            this.UserGroup.addChild(chipImg);
+
+            var tween:egret.Tween = egret.Tween.get(chipImg);
+            tween.to({x : x + 50,y : y + 140,scale:0.5,alpha:0.5},1000,egret.Ease.sineOut);
+            tween.call(function(){
+                this.UserGroup.removeChild(chipImg);
+            },this);
+        }
+
+        //动态加减数字方法——勉强完成
+        public changeLabelNumber(label:eui.Label,num:number){
+            var nowNum:number = parseInt(label.text);   //现在数字
+            var subNum:number = num - nowNum;           //需要改变的差
+            var numLength;                              //记录差的位数
+            var changeNum;                              //记录一次改变的数字大小
+            for(numLength = 1;Math.pow(10,numLength) < Math.abs(subNum) && numLength < 5;numLength++){
+            }
+            changeNum = 0;
+            while(numLength){
+                changeNum *= 10;
+                changeNum++;    //变成11111格式
+                numLength--;
+                if(Math.abs(changeNum) > Math.abs(subNum)){
+                    changeNum = Math.ceil(changeNum / 10);
+                }
+            }
+            if(subNum > 0){
+                subNum -= changeNum;
+                nowNum += changeNum;
+            }else{
+                subNum += changeNum;
+                nowNum -= changeNum;
+            }
+            label.text = "" + nowNum;
+            if(num != nowNum){
+                egret.setTimeout(function(){
+                    this.changeLabelNumber(label,num);
+                }, this, changeNum == 1 ? 100 : 40);
+            }
+        }
+
     }
 }
