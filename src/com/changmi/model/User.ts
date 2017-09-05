@@ -12,7 +12,7 @@ class User extends eui.Component{
 	private _isCardVisible:boolean;	//设置是否可见该玩家的牌
 
 	private _userName:string;//用户名
-	private _goldNum:string;//筹码
+	private _goldNum:number;//筹码
 	private _headImgData:string;//头像地址
 	private _cardNum:number;//手牌数目
 	private _seat:number;//所处作为
@@ -52,7 +52,7 @@ class User extends eui.Component{
 		return this._userName;
 	}
 
-	public get goldNum():string{
+	public get goldNum():number{
 		return this._goldNum;
 	}
 
@@ -73,9 +73,9 @@ class User extends eui.Component{
 		this.userNameLabel.text = userName;
 	}
 
-	public set goldNum(goldNum:string){
+	public set goldNum(goldNum:number){
 		this._goldNum = goldNum;
-		this.goldNumLabel.text = goldNum;
+		this.goldNumLabel.text = "" + goldNum;
 	}
 
 	public set headImgData(headImgData:string){
@@ -124,7 +124,7 @@ class User extends eui.Component{
 		this.cardNum = 0;
 	}
 
-	public createUserSource(userName:string,goldNum:string){//,headImgData:egret.BitmapData){
+	public createUserSource(userName:string,goldNum:number){//,headImgData:egret.BitmapData){
 		//this.initUserUI();
         this.userName = userName;
 		this.goldNum = goldNum;
@@ -187,5 +187,15 @@ class User extends eui.Component{
 			];
 		var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
 		this.filters=[colorFlilter];
+	}
+
+	public addChip(chip:number){
+		this._goldNum += chip;
+		AnimationUtils.changeLabelNumber(this.goldNumLabel,chip);
+	}
+
+	public reduceChip(chip:number){
+		this._goldNum -= chip;
+		AnimationUtils.changeLabelNumber(this.goldNumLabel,-chip);
 	}
 }
