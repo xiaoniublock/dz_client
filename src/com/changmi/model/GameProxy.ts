@@ -35,11 +35,13 @@ module game {
 		private onMatchPlayerBack(data:BaseMsg){
 			this.sendNotification(GameProxy.MATCHPLAYER,data);
 		  }
+          /**
+           * 根据传过来的信息判断操作，是让，弃牌，下注等操作，然后sendData
+           */
+        public  playAction(data:any){
 
-		/**玩家action */
-		public playAction(data: BaseMsg){
+        }
 
-		}
       
 	    /**收到服务器消息*/
     private onReciveMsg(data:BaseMsg)
@@ -48,12 +50,15 @@ module game {
         console.warn('onReciveMsg', command);
         switch (command)
         {
+            //玩家各种操作
             case Commands.PLAYERBET:
                 this.onRecivePlayGame(data.content);
                 break;
+            //开始发公共牌
             case Commands.PUSH_PUBLICCARD:
                 //this.onRecivePlayGame(data.content);
                 break;
+            //给每个人发手牌
             case Commands.PUSH_OWNCARD:
                 //this.onRecivePlayGame(data.content);
                 break;
