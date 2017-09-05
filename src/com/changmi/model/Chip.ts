@@ -52,8 +52,9 @@ class Chip extends eui.Component{
 			this.alpha = 1;
 			baseChip = parseInt(base.text);
             baseChip += parseInt("" + this.chipNum);
-            this.chipNum = 0;
-            base.text = "" + baseChip;
+			AnimationUtils.changeLabelNumber(base,this.chipNum);
+			this.chipNum = 0;
+            // base.text = "" + baseChip;
 		},this);
 	}
 
