@@ -183,10 +183,6 @@ module game{
                 this.three_choose.play(0);
             }
             this.skin.currentState=state+"";
-
-            if(this.chips[4].chipNum != 0){
-                this.giveChipAction(this.chips[4].chipNum,4);
-            }
             
             console.log(state);
         }
@@ -218,8 +214,8 @@ module game{
         //通用加注效果
         public addChipAnimation(chip:number,userPosition:number){
             var chipImg:eui.Image = new eui.Image();
-            chipImg.x = this["baseChipNum"].x;
-            chipImg.y = this["baseChipNum"].y;
+            chipImg.x = this.users[userPosition - 1].x + 50;
+            chipImg.y = this.users[userPosition - 1].y + 140;
             this.UserGroup.addChild(chipImg);
             
             if(chip <= 300){
@@ -233,6 +229,14 @@ module game{
 		    }else{
 			    chipImg.texture = RES.getRes("gamescreen.chip_5000_more");
 		    }
+
+            this.users[userPosition - 1].goldNum -= chip;
+            var tween:egret.Tween = egret.Tween.get(chipImg);
+            tween.to({x : this.chips[userPosition - 1].x + 40,y : this.chips[userPosition - 1].y,scale:0.5,alpha:0.5},400,egret.Ease.sineOut);
+            tween.call(function(){
+                this.chips[userPosition - 1].chipNum += chip;
+                this.UserGroup.removeChild(chipImg);
+            },this);
         }
 
         //给钱动画——未完成
@@ -249,7 +253,7 @@ module game{
                 }
             }
 
-            var timer = new egret.Timer(200,chipArray.length);
+            var timer = new egret.Timer(100,chipArray.length);
             timer.addEventListener(egret.TimerEvent.TIMER,giveChip,this);
             timer.start();
             
@@ -269,7 +273,7 @@ module game{
             this.UserGroup.addChild(chipImg);
 
             var tween:egret.Tween = egret.Tween.get(chipImg);
-            tween.to({x : x + 50,y : y + 140,scale:0.5,alpha:0.5},600,egret.Ease.sineOut);
+            tween.to({x : x + 50,y : y + 140,scale:0.5,alpha:0.5},400,egret.Ease.sineOut);
             tween.call(function(){
                 this.UserGroup.removeChild(chipImg);
             },this);

@@ -37,7 +37,7 @@ class AnimationUtils
         if(num){
             egret.setTimeout(function(){
                 this.changeLabelNumber(label,num);
-            }, this, changeNum == 1 ? 100 : 40);
+            }, this, changeNum == 1 ? 150 : 60);
         }
     }
 }

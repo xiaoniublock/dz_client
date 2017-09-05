@@ -105,18 +105,20 @@ module game {
         }
 
         public giveupAction(event:egret.TouchEvent){
-            console.log("giveup");
-            
+            this.gameScreen.giveChipAction(parseInt(this.gameScreen["baseChipNum"].text),4);
         }
 
         public passAction(event:egret.TouchEvent){
-            console.log("pass");
+            if(this.gameScreen.chips[3].chipNum != 0){
+                this.gameScreen.chips[3].gotoBaseAnimation(this.gameScreen["baseChipNum"]);
+            }
         }
 
         public addChipAction(event:egret.TouchEvent){
             this.sendNotification(GameProxy.CHANGE_STATE, "count_choose");
         }
         public countBet(event:egret.TouchEvent){
+            this.gameScreen.addChipAnimation(parseInt(event.currentTarget.label),4);
             console.log(<eui.Button>event.currentTarget.label);
             
         }

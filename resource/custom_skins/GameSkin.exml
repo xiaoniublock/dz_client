@@ -53,13 +53,13 @@
 		<ns1:User id="User_1" width="126" height="174" x="840" y="0" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
 		<ns1:User id="User_2" width="126" height="174" x="1007" y="180" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
 		<ns1:User id="User_3" width="126" height="174" x="840" y="418" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
-		<ns1:Chip id="Chip_1" width="128" height="32" x="360" y="422" skinName="skins.ChipSkin" visible="false"/>
-		<ns1:Chip id="Chip_2" width="128" height="32" x="178" y="375" skinName="skins.ChipSkin" visible="false"/>
-		<ns1:Chip id="Chip_3" width="128" height="32" x="145" y="253" skinName="skins.ChipSkin" visible="false"/>
-		<ns1:Chip id="Chip_4" width="128" height="32" x="179" y="183" skinName="skins.ChipSkin" visible="false"/>
-		<ns1:Chip id="Chip_5" width="128" height="32" x="838" y="183" skinName="skins.ChipSkin" visible="false"/>
-		<ns1:Chip id="Chip_6" width="128" height="32" x="866" y="253" skinName="skins.ChipSkin" visible="false"/>
-		<ns1:Chip id="Chip_7" width="128" height="32" x="838" y="375" skinName="skins.ChipSkin" visible="false"/>
+		<ns1:Chip id="Chip_4" width="128" height="32" x="360" y="422" skinName="skins.ChipSkin" visible="false"/>
+		<ns1:Chip id="Chip_5" width="128" height="32" x="178" y="375" skinName="skins.ChipSkin" visible="false"/>
+		<ns1:Chip id="Chip_6" width="128" height="32" x="145" y="253" skinName="skins.ChipSkin" visible="false"/>
+		<ns1:Chip id="Chip_7" width="128" height="32" x="179" y="183" skinName="skins.ChipSkin" visible="false"/>
+		<ns1:Chip id="Chip_1" width="128" height="32" x="838" y="183" skinName="skins.ChipSkin" visible="false"/>
+		<ns1:Chip id="Chip_2" width="128" height="32" x="866" y="253" skinName="skins.ChipSkin" visible="false"/>
+		<ns1:Chip id="Chip_3" width="128" height="32" x="838" y="375" skinName="skins.ChipSkin" visible="false"/>
 		<e:Rect width="214" height="36" x="453" y="156" anchorOffsetX="0" anchorOffsetY="0" fillAlpha="0.5" ellipseWidth="54" ellipseHeight="54" scaleX="1" scaleY="1"/>
 		<e:Label text="底池：" x="470" y="163" size="22" scaleX="1" scaleY="1"/>
 		<e:Label id="baseChipNum" text="0" x="530" y="163" textAlign="center" anchorOffsetX="0" width="118" textColor="0xfeff86" size="22" scaleX="1" scaleY="1"/>
