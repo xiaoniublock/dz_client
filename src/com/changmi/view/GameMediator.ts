@@ -112,8 +112,10 @@ module game {
         }
 
         public passAction(event:egret.TouchEvent){
-            if(this.gameScreen.chips[3].chipNum != 0){
-                this.gameScreen.chips[3].gotoBaseAnimation(this.gameScreen["baseChipNum"]);
+            for(var i = 0;i < 7;i++){
+                if(this.gameScreen.chips[i].chipNum != 0){
+                    this.gameScreen.chips[i].gotoBaseAnimation(this.gameScreen["baseChipNum"]);
+                }
             }
         }
 

@@ -103,10 +103,10 @@ module game{
             for(var i = 0;i < 7;i++){
                 this.users[i].userName = this.userNameArray[i];
                 this.users[i].goldNum = parseInt(this.userMoneyArray[i]);
+                this.users[i].cardNum = 0;
                 this.chips[i].chipNum = parseInt(this.userMoneyArray[i]);
                 this.chips[i].isRight = !(i == 1 || i == 2 || i == 3);
                 this.users[i].isCardVisible = (i == 3);
-                this.chips[i].gotoBaseAnimation(this["baseChipNum"]);
             }
             
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,0,0,0);
@@ -257,7 +257,7 @@ module game{
             timer.addEventListener(egret.TimerEvent.TIMER,giveChip,this);
             timer.start();
             
-            AnimationUtils.changeLabelNumber(this["baseChipNum"],-chip);
+            AnimationUtils.getInstance().changeLabelNumber(this["baseChipNum"],-chip);
             this.users[userPosition - 1].addChip(chip);
             
             function giveChip(){

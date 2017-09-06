@@ -11,7 +11,10 @@ class AnimationUtils
     //动态加减数字方法——勉强完成
     //参数1：需要改变的文本
     //参数2：需要改变的数值，如-500即文本数字减少500
-    public static changeLabelNumber(label:eui.Label,num:number){
+    public changeLabelNumber(label:eui.Label,num:number){
+        if(!num){
+            return;
+        }
         var nowNum:number = parseInt(label.text);   //现在数字
         var numLength;                              //记录差的位数
         var changeNum;                              //记录一次改变的数字大小
@@ -37,7 +40,9 @@ class AnimationUtils
         if(num){
             egret.setTimeout(function(){
                 this.changeLabelNumber(label,num);
-            }, this, changeNum == 1 ? 150 : 60);
+            }, this, changeNum == (1 || 2) ? 250 : 80);
         }
     }
+
+    
 }

@@ -200,11 +200,11 @@ class User extends eui.Component{
 
 	public addChip(chip:number){
 		this._goldNum += chip;
-		AnimationUtils.changeLabelNumber(this.goldNumLabel,chip);
+		AnimationUtils.getInstance().changeLabelNumber(this.goldNumLabel,chip);
 	}
 
 	public reduceChip(chip:number){
 		this._goldNum -= chip;
-		AnimationUtils.changeLabelNumber(this.goldNumLabel,-chip);
+		AnimationUtils.getInstance().changeLabelNumber(this.goldNumLabel,-chip);
 	}
 }
