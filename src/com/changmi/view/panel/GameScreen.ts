@@ -88,7 +88,7 @@ module game{
         }
 
         public createCompleteEvent(){
-            this.skinName= this.skinName = "skins.GameSkin";
+            this.skinName = "skins.GameSkin";
             this.switchBtn=new eui.Button();
             this.switchBtn.label = "切换你";
             this.switchBtn.left = 0;

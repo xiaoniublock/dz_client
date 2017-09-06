@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LoadProgressSkin" width="863" height="83" xmlns:e="http://ns.egret.com/eui">
+<e:Image source="bg_progress_bar_png"  width="863"
+			 height="83" />
+<e:Image id="thumb" height="41" width="830" top="17" left="16" source="ic_progress_bar_png"/>
+</e:Skin>

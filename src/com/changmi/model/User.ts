@@ -33,6 +33,12 @@ class User extends eui.Component{
 	//计时器
 	public timer:egret.Timer= new egret.Timer(50,360);
 
+	private angle:number = 0;
+
+	   /**
+		 * 超过计时时间，主动弃牌
+		*/
+    public static GIVEUP: string = "giveup";
 	public get cards():CardGroups{
 		return this._cards;
 	}
@@ -132,6 +138,7 @@ class User extends eui.Component{
 		
     }
 
+	
 	public initUserUI(){
 		this.startTimer();
 		var w:number = this.progress.width;
@@ -144,20 +151,17 @@ class User extends eui.Component{
     	shape.y =h / 2;
     	this.progress.mask = shape;
     	this.addChild(shape);
-    	var angle = 0;
+    	
    		//注册事件侦听器
         this.timer.addEventListener(egret.TimerEvent.TIMER,timerFunc,this);
-        this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE,timerComFunc,this);
+        this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE,this.timerComFunc,this);
     	function timerFunc()
     {	
-       angle += 1;
-        changeGraphics(angle);
-        angle = angle % 360;
+       	this.angle += 1;
+        changeGraphics(	this.angle);
+        this.angle = this.angle % 360;
     }
-    function timerComFunc()
-    {
-        console.log("计时结束");
-    }
+   
     
     function changeGraphics(angle) {
         shape.graphics.clear();
@@ -168,12 +172,17 @@ class User extends eui.Component{
         shape.graphics.endFill();
     }
 	}
+	 public timerComFunc()
+    {
+		this.dispatchEventWith(User.GIVEUP);
+    }
 	//开始计时
 	public startTimer():void{
         this.timer.start();
 	}
 	//停止并初始化
 	public stopTimer():void{
+		this.angle=0;
 		this.timer.reset();
 	}
 

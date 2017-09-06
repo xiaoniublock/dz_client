@@ -25,7 +25,10 @@ module game {
             this.gameScreen.multipleBtn1.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
             this.gameScreen.multipleBtn2.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
             this.gameScreen.multipleBtn3.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
-
+            this.gameScreen.users[3].addEventListener(User.GIVEUP,function(){
+                console.log("users[3]计时结束");
+                
+            },this);
 
 
         }

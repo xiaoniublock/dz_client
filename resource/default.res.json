@@ -5,7 +5,7 @@
 			"name": "preload"
 		},
 		{
-			"keys": "egret_icon_png",
+			"keys": "egret_icon_png,ic_progress_bar_png,bg_background_png,bg_progress_bar_png,ic_logo_png",
 			"name": "loading"
 		}
 	],
@@ -211,6 +211,26 @@
 			"name": "poker_bg2_png",
 			"type": "image",
 			"url": "assets/poker_bg.png"
+		},
+		{
+			"name": "ic_progress_bar_png",
+			"type": "image",
+			"url": "assets/LoadUI/ic_progress_bar.png"
+		},
+		{
+			"name": "bg_background_png",
+			"type": "image",
+			"url": "assets/LoadUI/bg_background.png"
+		},
+		{
+			"name": "bg_progress_bar_png",
+			"type": "image",
+			"url": "assets/LoadUI/bg_progress_bar.png"
+		},
+		{
+			"name": "ic_logo_png",
+			"type": "image",
+			"url": "assets/LoadUI/ic_logo.png"
 		}
 	]
 }

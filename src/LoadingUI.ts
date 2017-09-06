@@ -27,25 +27,30 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////
 
-class LoadingUI extends egret.Sprite {
+class LoadingUI extends eui.Component {
 
+    public lable_progress:eui.Label;
+    public load_progress:eui.ProgressBar;
+    private currentX:number;
     public constructor() {
         super();
-        this.createView();
+        this.once(eui.UIEvent.COMPLETE,this.createView,this);
+        this.skinName = "resource/custom_skins/LoadUISkin.exml";
     }
 
-    private textField:egret.TextField;
-
     private createView():void {
-        this.textField = new egret.TextField();
-        this.addChild(this.textField);
-        this.textField.y = 300;
-        this.textField.width = 480;
-        this.textField.height = 100;
-        this.textField.textAlign = "center";
+        this.load_progress.once(eui.UIEvent.COMPLETE,()=>{
+        this.currentX=this.lable_progress.x;
+        this.load_progress.maximum = 100;//设置进度条的最大值
+        this.load_progress.minimum = 0;//设置进度条的最小值
+            RES.loadGroup("preload");
+         },this);
+         this.load_progress.skinName="resource/custom_skins/LoadProgressSkin.exml";
     }
 
     public setProgress(current:number, total:number):void {
-        this.textField.text = `Loading...${current}/${total}`;
+        this.load_progress.value=Math.ceil(current/total*100);
+        this.lable_progress.text = this.load_progress.value+"%";
+        this.lable_progress.x=  this.currentX+Math.ceil(this.load_progress.width*(current/total));
     }
 }

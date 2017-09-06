@@ -12,6 +12,7 @@ module game {
 		 * 匹配成功返回这张桌子上的玩家数据
 		 */
        	public static MATCHPLAYER: string = "match_player";
+        
 
 
 		public constructor() {

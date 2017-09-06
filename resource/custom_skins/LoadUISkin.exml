@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="skins.LoadUISkin" width="1280" height="720" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="1280" height="720"  source="bg_background_png"/>
+	<e:Image width="504" height="399" x="369" y="91" source="ic_logo_png"/>
+	<e:ProgressBar id="load_progress" width="865" height="83" x="220" y="603" />
+	<e:Label id="lable_progress" text="100%" x="220" y="572" width="83" height="28" size="28"/>
+    
+
+</e:Skin>
