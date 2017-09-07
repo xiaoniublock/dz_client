@@ -24,7 +24,7 @@ class NetController
         {
             this.ws = new WS();
             //this.ws.connect("192.168.0.101", 8181);
-            this.ws.connect("192.168.1.121", 8181);
+            this.ws.connect("192.168.1.121", 8182);
         }
     }
 

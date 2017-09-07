@@ -12,7 +12,7 @@ module game {
 		 * 匹配成功返回这张桌子上的玩家数据
 		 */
        	public static MATCHPLAYER: string = "match_player";
-        
+        private _nextStep:number;
 
 
 		public constructor() {
@@ -40,6 +40,25 @@ module game {
            * 根据传过来的信息判断操作，是让，弃牌，下注等操作，然后sendData
            */
         public  playAction(data:any){
+            console.log(<String>data);
+        var msg = new BaseMsg();
+        msg.command = Commands.PLAYERBET;
+        msg.content = { "name": "112" };
+        switch (data){
+            case Actions.GIVEUP:
+
+            break;
+            case Actions.PASS:
+
+            break;
+            default://不是弃牌不是让牌，那就是下注咯
+
+            break;
+        }
+        // NetController.getInstance().sendData(msg, this.onPlayerActionBack, this);
+        }
+
+        private onPlayerActionBack(data:BaseMsg){
 
         }
 
@@ -63,7 +82,7 @@ module game {
             case Commands.PUSH_OWNCARD:
                 //this.onRecivePlayGame(data.content);
                 break;
-            /*留下其他*/
+           
         }
     }
 
@@ -92,7 +111,21 @@ module game {
            
         }
     }
-
+    public set nextStep(nextStep:number){
+        this._nextStep=nextStep;
+    }
+    public get nextStep():number{
+        return this._nextStep;
+    }
 
 	}
+    /**基本操作代码*/
+}
+class Actions {
+	public static GIVEUP = 1;
+    public static PASS = 2;
+    public static giveUpOrPass = 3;
+    public static followAny = 4;
+    public static autoPass = 5;
+
 }

@@ -39,24 +39,23 @@ module game {
 
         switch (checkBox.name){ //强行单选化
             case "giveUp":{
-                console.log(checkBox.name);
                 this.gameScreen.checkBox_autoPass.selected = false;
                 this.gameScreen.checkBox_followAny.selected = false;
                 break;
             }
             case "autoPass":{
-                console.log(checkBox.name);
                 this.gameScreen.checkBox_giveUp.selected = false;
                 this.gameScreen.checkBox_followAny.selected = false;
                 break;
             }
             case "followAny":{
-                console.log(checkBox.name);
                 this.gameScreen.checkBox_giveUp.selected = false;
                 this.gameScreen.checkBox_autoPass.selected = false;
                 break;
             }
         }
+        //记录下此时的CheckBox状态，待到轮到自己的时候再取出信息，根据信息判断下一步操作发送什么信息
+          //  this.sendNotification(GameCommand.ACTION,event.currentTarget.name);
         
         
 
@@ -109,6 +108,7 @@ module game {
 
         public giveupAction(event:egret.TouchEvent){
             this.gameScreen.giveChipAction(parseInt(this.gameScreen["baseChipNum"].text),4);
+             this.sendNotification(GameCommand.ACTION,Actions.GIVEUP);
         }
 
         public passAction(event:egret.TouchEvent){
@@ -117,6 +117,7 @@ module game {
                     this.gameScreen.chips[i].gotoBaseAnimation(this.gameScreen["baseChipNum"]);
                 }
             }
+            this.sendNotification(GameCommand.ACTION,Actions.PASS);
         }
 
         public addChipAction(event:egret.TouchEvent){
@@ -124,7 +125,7 @@ module game {
         }
         public countBet(event:egret.TouchEvent){
             this.gameScreen.addChipAnimation(parseInt(event.currentTarget.label),4);
-            console.log(<eui.Button>event.currentTarget.label);
+            this.sendNotification(GameCommand.ACTION,event.currentTarget.label);
             
         }
     }
