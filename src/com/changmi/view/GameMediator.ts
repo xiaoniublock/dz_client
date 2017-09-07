@@ -14,17 +14,17 @@ module game {
             this.gameScreen.passBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.passAction,this);
             this.gameScreen.addChipBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.addChipAction,this);
             
-            this.gameScreen.MoneyBtnSmallest.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
-            this.gameScreen.MoneyBtnSmall.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
-            this.gameScreen.MoneyBtnNormal.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
-            this.gameScreen.MoneyBtnBig.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
-            this.gameScreen.MoneyBtnBiggest.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
-            this.gameScreen.RangeMoneyBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
+            this.gameScreen.MoneyBtnSmallest.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBetNum,this);
+            this.gameScreen.MoneyBtnSmall.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBetNum,this);
+            this.gameScreen.MoneyBtnNormal.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBetNum,this);
+            this.gameScreen.MoneyBtnBig.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBetNum,this);
+            this.gameScreen.MoneyBtnBiggest.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBetNum,this);
+            this.gameScreen.RangeMoneyBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBetNum,this);
 
 
-            this.gameScreen.multipleBtn1.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
-            this.gameScreen.multipleBtn2.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
-            this.gameScreen.multipleBtn3.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBet,this);
+            this.gameScreen.multipleBtn1.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBetMul,this);
+            this.gameScreen.multipleBtn2.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBetMul,this);
+            this.gameScreen.multipleBtn3.addEventListener(egret.TouchEvent.TOUCH_TAP,this.countBetMul,this);
             this.gameScreen.users[3].addEventListener(User.GIVEUP,function(){
                 console.log("users[3]计时结束");
                 
@@ -122,10 +122,13 @@ module game {
         public addChipAction(event:egret.TouchEvent){
             this.sendNotification(GameProxy.CHANGE_STATE, "count_choose");
         }
-        public countBet(event:egret.TouchEvent){
+
+        public countBetNum(event:egret.TouchEvent){
             this.gameScreen.addChipAnimation(parseInt(event.currentTarget.label),4);
-            console.log(<eui.Button>event.currentTarget.label);
-            
         }
+
+         public countBetMul(event:egret.TouchEvent){
+             console.log(<eui.Button>event.currentTarget.label);
+         }
     }
 }
