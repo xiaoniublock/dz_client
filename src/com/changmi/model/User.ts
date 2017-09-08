@@ -166,8 +166,8 @@ class User extends eui.Component{
     function changeGraphics(angle) {
         shape.graphics.clear();
         shape.graphics.beginFill(0x00ffff, 1);
-        shape.graphics.lineTo(r, 0);
-        shape.graphics.drawArc(0, 0, r, 0, angle * Math.PI / 180, true);
+        shape.graphics.lineTo(0, 0);
+		shape.graphics.drawArc(0, 32, r, -40 * Math.PI / 180, (angle - 40) * Math.PI / 180, true);
         shape.graphics.lineTo(0, 0);
         shape.graphics.endFill();
     }
