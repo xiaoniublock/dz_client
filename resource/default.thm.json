@@ -15,7 +15,7 @@
     "eui.ItemRenderer": "resource/eui_skins/ItemRendererSkin.exml",
     "UserInfoDisplay": "resource/eui_skins/UserInfoDisplay.exml"
   },
-  "autoGenerateExmlsList": true,
+  "autoGenerateExmlsList": false,
   "exmls": [
     "resource/custom_skins/BackBtnSkin.exml",
     "resource/custom_skins/ChipSkin.exml",

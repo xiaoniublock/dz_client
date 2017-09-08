@@ -25,7 +25,6 @@ module game{
 
         public createCompleteEvent(){
             this.skinName = "skins.LobbySkin";
-
             ApplicationFacade.getInstance().registerMediator(new LobbyMediator(this));
         }
 

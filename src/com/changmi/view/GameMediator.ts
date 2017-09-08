@@ -38,7 +38,7 @@ module game {
         var checkBox:eui.CheckBox = <eui.CheckBox>event.target;
 
         switch (checkBox.name){ //强行单选化
-            case "giveUp":{
+            case "giveUpOrPass":{
                 this.gameScreen.checkBox_autoPass.selected = false;
                 this.gameScreen.checkBox_followAny.selected = false;
                 break;

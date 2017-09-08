@@ -61,7 +61,7 @@ module game{
                 }
                 if((index==3||index==10)){
                     // this.sendOwnCard(index/7,UserUtils.getInstance().getOwnUser().cards.cards[index/7]);
-                    this.sendOwnCard(index/7,new Card(8,3));
+                   // this.sendOwnCard(index/7,new Card(8,3));
                     return;
                 }
                 var x:number = this.users[index % 7].x + 102 + 104; //一个是group的位置偏移，一个是user位置偏移
@@ -74,11 +74,11 @@ module game{
             function sendCardToUserTimerOver()
             {	
                 //游戏开始
-                let cards:Array<Card>=[];
-                cards.push(new Card(10,1));
-                cards.push(new Card(11,1));
-                cards.push(new Card(12,1));
-                this.sendPublicCard(1,cards);
+                // let cards:Array<Card>=[];
+                // cards.push(new Card(10,1));
+                // cards.push(new Card(11,1));
+                // cards.push(new Card(12,1));
+                // this.sendPublicCard(1,cards);
             }
         }
 

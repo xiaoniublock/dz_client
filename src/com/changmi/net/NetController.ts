@@ -70,7 +70,7 @@ class NetController
     /**打印*/
     public showState(s:string):void
     {
-        console.log(s);
+        console.warn(s);
     }    
 }
 

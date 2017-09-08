@@ -16,6 +16,7 @@ module game {
         }
 
         public enterGameScreen(){
+            console.warn("进入游戏");
             this.removeChildren();
             this.addChild(this.gameScreen);
         }

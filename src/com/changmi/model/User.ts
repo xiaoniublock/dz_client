@@ -140,7 +140,7 @@ class User extends eui.Component{
 
 	
 	public initUserUI(){
-		this.startTimer();
+		//this.startTimer();
 		var w:number = this.progress.width;
     	var h:number = this.progress.height;
 		var r:number = Math.max(w, h) / 2 * 1.8;
