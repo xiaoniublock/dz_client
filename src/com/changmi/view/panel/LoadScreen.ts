@@ -22,13 +22,22 @@ module game{
 			this.startTimer(this.loadingTimer);
 		}
 
+		public startrotateAndChangeSource(){
+        	this.addEventListener(egret.Event.ENTER_FRAME,this.chipTurn,this);
+    	}
+
 		public chipTurn(){
-			if(this.chipTimer.currentCount % 20 < 10){
-				this.chipImg.x += 3;
-				this.chipImg.width -= 6;
+			var index = (this.chipTimer.currentCount - 1) % 40;	//0~9为缩小，10~19为放大
+			var angle1 = (index * Math.PI / 20);
+			var angle2 = (index + 1) * Math.PI / 20;
+			var changeX = 30 * (Math.cos(angle1) - Math.cos(angle2));
+
+			if(index < 10 || index > 29){
+				this.chipImg.x += changeX;
+				this.chipImg.width -= 2 * changeX;
 			}else{
-				this.chipImg.x -= 3;
-				this.chipImg.width += 6;
+				this.chipImg.x -= changeX;
+				this.chipImg.width += 2 * changeX;
 			}
 		}
 
@@ -41,7 +50,10 @@ module game{
 
 		//开始计时
 		public startTimer(timer:egret.Timer):void{
-        	timer.start();
+			if(timer.currentCount != 0){
+				timer.reset();
+			}
+			timer.start();
 		}
 
 		//停止并初始化
