@@ -9,6 +9,10 @@ module game {
         public static NAME: string = "GameCommand";
 
         /**
+         * 匹配对手
+         */
+        public static MATCH_PLAYER: string = "match_player";
+        /**
          * 开始游戏
          */
         public static START_GAME: string = "start_game";
@@ -32,6 +36,7 @@ module game {
          * 注册消息
          */
         public register(): void {
+            this.facade.registerCommand(GameCommand.MATCH_PLAYER, GameCommand);
             this.facade.registerCommand(GameCommand.START_GAME, GameCommand);
             this.facade.registerCommand(GameCommand.FINISH_GAME, GameCommand);
             this.facade.registerCommand(GameCommand.UPDATE_POT, GameCommand);
@@ -43,8 +48,12 @@ module game {
             //var gridProxy: GridProxy = <GridProxy><any>(this.facade.retrieveProxy(GridProxy.NAME));
             var data: any = notification.getBody();
             switch (notification.getName()) {
-                case GameCommand.START_GAME: {
+                case GameCommand.MATCH_PLAYER: {
                     gameProxy.matchPlayer();
+                    break;
+                }
+                case GameCommand.START_GAME: {
+                    gameProxy.startGame();
                     //gameProxy.reset();
                     //gridProxy.reset();
                     //gridProxy.addStartTiles();
