@@ -46,6 +46,8 @@ module game{
 
 		//停止并初始化
 		public stopTimer():void{
+			this.chipTimer.stop();
+			this.loadingTimer.stop();
 			LoadMediator.getInstance().startAction();
 		}
 	}
