@@ -15,7 +15,7 @@
     "eui.ItemRenderer": "resource/eui_skins/ItemRendererSkin.exml",
     "UserInfoDisplay": "resource/eui_skins/UserInfoDisplay.exml"
   },
-  "autoGenerateExmlsList": false,
+  "autoGenerateExmlsList": true,
   "exmls": [
     "resource/custom_skins/BackBtnSkin.exml",
     "resource/custom_skins/ChipSkin.exml",
@@ -31,6 +31,7 @@
     "resource/custom_skins/GameSkin.exml",
     "resource/custom_skins/LoadProgressSkin.exml",
     "resource/custom_skins/LoadUISkin.exml",
+    "resource/custom_skins/LoadingToDeskSkin.exml",
     "resource/custom_skins/LobbySkin.exml",
     "resource/eui_skins/ButtonSkin.exml",
     "resource/eui_skins/CheckBoxSkin.exml",

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="skins.LoadingToDeskSkin" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="100%" height="100%" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="ic_background loding_png"/>
+	<e:Image id="chipImg" width="60" height="60" x="576" anchorOffsetX="0" anchorOffsetY="0" source="gamescreen.chip_5000_more" verticalCenter="0"/>
+	<e:Label id="loadLabel" text="Loading" x="650" verticalCenter="0" size="40"/>
+</e:Skin>

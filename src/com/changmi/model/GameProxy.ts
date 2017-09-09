@@ -33,6 +33,11 @@ module game {
         data.content = { "name": "112" };
         NetController.getInstance().sendData(data, this.onMatchPlayerBack, this);
     	}
+
+        public startGame(){
+            this.sendNotification(LobbyCommand.CHANGE, 3);
+        }
+
 		private onMatchPlayerBack(data:BaseMsg){
 			this.sendNotification(GameProxy.MATCHPLAYER,data);
 		  }
