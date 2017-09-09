@@ -54,6 +54,7 @@ class WS
 
 	private onSocketOpen():void{
 		NetController.getInstance().showState("socket 连接上了");
+        NetController.getInstance().sendSocketSucceed();
 	}
 	private onSocketClose():void{
 		NetController.getInstance().showState("socket 关闭了");

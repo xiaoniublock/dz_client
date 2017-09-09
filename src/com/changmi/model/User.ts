@@ -138,19 +138,19 @@ class User extends eui.Component{
 		
     }
 
-	
+	private  shape:egret.Shape = new egret.Shape();
+	private r:number ;
 	public initUserUI(){
-		//this.startTimer();
 		var w:number = this.progress.width;
     	var h:number = this.progress.height;
-		var r:number = Math.max(w, h) / 2 * 1.8;
-    	var shape:egret.Shape = new egret.Shape();
-		shape.anchorOffsetX=0;
-		shape.anchorOffsetY=0;
-    	shape.x = w/ 2;
-    	shape.y =h / 2;
-    	this.progress.mask = shape;
-    	this.addChild(shape);
+		this.r= Math.max(w, h) / 2 * 1.8;
+    	
+		this.shape.anchorOffsetX=0;
+		this.shape.anchorOffsetY=0;
+    	this.shape.x = w/ 2;
+    	this.shape.y =h / 2;
+    	this.progress.mask = this.shape;
+    	this.addChild(this.shape);
     	
    		//注册事件侦听器
         this.timer.addEventListener(egret.TimerEvent.TIMER,timerFunc,this);
@@ -158,32 +158,36 @@ class User extends eui.Component{
     	function timerFunc()
     {	
        	this.angle += 1;
-        changeGraphics(	this.angle);
+        this.changeGraphics(this.angle);
         this.angle = this.angle % 360;
     }
    
     
-    function changeGraphics(angle) {
-        shape.graphics.clear();
-        shape.graphics.beginFill(0x00ffff, 1);
-        shape.graphics.lineTo(0, 0);
-		shape.graphics.drawArc(0, 32, r, -40 * Math.PI / 180, (angle - 40) * Math.PI / 180, true);
-        shape.graphics.lineTo(0, 0);
-        shape.graphics.endFill();
-    }
 	}
+    private changeGraphics(angle) {
+        this.shape.graphics.clear();
+        this.shape.graphics.beginFill(0x00ffff, 1);
+        this.shape.graphics.lineTo(0, 0);
+		this.shape.graphics.drawArc(0, 32, this.r, -40 * Math.PI / 180, (angle - 40) * Math.PI / 180, true);
+        this.shape.graphics.lineTo(0, 0);
+        this.shape.graphics.endFill();
+    }
 	 public timerComFunc()
     {
+		console.warn(this.angle);
 		this.dispatchEventWith(User.GIVEUP);
     }
 	//开始计时
 	public startTimer():void{
+		this.angle=0;
+		if(this.timer.currentCount!=0){
+			this.timer.reset();
+		}
         this.timer.start();
 	}
-	//停止并初始化
 	public stopTimer():void{
-		this.angle=0;
-		this.timer.reset();
+		 this.timer.stop();
+		  this.changeGraphics(1);
 	}
 
 	public playerOut():void{

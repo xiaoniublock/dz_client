@@ -38,7 +38,7 @@ class Main extends egret.DisplayObjectContainer {
 
     public constructor() {
         super();
-        this.addEventListener(egret.Event.ADDED_TO_STAGE, this.init, this)
+        this.once(egret.Event.ADDED_TO_STAGE, this.init, this);
     }
     
     protected init(event: egret.Event): void {
@@ -98,7 +98,6 @@ class Main extends egret.DisplayObjectContainer {
            
         }
         if (event.groupName == "preload") {
-            this.appContainer.removeChild(this.loadingView);
             RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
@@ -109,9 +108,17 @@ class Main extends egret.DisplayObjectContainer {
     }
     private createScene() {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
-            this.startCreateScene();
+           NetController.getInstance().addSocketOpenListener(NetController.CONNECTSUCCEED,()=>{
+                 this.loadingView.showEnterButton();
+           });
+            this.loadingView.addEventListener(LoadingUI.CREATESENCE,()=>{
+                this.appContainer.removeChild(this.loadingView);
+                this.startCreateScene();
+            },this);
+            NetController.getInstance().connect();
         }
     }
+   
     /**
      * 资源组加载出错
      *  The resource group loading failed
@@ -147,7 +154,6 @@ class Main extends egret.DisplayObjectContainer {
         let applicationFacade: game.ApplicationFacade = game.ApplicationFacade.getInstance();
         applicationFacade.startUp(this.appContainer);
         applicationFacade.sendNotification(game.LobbyCommand.CHANGE, 1);
-        NetController.getInstance().connect();
     }
     
 }

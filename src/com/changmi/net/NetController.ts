@@ -7,6 +7,9 @@ class NetController
     /**用来存储对应sequence的回调函数，在得到服务器返回后执行*/
     private callBackPool = {};
 
+    /**连接成功 */
+    public static CONNECTSUCCEED: string = "CONNECTSUCCEED";
+
     public constructor(){
         this.dispatcher = new egret.EventDispatcher();
     }
@@ -24,7 +27,7 @@ class NetController
         {
             this.ws = new WS();
             //this.ws.connect("192.168.0.101", 8181);
-            this.ws.connect("192.168.1.121", 8182);
+            this.ws.connect("echo.websocket.org", 80);
         }
     }
 
@@ -71,7 +74,17 @@ class NetController
     public showState(s:string):void
     {
         console.warn(s);
-    }    
+    }
+
+     /**接收到数据时都事件监听*/
+    public addSocketOpenListener(command,callback )
+    {
+        this.dispatcher.addEventListener(NetController.CONNECTSUCCEED,callback,this);
+    }
+
+    public sendSocketSucceed():void{
+        this.dispatcher.dispatchEventWith(NetController.CONNECTSUCCEED);
+    }
 }
 
 /**基本的消息格式*/

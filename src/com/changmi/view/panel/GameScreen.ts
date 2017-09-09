@@ -107,6 +107,7 @@ module game{
                 this.chips[i].chipNum = parseInt(this.userMoneyArray[i]);
                 this.chips[i].isRight = !(i == 1 || i == 2 || i == 3);
                 this.users[i].isCardVisible = (i == 3);
+                this.users[i].startTimer();
             }
             
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,0,0,0);
