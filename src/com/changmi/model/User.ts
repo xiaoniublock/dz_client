@@ -15,7 +15,8 @@ class User extends eui.Component{
 	private _goldNum:number;//筹码
 	private _headImgData:string;//头像地址
 	private _cardNum:number;//手牌数目
-	private _seat:number;//所处作为
+	private _seat:number;//桌上实际所处位置
+	private _index:number;//服务端返回玩家位置
 	private _cards:CardGroups;//用户手牌
 
 	public userNameLabel:eui.Label;
@@ -50,6 +51,9 @@ class User extends eui.Component{
 		}
 	}
 
+	public get index():number{
+		return this._index;
+	}
 	public get seat():number{
 		return this._seat;
 	}
@@ -72,6 +76,9 @@ class User extends eui.Component{
 
 	public set seat(seat:number){
 		this._seat=seat;
+	}
+	public set index(index:number){
+		this._index=index;
 	}
 
 	public set userName(userName:string){

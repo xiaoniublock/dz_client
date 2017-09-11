@@ -26,8 +26,8 @@ class NetController
         if(!this.ws)
         {
             this.ws = new WS();
-            //this.ws.connect("192.168.0.101", 8181);
-            this.ws.connect("echo.websocket.org", 80);
+            this.ws.connect("192.168.1.121", 8182);
+            // this.ws.connect("echo.websocket.org", 80);
         }
     }
 
