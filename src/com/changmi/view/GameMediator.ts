@@ -95,7 +95,7 @@ module game {
                     break;
                 }
                 case GameProxy.MATCHPLAYER:{
-                    console.log(<BaseMsg>data.content.roomId);
+                    // console.log(<BaseMsg>data.content.roomId);
                     
                 }
 

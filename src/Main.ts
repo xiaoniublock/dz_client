@@ -108,14 +108,11 @@ class Main extends egret.DisplayObjectContainer {
     }
     private createScene() {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
-           NetController.getInstance().addSocketOpenListener(NetController.CONNECTSUCCEED,()=>{
-                 this.loadingView.showEnterButton();
-           });
-            this.loadingView.addEventListener(LoadingUI.CREATESENCE,()=>{
+                this.loadingView.showEnterButton();
+                this.loadingView.addEventListener(LoadingUI.CREATESENCE,()=>{
                 this.appContainer.removeChild(this.loadingView);
                 this.startCreateScene();
             },this);
-            NetController.getInstance().connect();
         }
     }
    
