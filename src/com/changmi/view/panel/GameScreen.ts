@@ -74,11 +74,11 @@ module game{
             function sendCardToUserTimerOver()
             {	
                 //游戏开始
-                // let cards:Array<Card>=[];
-                // cards.push(new Card(10,1));
-                // cards.push(new Card(11,1));
-                // cards.push(new Card(12,1));
-                // this.sendPublicCard(1,cards);
+                let cards:Array<Card>=[];
+                cards.push(new Card(10,1));
+                cards.push(new Card(11,1));
+                cards.push(new Card(12,1));
+                this.sendPublicCard(1,cards);
             }
         }
 
