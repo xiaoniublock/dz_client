@@ -51,28 +51,29 @@ class Card extends eui.Image
         this.addEventListener(egret.Event.ENTER_FRAME,this.rotate,this);
     }
     public stoprotate(){
+        this.playCount = 0;
         this.removeEventListener(egret.Event.ENTER_FRAME,this.rotate,this)
     }
     
     private rotate():void{
-        if(this.playCount==2){
+        var speed = 40;     //旋转速度，数字越小速度越快
+        var index = this.playCount % speed;
+        var angle1 = index * Math.PI / (speed / 2);
+		var angle2 = (index + 1) * Math.PI / (speed / 2);
+		var changeX = 40 * (Math.cos(angle1) - Math.cos(angle2));
+        
+        if(this.playCount == 40){
             this.stoprotate();
             this.createCardSourceNoPram();
             return;
         }
-        if(this.scaleX>=0.16&&this.smaller){
-       this.scaleX-=0.16;
-       this.x+=8;
+        if(index < 10 || index > 29){
+            this.width -= 2 * changeX;
+            this.x += changeX;
         }else{
-            if(this.scaleX<=1){
-            this.smaller=false;
-            this.scaleX+=0.16;
-            this.x-=8;
-            }else{
-                this.playCount++;
-                this.smaller=true;
-            }
+            this.width += 2 *changeX;
+            this.x -= changeX;
         }
+        this.playCount++;
     }
-    
 }
