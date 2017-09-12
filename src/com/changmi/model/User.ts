@@ -35,7 +35,7 @@ class User extends eui.Component{
 	//计时器
 	public timer:egret.Timer= new egret.Timer(50,360);
 
-	private angle:number = 0;
+	private _angle:number = 0;	//0~360,表示倒计时
 
 	   /**
 		 * 超过计时时间，主动弃牌
@@ -77,6 +77,10 @@ class User extends eui.Component{
 
 	public get isCardVisible():boolean{
 		return this._isCardVisible;
+	}
+
+	public get angle():number{
+		return this._angle;
 	}
 
 	public set uId(uId:number){
@@ -151,6 +155,11 @@ class User extends eui.Component{
 		this.cardNum = 0;
 	}
 
+	public set angle(angle:number){
+		this._angle = angle;
+		this.changeGraphics(angle);
+	}
+
 	public createUserSource(userName:string,goldNum:number){//,headImgData:egret.BitmapData){
 		//this.initUserUI();
         this.userName = userName;
@@ -177,15 +186,20 @@ class User extends eui.Component{
         this.timer.addEventListener(egret.TimerEvent.TIMER,timerFunc,this);
         this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE,this.timerComFunc,this);
     	function timerFunc()
-    {	
-       	this.angle += 1;
-        this.changeGraphics(this.angle);
-        this.angle = this.angle % 360;
-    }
-   
-    
+    	{	
+       		this.angle += 1;
+        	this.angle = this.angle % 360;
+    	}
 	}
+
     private changeGraphics(angle) {
+		if(angle >= 120 && angle < 240){
+			this.setProgressCircleTwo();
+		}else if(angle > 240){
+			this.setProgressCircleThree();
+		}else{
+			this.resetProgressCircle();
+		}
         this.shape.graphics.clear();
         this.shape.graphics.beginFill(0x00ffff, 1);
         this.shape.graphics.lineTo(0, 0);
@@ -233,6 +247,42 @@ class User extends eui.Component{
 			];
 		var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
 		this.filters=[colorFlilter];
+	 }
+
+	 public resetProgressCircle():void{
+		 //颜色矩阵数组
+		var colorMatrix = [
+    		1,0,0,0,0,
+			0,1,0,0,0,
+    		0,0,1,0,0,
+    		0,0,0,1,0
+			];
+		var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
+		this.progress.filters=[colorFlilter];
+	 }
+
+	 public setProgressCircleTwo():void{
+		 //颜色矩阵数组
+		var colorMatrix = [
+    		0,1,0,0,0,
+			0,0,1,0,0,
+    		1,0,0,0,0,
+    		0,0,0,1,0
+			];
+		var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
+		this.progress.filters=[colorFlilter];
+	 }
+
+	 public setProgressCircleThree():void{
+		 //颜色矩阵数组
+		var colorMatrix = [
+    		0,0,1,0,0,
+			1,0,0,0,0,
+    		0,1,0,0,100,
+    		0,0,0,1,0
+			];
+		var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
+		this.progress.filters=[colorFlilter];
 	 }
 
 	public addChip(chip:number){
