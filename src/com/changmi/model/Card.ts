@@ -15,8 +15,6 @@ class Card extends eui.Image
     /**扑克花色，1：黑 2:红，3：花，4：方片 */
     public _color:number;
 
-    private smaller:boolean=true;
-
     private playCount:number=0;
     
     public get index() : number {
@@ -62,12 +60,12 @@ class Card extends eui.Image
 		var angle2 = (index + 1) * Math.PI / (speed / 2);
 		var changeX = 40 * (Math.cos(angle1) - Math.cos(angle2));
         
-        if(this.playCount == 40){
+        if(this.playCount == speed){
             this.stoprotate();
             this.createCardSourceNoPram();
             return;
         }
-        if(index < 10 || index > 29){
+        if(index < speed / 4 || index > 3 * speed / 4 - 1){
             this.width -= 2 * changeX;
             this.x += changeX;
         }else{
