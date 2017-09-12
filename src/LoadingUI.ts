@@ -48,8 +48,22 @@ class LoadingUI extends eui.Component {
             RES.loadGroup("preload");
          },this);
          this.button_loginEnter.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
-             this.dispatchEventWith(LoadingUI.CREATESENCE);
+            let data={ uname:'pisa', pwd:'pisa'};
+             HttpAPI.HttpGET("http://192.168.1.129/login",data,(event)=>{
+                 console.log("登录成功");
+                var request = <egret.HttpRequest>event.currentTarget;
+                let own:User=new User();
+                console.log("post data : ",JSON.parse(request.response).id);
+                own.uId=JSON.parse(request.response).id;
+                UserUtils.getInstance().saveOwnUser(own);
+                this.dispatchEventWith(LoadingUI.CREATESENCE);
+             },(event)=>{
+                  console.log("登录失败");
+                var request = <egret.HttpRequest>event.currentTarget;
+                console.log("post data : ",JSON.parse(request.response).url);
+             },this);
          },this);
+       
          this.load_progress.skinName="resource/custom_skins/LoadProgressSkin.exml";
     }
 
