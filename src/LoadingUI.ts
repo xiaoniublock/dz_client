@@ -56,12 +56,12 @@ class LoadingUI extends eui.Component {
                 console.log("post data : ",JSON.parse(request.response).id);
                 own.uId=JSON.parse(request.response).id;
                 UserUtils.getInstance().saveOwnUser(own);
-                this.dispatchEventWith(LoadingUI.CREATESENCE);
              },(event)=>{
                   console.log("登录失败");
                 var request = <egret.HttpRequest>event.currentTarget;
-                console.log("post data : ",JSON.parse(request.response).url);
+                console.log("post data : ",request.response);
              },this);
+                this.dispatchEventWith(LoadingUI.CREATESENCE);
          },this);
        
          this.load_progress.skinName="resource/custom_skins/LoadProgressSkin.exml";

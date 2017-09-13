@@ -3,7 +3,6 @@
 		"path_ignore": [],
 		"android_as_path": "../dzApp",
 		"ios_path": "../../Desktop/nidage"
-
 	},
 	"publish": {
 		"web": 0,

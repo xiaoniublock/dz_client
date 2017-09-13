@@ -195,7 +195,7 @@ class User extends eui.Component{
     private changeGraphics(angle) {
 		if(angle >= 120 && angle < 240){
 			this.setProgressCircleTwo();
-		}else if(angle > 240){
+		}else if(angle >= 240){
 			this.setProgressCircleThree();
 		}else{
 			this.resetProgressCircle();
@@ -203,13 +203,14 @@ class User extends eui.Component{
         this.shape.graphics.clear();
         this.shape.graphics.beginFill(0x00ffff, 1);
         this.shape.graphics.lineTo(0, 0);
-		this.shape.graphics.drawArc(0, 32, this.r, -40 * Math.PI / 180, (angle - 40) * Math.PI / 180, true);
+		this.shape.graphics.drawArc(0, 0, this.r, -90 * Math.PI / 180, (angle - 90) * Math.PI / 180, true);
         this.shape.graphics.lineTo(0, 0);
         this.shape.graphics.endFill();
     }
 	 public timerComFunc()
     {
 		console.warn(this.angle);
+		this.changeGraphics(1);
 		this.dispatchEventWith(User.GIVEUP);
     }
 	//开始计时
@@ -228,10 +229,10 @@ class User extends eui.Component{
 	public playerOut():void{
 		//颜色矩阵数组
 		var colorMatrix = [
-    		0.3,0.6,0,0,0,
-    		0.3,0.6,0,0,0,
-    		0.3,0.6,0,0,0,
-    		0,0,0,1,0
+    		1,0,0,0,0,
+			0,1,0,0,0,
+    		0,0,1,0,0,
+    		0,0,0,0.5,0
 			];
 		var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
 		this.filters=[colorFlilter];
@@ -264,9 +265,9 @@ class User extends eui.Component{
 	 public setProgressCircleTwo():void{
 		 //颜色矩阵数组
 		var colorMatrix = [
-    		0,1,0,0,0,
-			0,0,1,0,0,
-    		1,0,0,0,0,
+    		1,0,0,0,104,
+			0,1,0,0,-62,
+    		0,0,1,0,0,
     		0,0,0,1,0
 			];
 		var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
@@ -276,9 +277,9 @@ class User extends eui.Component{
 	 public setProgressCircleThree():void{
 		 //颜色矩阵数组
 		var colorMatrix = [
-    		0,0,1,0,0,
-			1,0,0,0,0,
-    		0,1,0,0,100,
+    		1,0,0,0,104,
+			0,1,0,0,-183,
+    		0,0,1,0,-81,
     		0,0,0,1,0
 			];
 		var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
