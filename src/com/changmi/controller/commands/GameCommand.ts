@@ -45,15 +45,16 @@ module game {
 
         public execute(notification: puremvc.INotification): void {
             var gameProxy: GameProxy = <GameProxy><any>(this.facade.retrieveProxy(GameProxy.NAME));
+            var matchProxy: MatchProxy = <MatchProxy><any>(this.facade.retrieveProxy(MatchProxy.NAME));
             //var gridProxy: GridProxy = <GridProxy><any>(this.facade.retrieveProxy(GridProxy.NAME));
             var data: any = notification.getBody();
             switch (notification.getName()) {
                 case GameCommand.MATCH_PLAYER: {
-                    gameProxy.matchPlayer();
+                    matchProxy.matchPlayer();
                     break;
                 }
                 case GameCommand.START_GAME: {
-                    gameProxy.startGame();
+                    matchProxy.startGame();
                     //gameProxy.reset();
                     //gridProxy.reset();
                     //gridProxy.addStartTiles();

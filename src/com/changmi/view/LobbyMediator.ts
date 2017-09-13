@@ -10,7 +10,7 @@ module game {
         }
 
         public startButtonClick(event: egret.TouchEvent){
-            this.sendNotification(GameCommand.MATCH_PLAYER);
+           this.sendNotification(GameCommand.MATCH_PLAYER);
         }
 
         public get lobbyScreen(): LobbyScreen {

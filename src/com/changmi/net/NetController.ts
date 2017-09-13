@@ -1,6 +1,8 @@
 class NetController
 {
     private static _instance:NetController;
+    private wsMatch:WS;
+    private wsGame:WS;
     private ws:WS;
     private sequence:number = 1;
     private dispatcher:egret.EventDispatcher;
@@ -9,6 +11,8 @@ class NetController
 
     /**连接成功 */
     public static CONNECTSUCCEED: string = "CONNECTSUCCEED";
+    /**断开成功 */
+    public static CLOSESUCCEED: string = "CLOSESUCCEED";
 
     public constructor(){
         this.dispatcher = new egret.EventDispatcher();
@@ -20,16 +24,32 @@ class NetController
 		}
 		return this._instance;
 	}
-
-    public connect():void
+/**匹配服务器 */
+    public connectMatch():void
     {
-        if(!this.ws)
+        if(!this.wsMatch)
         {
-            this.ws = new WS();
+            this.wsMatch = new WS();
             // this.ws.connect("192.168.1.70", 5678);
-            this.ws.connect("192.168.1.121", 8182);
-            // this.ws.connect("echo.websocket.org", 80);
         }
+            this.wsMatch.connect("echo.websocket.org", 80,"match");
+            // this.wsMatch.connect("192.168.1.121", 8182,"match");
+            this.ws=this.wsMatch;
+    }
+/**游戏服务器 */
+    public connectGame():void
+    {
+        if(!this.wsGame)
+        {
+            this.wsGame = new WS();
+            // this.ws.connect("192.168.1.70", 5678);
+        }
+            this.wsGame.connect("echo.websocket.org", 80,"game");
+            // this.wsGame.connect("192.168.1.121", 8182,"game");
+            this.ws=this.wsGame;
+    }
+    public close():void{
+        this.ws.close();
     }
 
     /**读取数据*/
@@ -78,13 +98,16 @@ class NetController
     }
 
      /**接收到数据时都事件监听*/
-    public addSocketOpenListener(command,callback )
+    public addSocketStateListener(command,callback )
     {
-        this.dispatcher.addEventListener(NetController.CONNECTSUCCEED,callback,this);
+        this.dispatcher.addEventListener(command+"",callback,this);
     }
 
-    public sendSocketSucceed():void{
-        this.dispatcher.dispatchEventWith(NetController.CONNECTSUCCEED);
+    public sendSocketSucceed(type):void{
+        this.dispatcher.dispatchEventWith(NetController.CONNECTSUCCEED,true,type);
+    }
+    public sendSocketClose(type):void{
+        this.dispatcher.dispatchEventWith(NetController.CLOSESUCCEED,true,type);
     }
 }
 

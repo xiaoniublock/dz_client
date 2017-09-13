@@ -8,10 +8,7 @@ module game {
          * 改变底部按钮组
          */
 		public static CHANGE_STATE: string = "change_state";
-		/**
-		 * 匹配成功返回这张桌子上的玩家数据
-		 */
-       	public static MATCHPLAYER: string = "match_player";
+
         private _nextStep:number;
 
 
@@ -22,25 +19,6 @@ module game {
 			NetController.getInstance().addListener(Commands.PUSH_OWNCARD, this);
 		}
 
-		 /**开始匹配游戏*/
-    	public matchPlayer()
-    	{
-		this.sendNotification(LobbyCommand.CHANGE, 2);
-        // this.start.enabled = false;
-        // this.tipTween();
-        var data = new BaseMsg();
-        data.command = Commands.MATCH_PLAYER;
-        data.content = { "name": "112" };
-        NetController.getInstance().sendData(data, this.onMatchPlayerBack, this);
-    	}
-
-        public startGame(){
-            this.sendNotification(LobbyCommand.CHANGE, 3);
-        }
-
-		private onMatchPlayerBack(data:BaseMsg){
-			this.sendNotification(GameProxy.MATCHPLAYER,data);
-		  }
           /**
            * 根据传过来的信息判断操作，是让，弃牌，下注等操作，然后sendData
            */

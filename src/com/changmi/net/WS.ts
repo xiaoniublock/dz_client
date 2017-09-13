@@ -4,13 +4,15 @@ class WS
 
     /*是否用二进制发送数据*/
     private isBin:boolean = false;
+    private type:string;
     public constructor()
     {
 
     }
 
-    public connect(url, port):void
+    public connect(url, port,type):void
     {
+        this.type=type;
         this.WebSocket = new egret.WebSocket();
         this.WebSocket.type = this.isBin ? egret.WebSocket.TYPE_BINARY : egret.WebSocket.TYPE_STRING;
         this.WebSocket.addEventListener(egret.ProgressEvent.SOCKET_DATA, this.onReceiveMessage, this);
@@ -18,6 +20,9 @@ class WS
         this.WebSocket.addEventListener(egret.Event.CLOSE, this.onSocketClose, this);
         this.WebSocket.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onSocketError, this);
         this.WebSocket.connect(url, port);
+    }
+    public close():void{
+        this.WebSocket.close();
     }
 
     private onReceiveMessage(e:egret.Event):void
@@ -54,10 +59,11 @@ class WS
 
 	private onSocketOpen():void{
 		NetController.getInstance().showState("socket 连接上了");
-        NetController.getInstance().sendSocketSucceed();
+        NetController.getInstance().sendSocketSucceed(this.type);
 	}
 	private onSocketClose():void{
 		NetController.getInstance().showState("socket 关闭了");
+         NetController.getInstance().sendSocketClose(this.type);
 	}
 	private onSocketError():void{
 		NetController.getInstance().showState("socket error");
