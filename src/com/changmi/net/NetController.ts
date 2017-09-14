@@ -31,9 +31,9 @@
             if(!this.wsMatch)
             {
                 this.wsMatch = new WS();
-                // this.ws.connect("192.168.1.70", 5678);
             }
-                this.wsMatch.connect("echo.websocket.org", 80,"match");
+                this.wsMatch.connect("192.168.1.70", 9000,"match");
+                // this.wsMatch.connect("echo.websocket.org", 80,"match");
                 // this.wsMatch.connect("192.168.1.121", 8182,"match");
         }
     /**游戏服务器 */
@@ -42,8 +42,8 @@
             if(!this.wsGame)
             {
                 this.wsGame = new WS();
-                // this.ws.connect("192.168.1.70", 5678);
             }
+                // this.wsGame.connect("192.168.1.70", 5678,"game");
                 this.wsGame.connect("echo.websocket.org", 80,"game");
                 // this.wsGame.connect("192.168.1.121", 8182,"game");
         }
@@ -145,4 +145,6 @@
         public static PLAYERBET = 5;
         public static PUSH_OWNCARD = 6;
         public static PUSH_PUBLICCARD = 7;
+        public static ADD_PLAYER = 8;
+        public static REM_PLAYER = 9;
     }
