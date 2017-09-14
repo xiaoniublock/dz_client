@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="LoadUISkin" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image width="100%" height="100%"  source="bg_background_png" anchorOffsetX="0" anchorOffsetY="0"/>
-	<e:Image width="504" height="399" x="369" y="91" source="ic_logo_png"/>
-	<e:ProgressBar id="load_progress" width="865" height="83" x="220" y="603" />
+	<e:Image width="504" height="399" y="91" source="ic_logo_png" horizontalCenter="0"/>
+	<e:ProgressBar id="load_progress" width="865" height="83" y="603"  horizontalCenter="0"/>
 	<e:Label id="lable_progress" text="100%" x="220" y="572" width="83" height="28" size="28"/>
-	<e:Image id="button_loginEnter" width="173" height="70" x="553.5" y="609.5" source="ic_signin_png" visible="false"/>
+	<e:Image id="button_loginEnter" width="173" height="70" y="609.5" source="ic_signin_png" x="598" visible="false"/>
     
 
 </e:Skin>
