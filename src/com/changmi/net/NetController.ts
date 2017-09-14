@@ -31,10 +31,10 @@
             if(!this.wsMatch)
             {
                 this.wsMatch = new WS();
-                // this.ws.connect("192.168.1.70", 5678);
             }
-                this.wsMatch.connect("echo.websocket.org", 80,"match");
-                // this.wsMatch.connect("192.168.1.121", 8182,"match");
+            this.wsMatch.connect("192.168.1.70", 9000,"match");
+            // this.wsMatch.connect("echo.websocket.org", 80,"match");
+            // this.wsMatch.connect("192.168.1.121", 8182,"match");
         }
     /**游戏服务器 */
         public connectGame():void
@@ -42,10 +42,10 @@
             if(!this.wsGame)
             {
                 this.wsGame = new WS();
-                // this.ws.connect("192.168.1.70", 5678);
             }
-                this.wsGame.connect("echo.websocket.org", 80,"game");
-                // this.wsGame.connect("192.168.1.121", 8182,"game");
+            // this.ws.connect("192.168.1.70", 5678);
+            this.wsGame.connect("echo.websocket.org", 80,"game");
+            // this.wsGame.connect("192.168.1.121", 8182,"game");
         }
         public close(type:number):void{
             switch(type){

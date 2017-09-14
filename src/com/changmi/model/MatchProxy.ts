@@ -29,7 +29,7 @@
                     case "match":
                         var data = new BaseMsg();
                         // data.command = Commands.MATCH_PLAYER;
-                        data.content = { "name": "112" };
+                        data.content = { "uId": "1" };
                         NetController.getInstance().sendData(NetController.MATCHSOCKET, data, (data:BaseMsg)=>{
                             console.warn("onGetTableId"+data);
                             NetController.getInstance().close(NetController.MATCHSOCKET);
@@ -40,7 +40,7 @@
                     case "game":
                     var data = new BaseMsg();
                         data.command = Commands.MATCH_PLAYER;
-                        data.content = { "name": "112" };
+                        data.content = { "uId": "1" };
                         NetController.getInstance().sendData(NetController.GAMESOCKET,data, (data:BaseMsg)=>{
                             console.warn("onMatchPlayerBack"+data);
                             NetController.getInstance().removeSocketStateListener(NetController.CONNECTSUCCEED,this.stateFunction);
