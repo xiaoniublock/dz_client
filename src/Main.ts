@@ -40,7 +40,7 @@ class Main extends egret.DisplayObjectContainer {
         super();
         this.once(egret.Event.ADDED_TO_STAGE, this.init, this);
     }
-    
+
     protected init(event: egret.Event): void {
         //inject the custom material parser
         //注入自定义的素材解析器
@@ -51,7 +51,7 @@ class Main extends egret.DisplayObjectContainer {
         //初始化UIStage
         this.appContainer = new game.AppContainer();
         this.addChild(this.appContainer);
-        
+
         // initialize the Resource loading library
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
@@ -73,7 +73,7 @@ class Main extends egret.DisplayObjectContainer {
         RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
         RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
         RES.loadGroup("loading");
-        
+
     }
     private isThemeLoadEnd: boolean = false;
     /**
@@ -95,9 +95,9 @@ class Main extends egret.DisplayObjectContainer {
             //设置加载进度界面
             this.loadingView = new LoadingUI();
             this.appContainer.addChild(this.loadingView);
-           egret.ExternalInterface.addCallback("sendToJS", function (message:string) {
-            console.log("message form native : " + message);//message form native : message from native
-                    });
+            egret.ExternalInterface.addCallback("sendToJS", function (message: string) {
+                console.log("message form native : " + message);//message form native : message from native
+            });
         }
         if (event.groupName == "preload") {
             RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
@@ -110,14 +110,14 @@ class Main extends egret.DisplayObjectContainer {
     }
     private createScene() {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
-                this.loadingView.showEnterButton();
-                this.loadingView.addEventListener(LoadingUI.CREATESENCE,()=>{
+            this.loadingView.showEnterButton();
+            this.loadingView.addEventListener(LoadingUI.CREATESENCE, () => {
                 this.appContainer.removeChild(this.loadingView);
                 this.startCreateScene();
-            },this);
+            }, this);
         }
     }
-   
+
     /**
      * 资源组加载出错
      *  The resource group loading failed
@@ -149,10 +149,10 @@ class Main extends egret.DisplayObjectContainer {
     protected startCreateScene(): void {
         //图片跨域加载
         egret.ImageLoader.crossOrigin = "anonymous";
-        
+
         let applicationFacade: game.ApplicationFacade = game.ApplicationFacade.getInstance();
         applicationFacade.startUp(this.appContainer);
         applicationFacade.sendNotification(game.LobbyCommand.CHANGE, 1);
     }
-    
+
 }

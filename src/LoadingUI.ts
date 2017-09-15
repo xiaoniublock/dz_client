@@ -29,52 +29,52 @@
 
 class LoadingUI extends eui.Component {
 
-    public lable_progress:eui.Label;
-    public load_progress:eui.ProgressBar;
-    public button_loginEnter:eui.Image;
-    private currentX:number;
-    public static CREATESENCE="createSence";
+    public lable_progress: eui.Label;
+    public load_progress: eui.ProgressBar;
+    public button_loginEnter: eui.Image;
+    private currentX: number;
+    public static CREATESENCE = "createSence";
     public constructor() {
         super();
-        this.once(eui.UIEvent.COMPLETE,this.createView,this);
+        this.once(eui.UIEvent.COMPLETE, this.createView, this);
         this.skinName = "resource/custom_skins/LoadUISkin.exml";
     }
 
-    private createView():void {
-        this.load_progress.once(eui.UIEvent.COMPLETE,()=>{
-        this.currentX=this.lable_progress.x;
-        this.load_progress.maximum = 100;//设置进度条的最大值
-        this.load_progress.minimum = 0;//设置进度条的最小值
+    private createView(): void {
+        this.load_progress.once(eui.UIEvent.COMPLETE, () => {
+            this.currentX = this.lable_progress.x;
+            this.load_progress.maximum = 100;//设置进度条的最大值
+            this.load_progress.minimum = 0;//设置进度条的最小值
             RES.loadGroup("preload");
-         },this);
-         this.button_loginEnter.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
-            let data={ uname:'pisa', pwd:'pisa'};
-             HttpAPI.HttpGET("http://192.168.1.129/login",data,(event)=>{
-                 console.log("登录成功");
+        }, this);
+        this.button_loginEnter.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+            let data = { uname: 'pisa', pwd: 'pisa' };
+            HttpAPI.HttpGET("http://192.168.1.129/login", data, (event) => {
+                console.log("登录成功");
                 var request = <egret.HttpRequest>event.currentTarget;
-                let own:User=new User();
-                console.log("post data : ",JSON.parse(request.response).id);
-                own.uId=JSON.parse(request.response).id;
+                let own: User = new User();
+                console.log("post data : ", JSON.parse(request.response).id);
+                own.uId = JSON.parse(request.response).id;
                 UserUtils.getInstance().saveOwnUser(own);
-             },(event)=>{
-                  console.log("登录失败");
+            }, (event) => {
+                console.log("登录失败");
                 var request = <egret.HttpRequest>event.currentTarget;
-                console.log("post data : ",request.response);
-             },this);
-                this.dispatchEventWith(LoadingUI.CREATESENCE);
-         },this);
-       
-         this.load_progress.skinName="resource/custom_skins/LoadProgressSkin.exml";
+                console.log("post data : ", request.response);
+            }, this);
+            this.dispatchEventWith(LoadingUI.CREATESENCE);
+        }, this);
+
+        this.load_progress.skinName = "resource/custom_skins/LoadProgressSkin.exml";
     }
 
-    public setProgress(current:number, total:number):void {
-        this.load_progress.value=Math.ceil(current/total*100);
-        this.lable_progress.text = this.load_progress.value+"%";
-        this.lable_progress.x=  this.currentX+Math.ceil(this.load_progress.width*(current/total));
+    public setProgress(current: number, total: number): void {
+        this.load_progress.value = Math.ceil(current / total * 100);
+        this.lable_progress.text = this.load_progress.value + "%";
+        this.lable_progress.x = this.currentX + Math.ceil(this.load_progress.width * (current / total));
     }
-    public showEnterButton(){
-        this.button_loginEnter.visible=true;
-        this.load_progress.visible=false;
-        this.lable_progress.visible=false;
+    public showEnterButton() {
+        this.button_loginEnter.visible = true;
+        this.load_progress.visible = false;
+        this.lable_progress.visible = false;
     }
 }

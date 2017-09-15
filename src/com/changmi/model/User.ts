@@ -1,298 +1,296 @@
-class User extends eui.Component{
-	public constructor(){
+class User extends eui.Component {
+	public constructor() {
 		super();
-		this.addEventListener(egret.Event.ADDED_TO_STAGE,():void=>{
+		this.addEventListener(egret.Event.ADDED_TO_STAGE, (): void => {
 			this.initUserUI();
-		},this);
+		}, this);
 	}
 
-	private _hasUser:boolean;		//判断是否有用户在这位置上
-	private _isYourTurn:boolean;	//判断是不是该用户的回合
-	private _isGiveUp:boolean;		//判断该用户是否已经放弃游戏
-	private _isCardVisible:boolean;	//设置是否可见该玩家的牌
+	private _hasUser: boolean;		//判断是否有用户在这位置上
+	private _isYourTurn: boolean;	//判断是不是该用户的回合
+	private _isGiveUp: boolean;		//判断该用户是否已经放弃游戏
+	private _isCardVisible: boolean;	//设置是否可见该玩家的牌
 
-	private _uId:number;//用户ID
-	private _userName:string;//用户名
-	private _goldNum:number;//筹码
-	private _headImgData:string;//头像地址
-	private _cardNum:number;//手牌数目
-	private _seat:number;//桌上实际所处位置
-	private _index:number;//服务端返回玩家位置
-	private _cards:CardGroups;//用户手牌
+	private _uId: number;//用户ID
+	private _userName: string;//用户名
+	private _goldNum: number;//筹码
+	private _headImgData: string;//头像地址
+	private _cardNum: number;//手牌数目
+	private _seat: number;//桌上实际所处位置
+	private _index: number;//服务端返回玩家位置
+	private _cards: CardGroups;//用户手牌
 
-	public userNameLabel:eui.Label;
-	public goldNumLabel:eui.Label;
-	public headImg:eui.Image;
-	public progress:eui.Image;
-	public smallCardGroup:eui.Group;
-	public leftCard:eui.Image;
-	public rightCard:eui.Image;
-	public playerCardGroup:eui.Group;
+	public userNameLabel: eui.Label;
+	public goldNumLabel: eui.Label;
+	public headImg: eui.Image;
+	public progress: eui.Image;
+	public smallCardGroup: eui.Group;
+	public leftCard: eui.Image;
+	public rightCard: eui.Image;
+	public playerCardGroup: eui.Group;
 
 	//加载用户头像加载器
-	private  imageLoader:egret.ImageLoader=new egret.ImageLoader();
+	private imageLoader: egret.ImageLoader = new egret.ImageLoader();
 
 	//计时器
-	public timer:egret.Timer= new egret.Timer(50,360);
+	public timer: egret.Timer = new egret.Timer(50, 360);
 
-	private _angle:number = 0;	//0~360,表示倒计时
+	private _angle: number = 0;	//0~360,表示倒计时
 
-	   /**
-		 * 超过计时时间，主动弃牌
-		*/
-    public static GIVEUP: string = "giveup";
-	public get cards():CardGroups{
+	/**
+	  * 超过计时时间，主动弃牌
+	 */
+	public static GIVEUP: string = "giveup";
+	public get cards(): CardGroups {
 		return this._cards;
 	}
-	public initcards(cards:Array<number>){
-		for(let i=0;i<cards.length;i++){
-			let color=cards[i]/100;
-			let index=cards[i]%100;
-			this._cards.cards.push(new Card(index,color));
+	public initcards(cards: Array<number>) {
+		for (let i = 0; i < cards.length; i++) {
+			let color = cards[i] / 100;
+			let index = cards[i] % 100;
+			this._cards.cards.push(new Card(index, color));
 		}
 	}
 
-	public get uId():number{
+	public get uId(): number {
 		return this._uId;
 	}
 
-	public get index():number{
+	public get index(): number {
 		return this._index;
 	}
-	public get seat():number{
+	public get seat(): number {
 		return this._seat;
 	}
 
-	public get userName():string{
+	public get userName(): string {
 		return this._userName;
 	}
 
-	public get goldNum():number{
+	public get goldNum(): number {
 		return this._goldNum;
 	}
 
-	public get headImgData():string{
+	public get headImgData(): string {
 		return this._headImgData;
 	}
 
-	public get isCardVisible():boolean{
+	public get isCardVisible(): boolean {
 		return this._isCardVisible;
 	}
 
-	public get angle():number{
+	public get angle(): number {
 		return this._angle;
 	}
 
-	public set uId(uId:number){
-		this._uId=uId;
+	public set uId(uId: number) {
+		this._uId = uId;
 	}
 
-	public set seat(seat:number){
-		this._seat=seat;
+	public set seat(seat: number) {
+		this._seat = seat;
 	}
-	public set index(index:number){
-		this._index=index;
+	public set index(index: number) {
+		this._index = index;
 	}
 
-	public set userName(userName:string){
+	public set userName(userName: string) {
 		this._userName = userName;
-		if(this.userNameLabel)
-		this.userNameLabel.text = userName;
+		if (this.userNameLabel)
+			this.userNameLabel.text = userName;
 	}
 
-	public set goldNum(goldNum:number){
+	public set goldNum(goldNum: number) {
 		this._goldNum = goldNum;
-		if(this.goldNumLabel)
-		this.goldNumLabel.text = "" + goldNum;
+		if (this.goldNumLabel)
+			this.goldNumLabel.text = "" + goldNum;
 	}
 
-	public set headImgData(headImgData:string){
+	public set headImgData(headImgData: string) {
 		this._headImgData = headImgData;
-		if(this.headImg){
-		this.imageLoader.once(egret.Event.COMPLETE,(e:egret.Event)=>{
-			this.headImg.bitmapData = e.currentTarget.data;
-		},this);
-        this.imageLoader.load(headImgData);
+		if (this.headImg) {
+			this.imageLoader.once(egret.Event.COMPLETE, (e: egret.Event) => {
+				this.headImg.bitmapData = e.currentTarget.data;
+			}, this);
+			this.imageLoader.load(headImgData);
 		}
 	}
 
-	public set isCardVisible(isCardVisible:boolean){
+	public set isCardVisible(isCardVisible: boolean) {
 		this._isCardVisible = isCardVisible;
-		if(this.smallCardGroup)
-		this.smallCardGroup.visible = !isCardVisible;
+		if (this.smallCardGroup)
+			this.smallCardGroup.visible = !isCardVisible;
 	}
 
-	public set cardNum(cardNum:number){
+	public set cardNum(cardNum: number) {
 		this._cardNum = cardNum;
 
-		if(cardNum == 0){
+		if (cardNum == 0) {
 			this.leftCard.visible = false;
 			this.rightCard.visible = false;
-		}else if(cardNum == 1){
+		} else if (cardNum == 1) {
 			this.leftCard.visible = false;
 			this.rightCard.visible = true;
-		}else{
+		} else {
 			this.leftCard.visible = true;
 			this.rightCard.visible = true;
 		}
 	}
 
-	public set hasUser(hasUser:boolean){
+	public set hasUser(hasUser: boolean) {
 		this._hasUser = hasUser;
 		this.visible = this._hasUser;
 	}
 
-	public set isYourTurn(isYourTurn:boolean){
+	public set isYourTurn(isYourTurn: boolean) {
 		this._isYourTurn = isYourTurn;
-		if(this._isYourTurn){
-			
+		if (this._isYourTurn) {
+
 		}
 	}
 
-	public set isGiveUp(isGiveUp:boolean){
+	public set isGiveUp(isGiveUp: boolean) {
 		this._isGiveUp = isGiveUp;
 		this.alpha = isGiveUp ? 0.5 : 1;
 		this.cardNum = 0;
 	}
 
-	public set angle(angle:number){
+	public set angle(angle: number) {
 		this._angle = angle;
 		this.changeGraphics(angle);
 	}
 
-	public createUserSource(userName:string,goldNum:number){//,headImgData:egret.BitmapData){
+	public createUserSource(userName: string, goldNum: number) {//,headImgData:egret.BitmapData){
 		//this.initUserUI();
-        this.userName = userName;
+		this.userName = userName;
 		this.goldNum = goldNum;
 		// this._headImgData = headImgData;
-		
-    }
 
-	private  shape:egret.Shape = new egret.Shape();
-	private r:number ;
-	public initUserUI(){
-		var w:number = this.progress.width;
-    	var h:number = this.progress.height;
-		this.r= Math.max(w, h) / 2 * 1.8;
-    	
-		this.shape.anchorOffsetX=0;
-		this.shape.anchorOffsetY=0;
-    	this.shape.x = w/ 2;
-    	this.shape.y =h / 2;
-    	this.progress.mask = this.shape;
-    	this.addChild(this.shape);
-    	
-   		//注册事件侦听器
-        this.timer.addEventListener(egret.TimerEvent.TIMER,timerFunc,this);
-        this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE,this.timerComFunc,this);
-    	function timerFunc()
-    	{	
-       		this.angle += 1;
-        	this.angle = this.angle % 360;
-    	}
 	}
 
-    private changeGraphics(angle) {
-		if(angle >= 120 && angle < 240){
+	private shape: egret.Shape = new egret.Shape();
+	private r: number;
+	public initUserUI() {
+		var w: number = this.progress.width;
+		var h: number = this.progress.height;
+		this.r = Math.max(w, h) / 2 * 1.8;
+
+		this.shape.anchorOffsetX = 0;
+		this.shape.anchorOffsetY = 0;
+		this.shape.x = w / 2;
+		this.shape.y = h / 2;
+		this.progress.mask = this.shape;
+		this.addChild(this.shape);
+
+		//注册事件侦听器
+		this.timer.addEventListener(egret.TimerEvent.TIMER, timerFunc, this);
+		this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.timerComFunc, this);
+		function timerFunc() {
+			this.angle += 1;
+			this.angle = this.angle % 360;
+		}
+	}
+
+	private changeGraphics(angle) {
+		if (angle >= 120 && angle < 240) {
 			this.setProgressCircleTwo();
-		}else if(angle >= 240){
+		} else if (angle >= 240) {
 			this.setProgressCircleThree();
-		}else{
+		} else {
 			this.resetProgressCircle();
 		}
-        this.shape.graphics.clear();
-        this.shape.graphics.beginFill(0x00ffff, 1);
-        this.shape.graphics.lineTo(0, 0);
+		this.shape.graphics.clear();
+		this.shape.graphics.beginFill(0x00ffff, 1);
+		this.shape.graphics.lineTo(0, 0);
 		this.shape.graphics.drawArc(0, 0, this.r, -90 * Math.PI / 180, (angle - 90) * Math.PI / 180, true);
-        this.shape.graphics.lineTo(0, 0);
-        this.shape.graphics.endFill();
-    }
-	 public timerComFunc()
-    {
+		this.shape.graphics.lineTo(0, 0);
+		this.shape.graphics.endFill();
+	}
+	public timerComFunc() {
 		console.warn(this.angle);
 		this.changeGraphics(1);
 		this.dispatchEventWith(User.GIVEUP);
-    }
+	}
 	//开始计时
-	public startTimer():void{
-		this.angle=0;
-		if(this.timer.currentCount!=0){
+	public startTimer(): void {
+		this.angle = 0;
+		if (this.timer.currentCount != 0) {
 			this.timer.reset();
 		}
-        this.timer.start();
+		this.timer.start();
 	}
-	public stopTimer():void{
-		 this.timer.stop();
-		  this.changeGraphics(1);
+	public stopTimer(): void {
+		this.timer.stop();
+		this.changeGraphics(1);
 	}
 
-	public playerOut():void{
+	public playerOut(): void {
 		//颜色矩阵数组
 		var colorMatrix = [
-    		1,0,0,0,0,
-			0,1,0,0,0,
-    		0,0,1,0,0,
-    		0,0,0,0.5,0
-			];
+			1, 0, 0, 0, 0,
+			0, 1, 0, 0, 0,
+			0, 0, 1, 0, 0,
+			0, 0, 0, 0.5, 0
+		];
 		var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
-		this.filters=[colorFlilter];
+		this.filters = [colorFlilter];
 	}
-	 
-	 public resetPlayerOut():void{
-		 //颜色矩阵数组
-		var colorMatrix = [
-    		1,0,0,0,0,
-			0,1,0,0,0,
-    		0,0,1,0,0,
-    		0,0,0,1,0
-			];
-		var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
-		this.filters=[colorFlilter];
-	 }
 
-	 public resetProgressCircle():void{
-		 //颜色矩阵数组
+	public resetPlayerOut(): void {
+		//颜色矩阵数组
 		var colorMatrix = [
-    		1,0,0,0,0,
-			0,1,0,0,0,
-    		0,0,1,0,0,
-    		0,0,0,1,0
-			];
+			1, 0, 0, 0, 0,
+			0, 1, 0, 0, 0,
+			0, 0, 1, 0, 0,
+			0, 0, 0, 1, 0
+		];
 		var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
-		this.progress.filters=[colorFlilter];
-	 }
+		this.filters = [colorFlilter];
+	}
 
-	 public setProgressCircleTwo():void{
-		 //颜色矩阵数组
+	public resetProgressCircle(): void {
+		//颜色矩阵数组
 		var colorMatrix = [
-    		1,0,0,0,104,
-			0,1,0,0,-62,
-    		0,0,1,0,0,
-    		0,0,0,1,0
-			];
+			1, 0, 0, 0, 0,
+			0, 1, 0, 0, 0,
+			0, 0, 1, 0, 0,
+			0, 0, 0, 1, 0
+		];
 		var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
-		this.progress.filters=[colorFlilter];
-	 }
+		this.progress.filters = [colorFlilter];
+	}
 
-	 public setProgressCircleThree():void{
-		 //颜色矩阵数组
+	public setProgressCircleTwo(): void {
+		//颜色矩阵数组
 		var colorMatrix = [
-    		1,0,0,0,104,
-			0,1,0,0,-183,
-    		0,0,1,0,-81,
-    		0,0,0,1,0
-			];
+			1, 0, 0, 0, 104,
+			0, 1, 0, 0, -62,
+			0, 0, 1, 0, 0,
+			0, 0, 0, 1, 0
+		];
 		var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
-		this.progress.filters=[colorFlilter];
-	 }
+		this.progress.filters = [colorFlilter];
+	}
 
-	public addChip(chip:number){
+	public setProgressCircleThree(): void {
+		//颜色矩阵数组
+		var colorMatrix = [
+			1, 0, 0, 0, 104,
+			0, 1, 0, 0, -183,
+			0, 0, 1, 0, -81,
+			0, 0, 0, 1, 0
+		];
+		var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
+		this.progress.filters = [colorFlilter];
+	}
+
+	public addChip(chip: number) {
 		this._goldNum += chip;
-		AnimationUtils.getInstance().changeLabelNumber(this.goldNumLabel,chip);
+		AnimationUtils.getInstance().changeLabelNumber(this.goldNumLabel, chip);
 	}
 
-	public reduceChip(chip:number){
+	public reduceChip(chip: number) {
 		this._goldNum -= chip;
-		AnimationUtils.getInstance().changeLabelNumber(this.goldNumLabel,-chip);
+		AnimationUtils.getInstance().changeLabelNumber(this.goldNumLabel, -chip);
 	}
 }

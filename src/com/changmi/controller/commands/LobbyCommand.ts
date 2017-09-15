@@ -43,7 +43,7 @@ module game {
                 case LobbyCommand.CHANGE: {
                     if (data == 1)
                         appMediator.main.enterLobbyScreen();
-                    else if(data == 2)
+                    else if (data == 2)
                         appMediator.main.enterLoadingScreen();
                     else
                         appMediator.main.enterGameScreen();
