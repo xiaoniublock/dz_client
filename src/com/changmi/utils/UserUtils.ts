@@ -32,6 +32,13 @@ class UserUtils {
 
 		return this.userPools[index];
 	}
+	public getUserFromUid(uId: number): User {
+		for (var i = 0; i < this.userPools.length; i++) {
+			if (this.userPools[i].uId == uId) {
+			return this.userPools[i];
+			}
+		}
+	}
 	public saveOwnUser(user: User) {
 		this.ownUser = user;
 	}
