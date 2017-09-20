@@ -29,18 +29,18 @@ class NetController {
         if (!this.wsMatch) {
             this.wsMatch = new WS();
         }
-        this.wsMatch.connect("192.168.1.70", 9000, "match");
+        this.wsMatch.connect("118.31.69.15", 9000, "match"); //阿里云ip
         // this.wsMatch.connect("echo.websocket.org", 80,"match");
-        // this.wsMatch.connect("192.168.1.121", 8182,"match");
+        // this.wsMatch.connect("192.168.1.154", 9000,"match");    //陈飞的ip
     }
     /**游戏服务器 */
     public connectGame(): void {
         if (!this.wsGame) {
             this.wsGame = new WS();
         }
-        // this.wsGame.connect("192.168.1.70", 5678,"game");
-        this.wsGame.connect("echo.websocket.org", 80, "game");
-        // this.wsGame.connect("192.168.1.121", 8182,"game");
+        this.wsGame.connect("118.31.69.15", 9000,"game");    //阿里云ip
+        // this.wsGame.connect("echo.websocket.org", 80, "game");
+        // this.wsGame.connect("192.168.1.154", 9000,"game");      //陈飞的ip
     }
     public close(type: number): void {
         switch (type) {

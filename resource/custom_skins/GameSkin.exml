@@ -46,13 +46,13 @@
 	</w:Declarations>
 	<e:Image id="image" width="100%" height="100%"  source="game_background_png"/>
 	<e:Group id="UserGroup" width="1133" height="594" x="102" y="47">
-		<ns1:User id="User_4" width="126" height="174" x="502" y="419" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
-		<ns1:User id="User_5" width="126" height="174" x="179" y="419" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
-		<ns1:User id="User_6" width="126" height="174" x="0" y="180" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
-		<ns1:User id="User_7" width="126" height="174" x="179" y="0" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
-		<ns1:User id="User_1" width="126" height="174" x="840" y="0" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
-		<ns1:User id="User_2" width="126" height="174" x="1007" y="180" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
-		<ns1:User id="User_3" width="126" height="174" x="840" y="418" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin"/>
+		<ns1:User id="User_4" width="126" height="174" x="502" y="419" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin" visible="false"/>
+		<ns1:User id="User_5" width="126" height="174" x="179" y="419" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin" visible="false"/>
+		<ns1:User id="User_6" width="126" height="174" x="0" y="180" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin" visible="false"/>
+		<ns1:User id="User_7" width="126" height="174" x="179" y="0" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin" visible="false"/>
+		<ns1:User id="User_1" width="126" height="174" x="840" y="0" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin" visible="false"/>
+		<ns1:User id="User_2" width="126" height="174" x="1007" y="180" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin" visible="false"/>
+		<ns1:User id="User_3" width="126" height="174" x="840" y="418" anchorOffsetX="0" anchorOffsetY="0" skinName="UserInfoDisplaySkin" visible="false"/>
 		<ns1:Chip id="Chip_4" width="128" height="32" x="360" y="422" skinName="skins.ChipSkin" visible="false"/>
 		<ns1:Chip id="Chip_5" width="128" height="32" x="178" y="375" skinName="skins.ChipSkin" visible="false"/>
 		<ns1:Chip id="Chip_6" width="128" height="32" x="145" y="253" skinName="skins.ChipSkin" visible="false"/>

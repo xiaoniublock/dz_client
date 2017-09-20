@@ -71,7 +71,6 @@ module game {
                 case Commands.PUSH_OWNCARD:
                     //this.onRecivePlayGame(data.content);
                     break;
-
             }
         }
 

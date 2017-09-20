@@ -11,14 +11,15 @@ class User extends eui.Component {
 	private _isGiveUp: boolean;		//判断该用户是否已经放弃游戏
 	private _isCardVisible: boolean;	//设置是否可见该玩家的牌
 
-	private _uId: number;//用户ID
-	private _userName: string;//用户名
-	private _goldNum: number;//筹码
+	private _uId: string;//用户ID
+	private _name: string;//用户名
+	private _money: number;//筹码
 	private _headImgData: string;//头像地址
 	private _cardNum: number;//手牌数目
 	private _seat: number;//桌上实际所处位置
-	private _index: number;//服务端返回玩家位置
+	private _chairId: number;//服务端返回玩家位置
 	private _cards: CardGroups;//用户手牌
+	private _stake: number;//当前下的注
 
 	public userNameLabel: eui.Label;
 	public goldNumLabel: eui.Label;
@@ -31,9 +32,6 @@ class User extends eui.Component {
 
 	//加载用户头像加载器
 	private imageLoader: egret.ImageLoader = new egret.ImageLoader();
-
-	//计时器
-	public timer: egret.Timer = new egret.Timer(50, 360);
 
 	private _angle: number = 0;	//0~360,表示倒计时
 
@@ -52,23 +50,27 @@ class User extends eui.Component {
 		}
 	}
 
-	public get uId(): number {
+	public get uId(): string {
 		return this._uId;
 	}
 
-	public get index(): number {
-		return this._index;
+	public get chairId(): number {
+		return this._chairId;
 	}
 	public get seat(): number {
 		return this._seat;
 	}
 
-	public get userName(): string {
-		return this._userName;
+	public get name(): string {
+		return this._name;
 	}
 
-	public get goldNum(): number {
-		return this._goldNum;
+	public get money(): number {
+		return this._money;
+	}
+
+	public get stake(): number {
+		return this._stake;
 	}
 
 	public get headImgData(): string {
@@ -83,27 +85,27 @@ class User extends eui.Component {
 		return this._angle;
 	}
 
-	public set uId(uId: number) {
+	public set uId(uId: string) {
 		this._uId = uId;
 	}
 
 	public set seat(seat: number) {
 		this._seat = seat;
 	}
-	public set index(index: number) {
-		this._index = index;
+	public set chairId(chairId: number) {
+		this._chairId = chairId;
 	}
 
-	public set userName(userName: string) {
-		this._userName = userName;
+	public set name(name: string) {
+		this._name = name;
 		if (this.userNameLabel)
-			this.userNameLabel.text = userName;
+			this.userNameLabel.text = name;
 	}
 
-	public set goldNum(goldNum: number) {
-		this._goldNum = goldNum;
+	public set money(money: number) {
+		this._money = money;
 		if (this.goldNumLabel)
-			this.goldNumLabel.text = "" + goldNum;
+			this.goldNumLabel.text = "" + money;
 	}
 
 	public set headImgData(headImgData: string) {
@@ -157,13 +159,13 @@ class User extends eui.Component {
 
 	public set angle(angle: number) {
 		this._angle = angle;
-		this.changeGraphics(angle);
+		this.changeGraphics();
 	}
 
-	public createUserSource(userName: string, goldNum: number) {//,headImgData:egret.BitmapData){
+	public createUserSource(userName: string, money: number) {//,headImgData:egret.BitmapData){
 		//this.initUserUI();
-		this.userName = userName;
-		this.goldNum = goldNum;
+		this.name = name;
+		this.money = money;
 		// this._headImgData = headImgData;
 
 	}
@@ -181,47 +183,42 @@ class User extends eui.Component {
 		this.shape.y = h / 2;
 		this.progress.mask = this.shape;
 		this.addChild(this.shape);
-
-		//注册事件侦听器
-		this.timer.addEventListener(egret.TimerEvent.TIMER, timerFunc, this);
-		this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.timerComFunc, this);
-		function timerFunc() {
-			this.angle += 1;
-			this.angle = this.angle % 360;
-		}
 	}
 
-	private changeGraphics(angle) {
-		if (angle >= 120 && angle < 240) {
+	public startrotate(lastTime:number) {
+		this.angle = (30 - lastTime) * 1000 / 30;
+		this.stage.frameRate = 50;
+		this.addEventListener(egret.Event.ENTER_FRAME, this.frameFun, this);
+	}
+
+	public stoprotate() {
+		this.removeEventListener(egret.Event.ENTER_FRAME, this.frameFun, this);
+		this.dispatchEventWith(User.GIVEUP);
+	}
+
+	public frameFun(){
+		this._angle += 1;
+		this.angle = this.angle % 1000;
+	}
+
+	private changeGraphics() {
+		if (this.angle >= 333 && this.angle < 667) {
 			this.setProgressCircleTwo();
-		} else if (angle >= 240) {
+		} else if (this.angle >= 667 && this.angle != 1000) {
 			this.setProgressCircleThree();
 		} else {
 			this.resetProgressCircle();
 		}
+		if (this.angle < 1) {
+			this.angle = 1000;
+			this.stoprotate();
+		}
 		this.shape.graphics.clear();
 		this.shape.graphics.beginFill(0x00ffff, 1);
 		this.shape.graphics.lineTo(0, 0);
-		this.shape.graphics.drawArc(0, 0, this.r, -90 * Math.PI / 180, (angle - 90) * Math.PI / 180, true);
+		this.shape.graphics.drawArc(0, 0, this.r, -250 * Math.PI / 500, (this.angle - 250) * Math.PI / 500, true);
 		this.shape.graphics.lineTo(0, 0);
 		this.shape.graphics.endFill();
-	}
-	public timerComFunc() {
-		console.warn(this.angle);
-		this.changeGraphics(1);
-		this.dispatchEventWith(User.GIVEUP);
-	}
-	//开始计时
-	public startTimer(): void {
-		this.angle = 0;
-		if (this.timer.currentCount != 0) {
-			this.timer.reset();
-		}
-		this.timer.start();
-	}
-	public stopTimer(): void {
-		this.timer.stop();
-		this.changeGraphics(1);
 	}
 
 	public playerOut(): void {
@@ -285,12 +282,12 @@ class User extends eui.Component {
 	}
 
 	public addChip(chip: number) {
-		this._goldNum += chip;
+		this._money += chip;
 		AnimationUtils.getInstance().changeLabelNumber(this.goldNumLabel, chip);
 	}
 
 	public reduceChip(chip: number) {
-		this._goldNum -= chip;
+		this._money -= chip;
 		AnimationUtils.getInstance().changeLabelNumber(this.goldNumLabel, -chip);
 	}
 }

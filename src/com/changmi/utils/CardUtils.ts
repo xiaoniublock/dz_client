@@ -9,8 +9,19 @@ class CardUtils {
         return this._instance;
     }
     /**一次性添加多张公共牌 */
-    public putPublicCards(cards: Array<Card>) {
+    public putPublicCards(cardNumbers: Array<number>) {
+        var cards:Array<Card> = [];
+        for(var i = 0;i < cardNumbers.length;i++){
+            var card:Card = new Card(cardNumbers[i] % 100,parseInt("" + cardNumbers[i] / 100));
+            cards.push(card);
+        }
         this.publicCards = cards;
+    }
+    public getPublicCards():Array<Card>{
+        return this.publicCards;
+    }
+    public getPublicCard(index:number):Card{
+        return this.publicCards[index];
     }
     /**逐一添加公共牌 */
     public addPublicCards(card: Card) {

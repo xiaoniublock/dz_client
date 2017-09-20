@@ -14,7 +14,8 @@ module game {
         /**开始匹配游戏*/
         public matchPlayer() {
             NetController.getInstance().addSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction);
-            NetController.getInstance().connectMatch();
+            // NetController.getInstance().connectMatch();
+            NetController.getInstance().connectGame();
             // 打开加载中界面
             this.sendNotification(LobbyCommand.CHANGE, 2);
             // this.start.enabled = false;
@@ -40,9 +41,16 @@ module game {
                 case "game":
                     var data = new BaseMsg();
                     data.command = Commands.MATCH_PLAYER;
-                    data.content = { "uId": "1" };
+                    data.content = { "uId": "1" , "tId":"1"};
                     NetController.getInstance().sendData(NetController.GAMESOCKET, data, (data: BaseMsg) => {
                         console.warn("onMatchPlayerBack" + data);
+                        UserUtils.getInstance().initUsers(data.content["user"]);
+                        CardUtils.getInstance().putPublicCards(data.content["poker"]);
+                        CachePool.addObj("jackpot",data.content["jackpot"]);
+                        CachePool.addObj("ready",data.content["ready"]);
+                        CachePool.addObj("time",data.content["time"]);
+
+                        // this.sendNotification(GameCommand.START_GAME);
                         NetController.getInstance().removeSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction);
                     }
                         , this);

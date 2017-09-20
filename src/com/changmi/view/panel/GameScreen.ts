@@ -20,8 +20,6 @@ module game {
 
         public users: Array<User>;
         public chips: Array<Chip>;
-        public userNameArray: Array<string>;
-        public userMoneyArray: Array<string>;
 
         public publicCardsGroup: eui.Group;
         public userCardsGroup: eui.Group;
@@ -41,8 +39,8 @@ module game {
 
         public constructor() {
             super();
-            this.once(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
-            this.once(egret.Event.ADDED_TO_STAGE, this.beginAnimation, this);
+            this.addEventListener(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
+            // this.addEventListener(egret.Event.ADDED_TO_STAGE, this.beginAnimation, this);
         }
 
         private sendCardToUserTimer: egret.Timer;
@@ -72,11 +70,7 @@ module game {
 
             function sendCardToUserTimerOver() {
                 //游戏开始
-                let cards: Array<Card> = [];
-                cards.push(new Card(10, 1));
-                cards.push(new Card(11, 1));
-                cards.push(new Card(12, 1));
-                this.sendPublicCard(1, cards);
+                this.sendPublicCard(1, CardUtils.getInstance().getPublicCards);
             }
         }
 
@@ -96,18 +90,32 @@ module game {
             //测试用
             this.users = [this["User_1"], this["User_2"], this["User_3"], this["User_4"], this["User_5"], this["User_6"], this["User_7"]];
             this.chips = [this["Chip_1"], this["Chip_2"], this["Chip_3"], this["Chip_4"], this["Chip_5"], this["Chip_6"], this["Chip_7"]];
-            this.userNameArray = ["xiaoniao", "shaniao", "erniao", "siniao", "douniao", "xiaoji", "shaji"];
-            this.userMoneyArray = ["3000", "7000", "100", "2500", "5000", "500", "200"];
-            for (var i = 0; i < 7; i++) {
-                this.users[i].userName = this.userNameArray[i];
-                this.users[i].goldNum = parseInt(this.userMoneyArray[i]);
+            var userpool:Array<User> = UserUtils.getInstance().getUsers();
+            var readyId:string = CachePool.getObj("ready");
+            for (var i = 0; i < userpool.length; i++) {
+                var user:User = userpool[i];
+                var index = user.seat;
+                this.users[i].name = user.name;
+                this.users[i].money = user.money;
                 this.users[i].cardNum = 0;
-                this.chips[i].chipNum = parseInt(this.userMoneyArray[i]);
+                this.users[i].angle = 1000;
+                this.users[i].visible = true;
+                this.chips[i].chipNum = user.stake;
                 this.chips[i].isRight = !(i == 1 || i == 2 || i == 3);
                 this.users[i].isCardVisible = (i == 3);
-                this.users[i].startTimer();
+                if(user.uId == readyId){
+                    this.users[i].startrotate(CachePool.getObj("time"));
+                }
+            }
+            for (var i = 0; i < CardUtils.getInstance().getPublicCards().length;i++){
+                let card:Card = <Card>this.publicCardsGroup.getChildAt(i);
+                card.color = CardUtils.getInstance().getPublicCard(i).color;
+                card.index = CardUtils.getInstance().getPublicCard(i).index;
+                card.createCardSourceNoPram();
+                card.visible = true;
             }
 
+            this["baseChipNum"].text = CachePool.getObj("jackpot");
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0, 0, 0, 0);
             this.RangeMoneySlider.addEventListener(egret.Event.CHANGE, this.onVSLiderChange, this);
 
@@ -229,7 +237,7 @@ module game {
                 chipImg.texture = RES.getRes("gamescreen.chip_5000_more");
             }
 
-            this.users[userPosition - 1].goldNum -= chip;
+            this.users[userPosition - 1].money -= chip;
             var tween: egret.Tween = egret.Tween.get(chipImg);
             tween.to({ x: this.chips[userPosition - 1].x + 40, y: this.chips[userPosition - 1].y, scale: 0.5, alpha: 0.5 }, 400, egret.Ease.sineOut);
             tween.call(function () {
@@ -240,7 +248,7 @@ module game {
 
         //给钱动画——未完成
         public giveChipAction(chip: number, userPosition: number) {
-            var chipNumArray: Array<number> = [5000, 2500, 1000, 300, 50];
+            var chipNumArray: Array<number> = [10000, 2500, 1000, 300, 50];
             var chipNameArray: Array<string> = ["gamescreen.chip_5000_more", "gamescreen.chip_2500-5000",
                 "gamescreen.chip_1000-2500", "gamescreen.chip_300-1000", "gamescreen.chip_50-300"];
             var chipArray: Array<string> = new Array();
@@ -254,6 +262,7 @@ module game {
 
             var timer = new egret.Timer(100, chipArray.length);
             timer.addEventListener(egret.TimerEvent.TIMER, giveChip, this);
+            timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, timerComplete,this);
             timer.start();
 
             AnimationUtils.getInstance().changeLabelNumber(this["baseChipNum"], -chip);
@@ -261,6 +270,11 @@ module game {
 
             function giveChip() {
                 this.giveChipAnimation(this.users[userPosition - 1].x, this.users[userPosition - 1].y, chipArray[timer.currentCount]);
+            }
+
+            function timerComplete() {
+                timer.removeEventListener(egret.TimerEvent.TIMER, giveChip, this);
+                timer.removeEventListener(egret.TimerEvent.TIMER_COMPLETE, timerComplete,this);
             }
         }
 

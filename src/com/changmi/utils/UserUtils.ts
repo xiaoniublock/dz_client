@@ -19,7 +19,7 @@ class UserUtils {
 	}
 	public popUser(user: User): void {
 		for (var i = 0; i < this.userPools.length; i++) {
-			if (this.userPools[i].userName == user.userName) {
+			if (this.userPools[i].uId == user.uId) {
 				this.userPools.splice(i, 1);
 				break;
 			}
@@ -32,7 +32,7 @@ class UserUtils {
 
 		return this.userPools[index];
 	}
-	public getUserFromUid(uId: number): User {
+	public getUserFromUid(uId: string): User {
 		for (var i = 0; i < this.userPools.length; i++) {
 			if (this.userPools[i].uId == uId) {
 			return this.userPools[i];
@@ -48,14 +48,14 @@ class UserUtils {
 	public sortUsersSeats() {
 		if (this.userPools.length != 0 && this.ownUser) {
 			for (var i = 0; i < this.userPools.length; i++) {
-				if (this.userPools[i].userName == this.ownUser.userName) {
+				if (this.userPools[i].uId == this.ownUser.uId) {
 					this.userPools[i].seat = 4;
 					break;
 				}
 			}
 			for (var i = 0; i < this.userPools.length; i++) {
 				if (this.userPools[i].seat != 4) {
-					let userseat: number = (this.userPools[i].index + Math.abs(4 - this.ownUser.index)) % 7;
+					let userseat: number = (this.userPools[i].chairId + Math.abs(4 - this.ownUser.chairId)) % 7;
 					this.userPools[i].seat = (userseat == 0 ? 7 : userseat);
 				}
 
@@ -63,7 +63,7 @@ class UserUtils {
 		}
 	}
 	public sortUserSeat(user: User) {
-		let userseat: number = (user.index + Math.abs(4 - this.ownUser.index)) % 7;
+		let userseat: number = (user.chairId + Math.abs(4 - this.ownUser.chairId)) % 7;
 		user.seat = (userseat == 0 ? 7 : userseat);
 	}
 }
