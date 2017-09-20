@@ -124,13 +124,10 @@ class BaseMsg {
 
 /**基本操作代码*/
 class Commands {
-    public static SYSTEM_MSG = 1;
-    public static REGISTER = 2;
-    public static LOGIN = 3;
-    public static MATCH_PLAYER = 4;
-    public static PLAYERBET = 5;
-    public static PUSH_OWNCARD = 6;
-    public static PUSH_PUBLICCARD = 7;
-    public static ADD_PLAYER = 8;
-    public static REM_PLAYER = 9;
+    public static PLAYERBET = 1;
+    public static PUSH_OWNCARD = 2;
+    public static PUSH_PUBLICCARD = 3;
+    public static ADD_PLAYER = 4;
+    public static REM_PLAYER = 5;
+    public static RESULT=6
 }

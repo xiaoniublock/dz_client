@@ -28,10 +28,10 @@ module game {
             msg.command = Commands.PLAYERBET;
             msg.content = { "name": "112" };
             switch (data) {
-                case Actions.GIVEUP:
+                case Actions.giveup:
 
                     break;
-                case Actions.PASS:
+                case Actions.pass:
 
                     break;
                 default://不是弃牌不是让牌，那就是下注咯
@@ -71,26 +71,27 @@ module game {
                 case Commands.PUSH_OWNCARD:
                     //this.onRecivePlayGame(data.content);
                     break;
+                //游戏判定
+                 case Commands.RESULT:
+                    //this.onRecivePlayGame(data.content);
+                    break;
 
             }
         }
 
         /**房间消息*/
         private onRecivePlayGame(content): void {
-            //0是玩家下注, 1是玩家让, 2是玩家弃牌，3得出结果
+            //1是玩家弃牌, 2是玩家让,3是玩家下注 
             let state = content.state;
             console.warn('state', state);
             if (state == undefined) return;
             switch (state) {
-                case 0:
+                case 1:
                     // this.my_cards = content.cards.sort(function(a,b){return b-a});
                     // this.refreshMyCard(this.my_cards);
                     break;
-                case 1:
-                    //this.onGamePlay(content);
-                    break;
                 case 2:
-                    //this.onGameOver(content);
+                    //this.onGamePlay(content);
                     break;
                 case 3:
                     //this.onGameOver(content);
@@ -109,8 +110,8 @@ module game {
     /**基本操作代码*/
 }
 class Actions {
-    public static GIVEUP = 1;
-    public static PASS = 2;
+    public static giveup = 1;
+    public static pass = 2;
     public static giveUpOrPass = 3;
     public static followAny = 4;
     public static autoPass = 5;
