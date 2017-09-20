@@ -24,6 +24,9 @@ class WS {
     public close(): void {
         this.WebSocket.close();
     }
+    public connected():boolean{
+        return this.WebSocket.connected;
+    }
 
     private onReceiveMessage(e: egret.Event): void {
         console.log('socket  收到了消息');
