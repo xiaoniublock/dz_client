@@ -38,7 +38,7 @@ module game {
 
                     break;
             }
-            // NetController.getInstance().sendData(msg, this.onPlayerActionBack, this);
+            // NetController.getInstance().sendData(NetController.GAMESOCKET,msg, null, this);
         }
 
         private onPlayerActionBack(data: BaseMsg) {

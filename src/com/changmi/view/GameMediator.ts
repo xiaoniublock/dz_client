@@ -109,7 +109,7 @@ module game {
 
         public giveupAction(event: egret.TouchEvent) {
             this.gameScreen.giveChipAction(parseInt(this.gameScreen["baseChipNum"].text), 4);
-            this.sendNotification(GameCommand.ACTION, Actions.GIVEUP);
+            this.sendNotification(GameCommand.ACTION, Actions.giveup);
         }
 
         public passAction(event: egret.TouchEvent) {
@@ -118,7 +118,7 @@ module game {
                     this.gameScreen.chips[i].gotoBaseAnimation(this.gameScreen["baseChipNum"]);
                 }
             }
-            this.sendNotification(GameCommand.ACTION, Actions.PASS);
+            this.sendNotification(GameCommand.ACTION, Actions.pass);
         }
 
         public addChipAction(event: egret.TouchEvent) {

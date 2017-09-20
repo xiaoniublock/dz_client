@@ -38,7 +38,7 @@ class NetController {
         if (!this.wsGame) {
             this.wsGame = new WS();
         }
-        this.wsGame.connect("118.31.69.15", 9000,"game");    //阿里云ip
+        this.wsGame.connect("118.31.69.15", 9000, "game");    //阿里云ip
         // this.wsGame.connect("echo.websocket.org", 80, "game");
         // this.wsGame.connect("192.168.1.154", 9000,"game");      //陈飞的ip
     }
@@ -78,7 +78,9 @@ class NetController {
 
     /**发送数据*/
     public sendData(type: number, data: BaseMsg, callback: Function = null, thisObj) {
-        data.seq = this.sequence++;
+        if (callback) {
+            data.seq = this.sequence++;
+        }
         switch (type) {
             case NetController.MATCHSOCKET:
                 this.wsMatch.sendData(JSON.stringify(data));
@@ -129,5 +131,6 @@ class Commands {
     public static PUSH_PUBLICCARD = 3;
     public static ADD_PLAYER = 4;
     public static REM_PLAYER = 5;
-    public static RESULT=6
+    public static RESULT = 6;
+    public static MATCH_PLAYER = 7;
 }
