@@ -40,7 +40,11 @@ module game {
         public constructor() {
             super();
             this.addEventListener(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
+            this.once(egret.Event.ADDED_TO_STAGE, this.initialize, this)
             // this.addEventListener(egret.Event.ADDED_TO_STAGE, this.beginAnimation, this);
+        }
+         private initialize(){
+             ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
         }
 
         private sendCardToUserTimer: egret.Timer;
@@ -119,7 +123,6 @@ module game {
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0, 0, 0, 0);
             this.RangeMoneySlider.addEventListener(egret.Event.CHANGE, this.onVSLiderChange, this);
 
-            ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
         }
 
         public sendCard(card: Card, card1: eui.Image) {
