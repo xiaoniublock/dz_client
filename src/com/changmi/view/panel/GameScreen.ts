@@ -79,6 +79,7 @@ module game {
             this.users[index % 7].cardNum = Math.ceil(index / 7);
         }
 
+        //刷新页面
         public createCompleteEvent() {
             this.skinName = "skins.GameSkin";
             this.switchBtn = new eui.Button();
@@ -90,25 +91,17 @@ module game {
             //测试用
             this.users = [this["User_1"], this["User_2"], this["User_3"], this["User_4"], this["User_5"], this["User_6"], this["User_7"]];
             this.chips = [this["Chip_1"], this["Chip_2"], this["Chip_3"], this["Chip_4"], this["Chip_5"], this["Chip_6"], this["Chip_7"]];
-            var userpool:Array<User> = UserUtils.getInstance().getUsers();
-            var readyId:string = CachePool.getObj("ready");
+            var userpool: Array<User> = UserUtils.getInstance().getUsers();
+            var readyId: string = CachePool.getObj("ready");
             for (var i = 0; i < userpool.length; i++) {
-                var user:User = userpool[i];
-                var index = user.seat - 1;
-                this.users[index].name = user.name;
-                this.users[index].money = user.money;
-                this.users[index].cardNum = 0;
-                this.users[index].angle = 1000;
-                this.users[index].visible = true;
-                this.chips[index].chipNum = user.stake;
-                this.chips[index].isRight = !(index == 0 || index == 1 || index == 2);
-                this.users[index].isCardVisible = (index == 3);
-                if(user.uId == readyId){
-                    this.users[index].startrotate(CachePool.getObj("time"));
+                var user: User = userpool[i];
+                this.addOneUserAction(user);
+                if (user.uId == readyId) {
+                    this.users[user.seat - 1].startrotate(CachePool.getObj("time"));
                 }
             }
-            for (var i = 0; i < CardUtils.getInstance().getPublicCards().length;i++){
-                let card:Card = <Card>this.publicCardsGroup.getChildAt(i);
+            for (var i = 0; i < CardUtils.getInstance().getPublicCards().length; i++) {
+                let card: Card = <Card>this.publicCardsGroup.getChildAt(i);
                 card.color = CardUtils.getInstance().getPublicCard(i).color;
                 card.index = CardUtils.getInstance().getPublicCard(i).index;
                 card.createCardSourceNoPram();
@@ -126,6 +119,21 @@ module game {
             this.removeChild(card1);
             card.visible = true;
             card.startrotateAndChangeSource();
+        }
+
+        /**
+         * 增加单人方法
+         */
+        public addOneUserAction(user: User) {
+            var index = user.seat - 1;
+            this.users[index].name = user.name;
+            this.users[index].money = user.money;
+            this.users[index].cardNum = 0;
+            this.users[index].angle = 1000;
+            this.users[index].visible = true;
+            this.chips[index].chipNum = user.stake;
+            this.chips[index].isRight = !(index == 0 || index == 1 || index == 2);
+            this.users[index].isCardVisible = (index == 3);
         }
 
         /**
@@ -262,7 +270,7 @@ module game {
 
             var timer = new egret.Timer(100, chipArray.length);
             timer.addEventListener(egret.TimerEvent.TIMER, giveChip, this);
-            timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, timerComplete,this);
+            timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, timerComplete, this);
             timer.start();
 
             AnimationUtils.getInstance().changeLabelNumber(this["baseChipNum"], -chip);
@@ -274,7 +282,7 @@ module game {
 
             function timerComplete() {
                 timer.removeEventListener(egret.TimerEvent.TIMER, giveChip, this);
-                timer.removeEventListener(egret.TimerEvent.TIMER_COMPLETE, timerComplete,this);
+                timer.removeEventListener(egret.TimerEvent.TIMER_COMPLETE, timerComplete, this);
             }
         }
 
