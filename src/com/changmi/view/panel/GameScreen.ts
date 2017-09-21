@@ -140,6 +140,13 @@ module game {
         }
 
         /**
+         * 删除单人方法
+         */
+        public removeOneUserAction(index: number) {
+            this.users[index].visible = false;
+        }
+
+        /**
          * 发公共牌，有三个回合，第一回合发三张，后面两回合每次发一张
          */
         public sendPublicCard(round: number, cards: Array<Card>) {
