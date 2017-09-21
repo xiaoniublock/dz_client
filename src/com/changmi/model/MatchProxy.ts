@@ -6,7 +6,6 @@ module game {
         /**
          * 匹配成功返回这张桌子上的玩家数据
          */
-        public static MATCHPLAYER: string = "match_player";
 
         public constructor() {
             super(MatchProxy.NAME);
@@ -41,7 +40,7 @@ module game {
                 case "game":
                     var data = new BaseMsg();
                     data.command = Commands.MATCH_PLAYER;
-                    data.content = { "uId": "1" , "tId":"1"};
+                    data.content = { "uId": "2" , "tId":"1"};
                     NetController.getInstance().sendData(NetController.GAMESOCKET, data, (data: BaseMsg) => {
                         console.warn("onMatchPlayerBack" + data);
                         UserUtils.getInstance().initUsers(data.content["user"]);

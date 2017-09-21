@@ -13,9 +13,10 @@ class UserUtils {
 		this.userPools = users;
 		this.sortUsersSeats();
 	}
-	public pushUser(user: User): void {
+	public pushUser(user: User): User {
 		this.sortUserSeat(user);
 		this.userPools.push(user);
+		return user;
 	}
 	public popUser(user: User): void {
 		for (var i = 0; i < this.userPools.length; i++) {

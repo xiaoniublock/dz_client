@@ -84,7 +84,8 @@ module game {
         public listNotificationInterests(): Array<any> {
             return [
                 GameProxy.CHANGE_STATE,
-                MatchProxy.MATCHPLAYER
+                GameProxy.ADD_USER,
+                GameProxy.REM_USER
             ];
         }
 
@@ -95,9 +96,13 @@ module game {
                     this.gameScreen.switchBottomState(<String><any>data);
                     break;
                 }
-                case MatchProxy.MATCHPLAYER: {
-                    // console.log(<BaseMsg>data.content.roomId);
-
+                 case GameProxy.ADD_USER: {
+                   // this.gameScreen.switchBottomState(<String><any>data);
+                    break;
+                }
+                 case GameProxy.REM_USER: {
+                    //this.gameScreen.switchBottomState(<String><any>data);
+                    break;
                 }
 
 

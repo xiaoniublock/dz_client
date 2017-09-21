@@ -6,6 +6,15 @@ module game {
          * 改变底部按钮组
          */
         public static CHANGE_STATE: string = "change_state";
+         /**
+         * 加入玩家
+         */
+        public static ADD_USER: string = "add_user";
+
+         /**
+         * 去除玩家
+         */
+        public static REM_USER: string = "rem_user";
 
         private _nextStep: number;
 
@@ -53,7 +62,7 @@ module game {
             switch (command) {
                 //加入玩家，更新界面
                 case Commands.ADD_PLAYER:
-
+                this.sendNotification(GameProxy.ADD_USER, UserUtils.getInstance().pushUser(data.content["user"]));
                     break;
                 //玩家退出，更新界面
                 case Commands.REM_PLAYER:
