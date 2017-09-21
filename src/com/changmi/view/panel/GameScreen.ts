@@ -94,17 +94,17 @@ module game {
             var readyId:string = CachePool.getObj("ready");
             for (var i = 0; i < userpool.length; i++) {
                 var user:User = userpool[i];
-                var index = user.seat;
-                this.users[i].name = user.name;
-                this.users[i].money = user.money;
-                this.users[i].cardNum = 0;
-                this.users[i].angle = 1000;
-                this.users[i].visible = true;
-                this.chips[i].chipNum = user.stake;
-                this.chips[i].isRight = !(i == 1 || i == 2 || i == 3);
-                this.users[i].isCardVisible = (i == 3);
+                var index = user.seat - 1;
+                this.users[index].name = user.name;
+                this.users[index].money = user.money;
+                this.users[index].cardNum = 0;
+                this.users[index].angle = 1000;
+                this.users[index].visible = true;
+                this.chips[index].chipNum = user.stake;
+                this.chips[index].isRight = !(index == 0 || index == 1 || index == 2);
+                this.users[index].isCardVisible = (index == 3);
                 if(user.uId == readyId){
-                    this.users[i].startrotate(CachePool.getObj("time"));
+                    this.users[index].startrotate(CachePool.getObj("time"));
                 }
             }
             for (var i = 0; i < CardUtils.getInstance().getPublicCards().length;i++){

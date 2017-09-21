@@ -50,12 +50,13 @@ class UserUtils {
 			for (var i = 0; i < this.userPools.length; i++) {
 				if (this.userPools[i].uId == this.ownUser.uId) {
 					this.userPools[i].seat = 4;
+					this.ownUser.chairId = this.userPools[i].chairId;
 					break;
 				}
 			}
 			for (var i = 0; i < this.userPools.length; i++) {
 				if (this.userPools[i].seat != 4) {
-					let userseat: number = (this.userPools[i].chairId + Math.abs(4 - this.ownUser.chairId)) % 7;
+					let userseat: number = (this.userPools[i].chairId - (this.ownUser.chairId - 4) + 7) % 7;
 					this.userPools[i].seat = (userseat == 0 ? 7 : userseat);
 				}
 
