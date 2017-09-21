@@ -97,11 +97,11 @@ module game {
                     break;
                 }
                  case GameProxy.ADD_USER: {
-                   // this.gameScreen.switchBottomState(<String><any>data);
+                   this.gameScreen.addOneUserAction(<User><any>data);
                     break;
                 }
                  case GameProxy.REM_USER: {
-                    //this.gameScreen.switchBottomState(<String><any>data);
+                    this.gameScreen.removeOneUserAction(<number><any>data);
                     break;
                 }
 

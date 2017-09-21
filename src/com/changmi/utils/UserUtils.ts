@@ -18,11 +18,12 @@ class UserUtils {
 		this.userPools.push(user);
 		return user;
 	}
-	public popUser(user: User): void {
+	public popUser(uId: string): number {
 		for (var i = 0; i < this.userPools.length; i++) {
-			if (this.userPools[i].uId == user.uId) {
+			if (this.userPools[i].uId == uId) {
+				let seat=this.userPools[i].seat;
 				this.userPools.splice(i, 1);
-				break;
+				return seat;
 			}
 		}
 	}

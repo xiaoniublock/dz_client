@@ -9,7 +9,6 @@ module game {
 		public constructor() {
 			super();
 			this.addEventListener(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
-			this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.stoprotate, this);
 		}
 
 		public createCompleteEvent() {

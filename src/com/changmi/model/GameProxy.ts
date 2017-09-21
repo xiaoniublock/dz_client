@@ -66,7 +66,7 @@ module game {
                     break;
                 //玩家退出，更新界面
                 case Commands.REM_PLAYER:
-
+                this.sendNotification(GameProxy.REM_USER, UserUtils.getInstance().popUser(data.content["uId"]));
                     break;
                 //玩家各种操作
                 case Commands.PLAYERBET:
