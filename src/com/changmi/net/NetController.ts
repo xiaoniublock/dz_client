@@ -77,7 +77,7 @@ class NetController {
     }
 
     /**发送数据*/
-    public sendData(type: number, data: BaseMsg, callback: Function = null, thisObj) {
+    public sendData(type: number, data: BaseMsg, callback?: Function , thisObj?) {
         if (callback) {
             data.seq = this.sequence++;
         }
@@ -133,4 +133,6 @@ class Commands {
     public static REM_PLAYER = 5;
     public static RESULT = 6;
     public static MATCH_PLAYER = 7;
+    public static INIT_PLAYER = 8;
+    public static BANKER_PLAYER = 9;
 }

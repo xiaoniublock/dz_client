@@ -20,6 +20,7 @@ class User extends eui.Component {
 	private _chairId: number;//服务端返回玩家位置
 	private _cards: CardGroups;//用户手牌
 	private _stake: number;//当前下的注
+	private _cardType: string;//手牌组合类型
 
 	public userNameLabel: eui.Label;
 	public goldNumLabel: eui.Label;
@@ -44,12 +45,14 @@ class User extends eui.Component {
 	}
 	public initcards(cards: Array<number>) {
 		for (let i = 0; i < cards.length; i++) {
-			let color = cards[i] / 100;
+			let color = parseInt(""+cards[i] / 100);
 			let index = cards[i] % 100;
 			this._cards.cards.push(new Card(index, color));
 		}
 	}
-
+	public get cardType(): string {
+		return this._cardType;
+	}
 	public get uId(): string {
 		return this._uId;
 	}
@@ -85,6 +88,9 @@ class User extends eui.Component {
 		return this._angle;
 	}
 
+	public set cardType(cardType: string) {
+		this._cardType = cardType;
+	}
 	public set uId(uId: string) {
 		this._uId = uId;
 	}
@@ -185,7 +191,7 @@ class User extends eui.Component {
 		this.addChild(this.shape);
 	}
 
-	public startrotate(lastTime:number) {
+	public startrotate(lastTime: number) {
 		this.angle = (30 - lastTime) * 1000 / 30;
 		this.stage.frameRate = 50;
 		this.addEventListener(egret.Event.ENTER_FRAME, this.frameFun, this);
@@ -196,7 +202,7 @@ class User extends eui.Component {
 		this.dispatchEventWith(User.GIVEUP);
 	}
 
-	public frameFun(){
+	public frameFun() {
 		this._angle += 1;
 		this.angle = this.angle % 1000;
 	}
@@ -289,5 +295,16 @@ class User extends eui.Component {
 	public reduceChip(chip: number) {
 		this._money -= chip;
 		AnimationUtils.getInstance().changeLabelNumber(this.goldNumLabel, -chip);
+	}
+	/**
+	 * 显示用户手牌
+	 */
+	public showPlayerCardGroup() {
+		this.playerCardGroup.visible = true;
+		for (let i=0;i<this.playerCardGroup.numChildren;i++){
+			let card=<Card>this.playerCardGroup.getChildAt(i);
+			card.source=this.cards.cards[i].source;
+			card.startrotateAndChangeSource();
+		}
 	}
 }

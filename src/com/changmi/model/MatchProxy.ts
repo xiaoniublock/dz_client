@@ -9,6 +9,7 @@ module game {
 
         public constructor() {
             super(MatchProxy.NAME);
+            NetController.getInstance().addListener(Commands.MATCH_PLAYER, this);
         }
         /**开始匹配游戏*/
         public matchPlayer() {
@@ -40,27 +41,34 @@ module game {
                 case "game":
                     var data = new BaseMsg();
                     data.command = Commands.MATCH_PLAYER;
-                    data.content = { "uId": "2" , "tId":"1"};
-                    NetController.getInstance().sendData(NetController.GAMESOCKET, data, (data: BaseMsg) => {
-                        console.warn("onMatchPlayerBack" + data);
-                        UserUtils.getInstance().initUsers(data.content["user"]);
-                        CardUtils.getInstance().putPublicCards(data.content["poker"]);
-                        CachePool.addObj("jackpot",data.content["jackpot"]);
-                        CachePool.addObj("ready",data.content["ready"]);
-                        CachePool.addObj("time",data.content["time"]);
-
-                        // this.sendNotification(GameCommand.START_GAME);
-                        NetController.getInstance().removeSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction);
-                    }
-                        , this);
+                    data.content = { "uId": "10088", "tId": "1" };
+                    NetController.getInstance().sendData(NetController.GAMESOCKET, data);
                     break;
             }
 
         }
-        public startGame() {
-            this.sendNotification(LobbyCommand.CHANGE, 3);
-        }
+        /**收到服务器消息*/
+        private onReciveMsg(data: BaseMsg) {
+            let command = data.command;
+            console.warn('onReciveMsg', command);
+            switch (command) {
+                //加入玩家，更新界面
+                case Commands.MATCH_PLAYER:
+                    console.warn("onMatchPlayerBack" + data);
+                    UserUtils.getInstance().initUsers(data.content["user"]);
+                    CardUtils.getInstance().putPublicCards(data.content["poker"]);
+                    CachePool.addObj("jackpot", data.content["jackpot"]);
+                    CachePool.addObj("ready", data.content["ready"]);
+                    CachePool.addObj("time", data.content["time"]);
+                    egret.setTimeout(() => {
+                        this.sendNotification(GameCommand.START_GAME);
+                        NetController.getInstance().removeSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction);
+                    }, this, 3000);
+                    break;
 
+
+            }
+        }
 
     }
 }

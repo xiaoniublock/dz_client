@@ -54,7 +54,7 @@ module game {
                     break;
                 }
                 case GameCommand.START_GAME: {
-                    matchProxy.startGame();
+                    this.sendNotification(LobbyCommand.CHANGE, 3);
                     //gameProxy.reset();
                     //gridProxy.reset();
                     //gridProxy.addStartTiles();

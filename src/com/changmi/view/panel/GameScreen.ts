@@ -43,8 +43,8 @@ module game {
             this.once(egret.Event.ADDED_TO_STAGE, this.initialize, this)
             // this.addEventListener(egret.Event.ADDED_TO_STAGE, this.beginAnimation, this);
         }
-         private initialize(){
-             ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
+        private initialize() {
+            ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
         }
 
         private sendCardToUserTimer: egret.Timer;
@@ -106,12 +106,15 @@ module game {
             }
             for (var i = 0; i < CardUtils.getInstance().getPublicCards().length; i++) {
                 let card: Card = <Card>this.publicCardsGroup.getChildAt(i);
-                card.color = CardUtils.getInstance().getPublicCard(i).color;
-                card.index = CardUtils.getInstance().getPublicCard(i).index;
-                card.createCardSourceNoPram();
+                card.createCardSource(CardUtils.getInstance().getPublicCard(i).index, CardUtils.getInstance().getPublicCard(i).color)
                 card.visible = true;
             }
-
+            let card1: Card = new Card(5, 2);
+            let card2: Card = new Card(5, 3);
+            let cardGroup: Array<Card> = [];
+            cardGroup.push(card1);
+            cardGroup.push(card2);
+            this.showPlayerCards("10089", cardGroup);
             this["baseChipNum"].text = CachePool.getObj("jackpot");
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0, 0, 0, 0);
             this.RangeMoneySlider.addEventListener(egret.Event.CHANGE, this.onVSLiderChange, this);
@@ -187,13 +190,12 @@ module game {
         /**
          * 显示手牌
          */
-        public showPlayerCards(index: number, cardGroup: Array<Card>) {
-            let user: User = UserUtils.getInstance().getUserFromIndex(index);
-            user.playerCardGroup.visible = true;
-            for (let i = 0; i < user.playerCardGroup.numChildren; i++) {
-                let card: Card = <Card>user.playerCardGroup.getChildAt(i);
-                card.index = cardGroup[i].index;
-                card.color = cardGroup[i].color;
+        public showPlayerCards(uid: string, cardGroup: Array<Card>) {
+            let user: User = UserUtils.getInstance().getUserFromUid(uid);
+            this.users[user.seat - 1].playerCardGroup.visible = true;
+            for (let i = 0; i < this.users[user.seat - 1].playerCardGroup.numChildren; i++) {
+                let card: Card = <Card>this.users[user.seat - 1].playerCardGroup.getChildAt(i);
+                card.createCardSource(cardGroup[i].index, cardGroup[i].color);
             }
         }
 

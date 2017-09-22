@@ -35,8 +35,6 @@ class Card extends eui.Image {
     public createCardSource(index: number, color: number) {
         this._index = index;
         this._color = color;
-        this.width = 78;
-        this.height = 117;
         this.source = "board_" + this._color + "." + this._color + "" + (this._index < 10 ? ("0" + this._index) : this._index);
     }
 

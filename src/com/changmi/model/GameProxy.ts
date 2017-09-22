@@ -26,6 +26,8 @@ module game {
             NetController.getInstance().addListener(Commands.PUSH_OWNCARD, this);
             NetController.getInstance().addListener(Commands.ADD_PLAYER, this);
             NetController.getInstance().addListener(Commands.REM_PLAYER, this);
+            NetController.getInstance().addListener(Commands.RESULT, this);
+            NetController.getInstance().addListener(Commands.BANKER_PLAYER, this);
         }
 
         /**
@@ -47,7 +49,7 @@ module game {
 
                     break;
             }
-            // NetController.getInstance().sendData(NetController.GAMESOCKET,msg, null, this);
+            // NetController.getInstance().sendData(NetController.GAMESOCKET,msg);
         }
 
         private onPlayerActionBack(data: BaseMsg) {
@@ -84,17 +86,21 @@ module game {
                  case Commands.RESULT:
                     //this.onRecivePlayGame(data.content);
                     break;
+                //游戏判定
+                 case Commands.BANKER_PLAYER:
+                    //this.onRecivePlayGame(data.content);
+                    break;
 
             }
         }
 
         /**房间消息*/
         private onRecivePlayGame(content): void {
-            //1是玩家弃牌, 2是玩家让,3是玩家下注 
-            let state = content.state;
-            console.warn('state', state);
-            if (state == undefined) return;
-            switch (state) {
+            //1-下注/加注，2-让牌，3-全下，4-弃牌
+            let action = content.action;
+            console.warn('action', action);
+            if (action == undefined) return;
+            switch (action) {
                 case 1:
                     // this.my_cards = content.cards.sort(function(a,b){return b-a});
                     // this.refreshMyCard(this.my_cards);
