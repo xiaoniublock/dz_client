@@ -35,10 +35,10 @@ module game {
 			var angle2 = (index + 1) * Math.PI / (speed / 2);
 			var changeX = 30 * (Math.cos(angle1) - Math.cos(angle2));
 
-			if (this.playCount == speed) {
-				this.stoprotate();
-				return;
-			}
+			// if (this.playCount == speed) {
+			// 	this.stoprotate();
+			// 	return;
+			// }
 
 			if (index < speed / 4 || index > 3 * speed / 4 - 1) {
 				this.chipImg.x += changeX;

@@ -6,14 +6,14 @@ module game {
          * 改变底部按钮组
          */
         public static CHANGE_STATE: string = "change_state";
-         /**
-         * 加入玩家
-         */
+        /**
+        * 加入玩家
+        */
         public static ADD_USER: string = "add_user";
 
-         /**
-         * 去除玩家
-         */
+        /**
+        * 去除玩家
+        */
         public static REM_USER: string = "rem_user";
 
         private _nextStep: number;
@@ -52,11 +52,6 @@ module game {
             // NetController.getInstance().sendData(NetController.GAMESOCKET,msg);
         }
 
-        private onPlayerActionBack(data: BaseMsg) {
-
-        }
-
-
         /**收到服务器消息*/
         private onReciveMsg(data: BaseMsg) {
             let command = data.command;
@@ -64,11 +59,11 @@ module game {
             switch (command) {
                 //加入玩家，更新界面
                 case Commands.ADD_PLAYER:
-                this.sendNotification(GameProxy.ADD_USER, UserUtils.getInstance().pushUser(data.content["user"]));
+                    this.sendNotification(GameProxy.ADD_USER, UserUtils.getInstance().pushUser(data.content["user"]));
                     break;
                 //玩家退出，更新界面
                 case Commands.REM_PLAYER:
-                this.sendNotification(GameProxy.REM_USER, UserUtils.getInstance().popUser(data.content["uId"]));
+                    this.sendNotification(GameProxy.REM_USER, UserUtils.getInstance().popUser(data.content["uId"]));
                     break;
                 //玩家各种操作
                 case Commands.PLAYERBET:
@@ -83,11 +78,11 @@ module game {
                     //this.onRecivePlayGame(data.content);
                     break;
                 //游戏判定
-                 case Commands.RESULT:
+                case Commands.RESULT:
                     //this.onRecivePlayGame(data.content);
                     break;
                 //游戏判定
-                 case Commands.BANKER_PLAYER:
+                case Commands.BANKER_PLAYER:
                     //this.onRecivePlayGame(data.content);
                     break;
 

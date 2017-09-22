@@ -65,8 +65,6 @@ module game {
                         NetController.getInstance().removeSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction);
                     }, this, 3000);
                     break;
-
-
             }
         }
 
