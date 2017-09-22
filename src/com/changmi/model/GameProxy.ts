@@ -16,6 +16,11 @@ module game {
         */
         public static REM_USER: string = "rem_user";
 
+        /**
+         * 下注操作
+         */
+        public static ADD_CHIP: string = "add_chip";
+
         private _nextStep: number;
 
 
@@ -51,6 +56,12 @@ module game {
             }
             // NetController.getInstance().sendData(NetController.GAMESOCKET,msg);
         }
+        public sendReady(){
+            var data:BaseMsg = new BaseMsg();
+            data.command = Commands.INIT_PLAYER;
+            data.content = { "uId": "10086", "tId": "1" ,"code":"0"};
+            NetController.getInstance().sendData(NetController.GAMESOCKET,data);
+        }
 
         /**收到服务器消息*/
         private onReciveMsg(data: BaseMsg) {
@@ -81,8 +92,8 @@ module game {
                 case Commands.RESULT:
                     //this.onRecivePlayGame(data.content);
                     break;
-                //游戏判定
-                case Commands.BANKER_PLAYER:
+                //确定庄家
+                 case Commands.BANKER_PLAYER:
                     //this.onRecivePlayGame(data.content);
                     break;
 
@@ -97,6 +108,7 @@ module game {
             if (action == undefined) return;
             switch (action) {
                 case 1:
+                    this.sendNotification(GameProxy.ADD_CHIP, content);
                     // this.my_cards = content.cards.sort(function(a,b){return b-a});
                     // this.refreshMyCard(this.my_cards);
                     break;

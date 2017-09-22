@@ -86,7 +86,8 @@ module game {
             return [
                 GameProxy.CHANGE_STATE,
                 GameProxy.ADD_USER,
-                GameProxy.REM_USER
+                GameProxy.REM_USER,
+                GameProxy.ADD_CHIP
             ];
         }
 
@@ -105,7 +106,9 @@ module game {
                     this.gameScreen.removeOneUserAction(<number><any>data);
                     break;
                 }
-
+                 case GameProxy.ADD_CHIP: {
+                     this.userAddChip(data.uid,data.raiseStack);
+                 }
 
             }
         }
@@ -139,6 +142,11 @@ module game {
 
         public countBetMul(event: egret.TouchEvent) {
             console.log(<eui.Button>event.currentTarget.label);
+        }
+
+        public userAddChip(uId:string,chip:number){
+            var seat:number = UserUtils.getInstance().getUserFromUid(uId).seat;
+            this.gameScreen.addChipAnimation(chip, seat);
         }
     }
 }

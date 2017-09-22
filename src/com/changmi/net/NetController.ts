@@ -55,20 +55,20 @@ class NetController {
 
     /**读取数据*/
     public readData(msg: BaseMsg): void {
-        let seq = msg.seq;
-        if (seq) {
-            console.log('来自服务器的返回消息 ：' + msg);
-            let callBack = this.callBackPool[seq];
-            if (callBack) {
-                callBack.callback.call(callBack.thisObj, msg);
-                this.callBackPool[seq] = null;
-            }
-            delete this.callBackPool[seq];
-        } else //没有seq说明是服务器主动发送的
-        {
+        // let seq = msg.seq;
+        // if (seq) {
+        //     console.log('来自服务器的返回消息 ：' + msg);
+        //     let callBack = this.callBackPool[seq];
+        //     if (callBack) {
+        //         callBack.callback.call(callBack.thisObj, msg);
+        //         this.callBackPool[seq] = null;
+        //     }
+        //     delete this.callBackPool[seq];
+        // } else //没有seq说明是服务器主动发送的
+        // {
             console.log('来自服务器的主动消息 ：' + msg);
             this.dispatcher.dispatchEventWith(msg.command + '', false, msg);
-        }
+        // }
     }
 
     /**接收到数据时都事件监听*/

@@ -114,11 +114,12 @@ module game {
             let cardGroup: Array<Card> = [];
             cardGroup.push(card1);
             cardGroup.push(card2);
-            this.showPlayerCards("10089", cardGroup);
+            // this.showPlayerCards("10089", cardGroup);
             this["baseChipNum"].text = CachePool.getObj("jackpot");
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0, 0, 0, 0);
             this.RangeMoneySlider.addEventListener(egret.Event.CHANGE, this.onVSLiderChange, this);
 
+            // this.sendPublicCard(1, CardUtils.getInstance().getPublicCards());
         }
 
         public sendCard(card: Card, card1: eui.Image) {
@@ -138,7 +139,7 @@ module game {
             this.users[index].angle = 1000;
             this.users[index].visible = true;
             this.chips[index].chipNum = user.stake;
-            this.chips[index].isRight = !(index == 0 || index == 1 || index == 2);
+            this.chips[index].isRight = (index == 0 || index == 1 || index == 2);
             this.users[index].isCardVisible = (index == 3);
         }
 

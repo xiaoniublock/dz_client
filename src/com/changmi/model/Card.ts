@@ -55,14 +55,14 @@ class Card extends eui.Image {
         var index = this.playCount % speed;
         var angle1 = index * Math.PI / (speed / 2);
         var angle2 = (index + 1) * Math.PI / (speed / 2);
-        var changeX = 40 * (Math.cos(angle1) - Math.cos(angle2));
+        var changeX = 39 * (Math.cos(angle1) - Math.cos(angle2));
 
         if (this.playCount == speed) {
             this.stoprotate();
             this.createCardSourceNoPram();
             return;
         }
-        if (index < speed / 4 || index > 3 * speed / 4 - 1) {
+        if (index < speed / 4 || index > speed * 3 / 4 - 1) {
             this.width -= 2 * changeX;
             this.x += changeX;
         } else {

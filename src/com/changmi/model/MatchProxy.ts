@@ -41,7 +41,7 @@ module game {
                 case "game":
                     var data = new BaseMsg();
                     data.command = Commands.MATCH_PLAYER;
-                    data.content = { "uId": "10088", "tId": "1" };
+                    data.content = { "uId": "10086", "tId": "1" };
                     NetController.getInstance().sendData(NetController.GAMESOCKET, data);
                     break;
             }
