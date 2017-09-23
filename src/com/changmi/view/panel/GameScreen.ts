@@ -49,22 +49,27 @@ module game {
 
         private sendCardToUserTimer: egret.Timer;
         public beginAnimation() {
-            this.sendCardToUserTimer = new egret.Timer(300, 14);
+            var userCount = UserUtils.getInstance().getUsers().length;
+            this.sendCardToUserTimer = new egret.Timer(300, 2 * userCount);
             this.sendCardToUserTimer.addEventListener(egret.TimerEvent.TIMER, sendCardToUserTimer, this);
             this.sendCardToUserTimer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, sendCardToUserTimerOver, this);
             this.sendCardToUserTimer.start();
 
             function sendCardToUserTimer() {
-
                 var index: number = this.sendCardToUserTimer.currentCount;
-                if ((index == 3 || index == 10)) {
-                    this.sendOwnCard(index/7,UserUtils.getInstance().getOwnUser().cards.cards[parseInt(""+index/7)]);
+                var userCount: number = this.sendCardToUserTimer.repeatCount / 2;
+                if(index == this.sendCardToUserTimer.repeatCount){
                     return;
                 }
-                var x: number = this.users[index % 7].x + 102 + 104; //一个是group的位置偏移，一个是user位置偏移
-                var y: number = this.users[index % 7].y + 47 + 64;
-                if (this.users[index % 7].visible) {  //如果这个位置有人
-                    this.cardAnimationWithOrigin(x, y, this.sendCardFinish, [index]);
+                if (UserUtils.getInstance().getUserFromIndex(index % userCount).seat == 4) {
+                    this.sendOwnCard(index/userCount,UserUtils.getInstance().getOwnUser().cards.cards[parseInt(""+index/userCount)]);
+                    return;
+                }
+                var userSeat:number = UserUtils.getInstance().getUserFromIndex(index % userCount).seat - 1;
+                var x: number = this.users[userSeat].x + 102 + 104; //一个是group的位置偏移，一个是user位置偏移
+                var y: number = this.users[userSeat].y + 47 + 64;
+                if (this.users[userSeat].visible) {  //如果这个位置有人
+                    this.cardAnimationWithOrigin(x, y, this.sendCardFinish, [userSeat]);
                 }
             }
 
@@ -76,7 +81,7 @@ module game {
 
         public sendCardFinish(index: number, card: eui.Image) {
             this.removeChild(card);
-            this.users[index % 7].cardNum = Math.ceil(index / 7);
+            this.users[index].cardNum++;
         }
 
         //刷新页面
