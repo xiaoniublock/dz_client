@@ -57,24 +57,20 @@ module game {
             function sendCardToUserTimer() {
 
                 var index: number = this.sendCardToUserTimer.currentCount;
-                if (index == 2) {
-                    this["User_" + index].playerOut();
-                }
                 if ((index == 3 || index == 10)) {
-                    // this.sendOwnCard(index/7,UserUtils.getInstance().getOwnUser().cards.cards[index/7]);
-                    // this.sendOwnCard(index/7,new Card(8,3));
+                    this.sendOwnCard(index/7,UserUtils.getInstance().getOwnUser().cards.cards[parseInt(""+index/7)]);
                     return;
                 }
                 var x: number = this.users[index % 7].x + 102 + 104; //一个是group的位置偏移，一个是user位置偏移
                 var y: number = this.users[index % 7].y + 47 + 64;
-                if (this.userNameArray[index % 7] != "") {  //如果这个位置有人
+                if (this.users[index % 7].visible) {  //如果这个位置有人
                     this.cardAnimationWithOrigin(x, y, this.sendCardFinish, [index]);
                 }
             }
 
             function sendCardToUserTimerOver() {
                 //游戏开始
-                this.sendPublicCard(1, CardUtils.getInstance().getPublicCards);
+                //this.sendPublicCard(1, CardUtils.getInstance().getPublicCards);
             }
         }
 

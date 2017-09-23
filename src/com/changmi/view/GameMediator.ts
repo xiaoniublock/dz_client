@@ -10,7 +10,7 @@ module game {
             this.gameScreen.checkBox_giveUp.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onChange, this);
             this.gameScreen.checkBox_autoPass.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onChange, this);
             this.gameScreen.checkBox_followAny.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onChange, this);
-            
+
             this.gameScreen.giveUpBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.giveupAction, this);
             this.gameScreen.passBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.passAction, this);
             this.gameScreen.addChipBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.addChipAction, this);
@@ -87,7 +87,8 @@ module game {
                 GameProxy.CHANGE_STATE,
                 GameProxy.ADD_USER,
                 GameProxy.REM_USER,
-                GameProxy.ADD_CHIP
+                GameProxy.ADD_CHIP,
+                GameProxy.POP_CARD
             ];
         }
 
@@ -98,17 +99,22 @@ module game {
                     this.gameScreen.switchBottomState(<String><any>data);
                     break;
                 }
-                 case GameProxy.ADD_USER: {
-                   this.gameScreen.addOneUserAction(<User><any>data);
+                case GameProxy.ADD_USER: {
+                    this.gameScreen.addOneUserAction(<User><any>data);
                     break;
                 }
-                 case GameProxy.REM_USER: {
+                case GameProxy.REM_USER: {
                     this.gameScreen.removeOneUserAction(<number><any>data);
                     break;
                 }
-                 case GameProxy.ADD_CHIP: {
-                     this.userAddChip(data.uid,data.raiseStack);
-                 }
+                case GameProxy.ADD_CHIP: {
+                    this.userAddChip(data.uid, data.raiseStack);
+                    break;
+                }
+                case GameProxy.POP_CARD: {
+                    this.userGetCards(data.holeCards);
+                    break;
+                }
 
             }
         }
@@ -144,9 +150,13 @@ module game {
             console.log(<eui.Button>event.currentTarget.label);
         }
 
-        public userAddChip(uId:string,chip:number){
-            var seat:number = UserUtils.getInstance().getUserFromUid(uId).seat;
+        public userAddChip(uId: string, chip: number) {
+            var seat: number = UserUtils.getInstance().getUserFromUid(uId).seat;
             this.gameScreen.addChipAnimation(chip, seat);
+        }
+        public userGetCards(cards: Array<number>) {
+            UserUtils.getInstance().getOwnUser().initcards(cards);
+            this.gameScreen.beginAnimation();
         }
     }
 }

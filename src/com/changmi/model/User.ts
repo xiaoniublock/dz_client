@@ -47,7 +47,10 @@ class User extends eui.Component {
 		for (let i = 0; i < cards.length; i++) {
 			let color = parseInt(""+cards[i] / 100);
 			let index = cards[i] % 100;
-			this._cards.cards.push(new Card(index, color));
+			if(!this._cards){
+				this._cards=new CardGroups();
+			}
+			this._cards.initCards(new Card(index, color));
 		}
 	}
 	public get cardType(): string {

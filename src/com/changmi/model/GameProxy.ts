@@ -20,6 +20,10 @@ module game {
          * 下注操作
          */
         public static ADD_CHIP: string = "add_chip";
+        /**
+         * 发牌
+         */
+        public static POP_CARD: string = "pop_card";
 
         private _nextStep: number;
 
@@ -86,7 +90,7 @@ module game {
                     break;
                 //给每个人发手牌
                 case Commands.PUSH_OWNCARD:
-                    //this.onRecivePlayGame(data.content);
+                      this.sendNotification(GameProxy.POP_CARD, data.content);
                     break;
                 //游戏判定
                 case Commands.RESULT:
