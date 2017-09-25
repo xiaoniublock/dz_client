@@ -62,7 +62,7 @@ class LoadingUI extends eui.Component {
                 console.log("post data : ", request.response);
             }, this);
             let own: User = new User();
-            own.uId = "1";//JSON.parse(request.response).id;
+            own.uId = "10086";//JSON.parse(request.response).id;
             UserUtils.getInstance().saveOwnUser(own);
             this.dispatchEventWith(LoadingUI.CREATESENCE);
         }, this);

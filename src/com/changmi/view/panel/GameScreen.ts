@@ -49,6 +49,7 @@ module game {
 
         private sendCardToUserTimer: egret.Timer;
         public beginAnimation() {
+            var index = -1;
             var userCount = UserUtils.getInstance().getUsers().length;
             this.sendCardToUserTimer = new egret.Timer(300, 2 * userCount);
             this.sendCardToUserTimer.addEventListener(egret.TimerEvent.TIMER, sendCardToUserTimer, this);
@@ -56,11 +57,10 @@ module game {
             this.sendCardToUserTimer.start();
 
             function sendCardToUserTimer() {
-                var index: number = this.sendCardToUserTimer.currentCount - 1;
-                var userCount: number = this.sendCardToUserTimer.repeatCount / 2;
-                // if(index == this.sendCardToUserTimer.repeatCount){
-                //     return;
-                // }
+                index++;
+                if(index == this.sendCardToUserTimer.repeatCount){
+                    return;
+                }
                 if (UserUtils.getInstance().getUserFromIndex(index % userCount).seat == 4) {
                     this.sendOwnCard(index/userCount,UserUtils.getInstance().getOwnUser().cards.cards[parseInt(""+index/userCount)]);
                     return;
