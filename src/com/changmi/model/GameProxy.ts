@@ -21,6 +21,18 @@ module game {
          */
         public static ADD_CHIP: string = "add_chip";
         /**
+         * 让牌
+         */
+        public static CHECK: string = "check";
+        /**
+         * 弃牌
+         */
+        public static FOLD : string = "fold";
+        /**
+         * 全下
+         */
+        public static AllIN : string = "all-in";
+        /**
          * 发牌
          */
         public static POP_CARD: string = "pop_card";
@@ -63,7 +75,7 @@ module game {
         public sendReady(){
             var data:BaseMsg = new BaseMsg();
             data.command = Commands.INIT_PLAYER;
-            data.content = { "uId": "10086", "tId": "1" ,"code":"0"};
+            data.content = { "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1" ,"code":"0"};
             NetController.getInstance().sendData(NetController.GAMESOCKET,data);
         }
 
@@ -82,6 +94,7 @@ module game {
                     break;
                 //玩家各种操作
                 case Commands.PLAYERBET:
+                if(data.content)
                     this.onRecivePlayGame(data.content);
                     break;
                 //开始发公共牌
@@ -117,9 +130,15 @@ module game {
                     // this.refreshMyCard(this.my_cards);
                     break;
                 case 2:
+                 this.sendNotification(GameProxy.CHECK, content);
                     //this.onGamePlay(content);
                     break;
                 case 3:
+                 this.sendNotification(GameProxy.AllIN, content);
+                    //this.onGameOver(content);
+                     break;
+                case 4:
+                 this.sendNotification(GameProxy.FOLD, content);
                     //this.onGameOver(content);
                     break;
 

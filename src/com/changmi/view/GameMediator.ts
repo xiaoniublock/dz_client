@@ -107,10 +107,21 @@ module game {
                     this.gameScreen.removeOneUserAction(<number><any>data);
                     break;
                 }
-                case GameProxy.ADD_CHIP: {
+                case GameProxy.ADD_CHIP:
+                case GameProxy.AllIN:
                     this.userAddChip(data.uid, data.raiseStack);
-                    break;
-                }
+                case GameProxy.FOLD:
+                    this.gameScreen.playerFold(data.uid, data.raiseStack);
+                case GameProxy.CHECK:
+                    {
+                        this.gameScreen.changePlayer(data.uid, data.nextplayer);
+                        if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
+                            this.gameScreen.switchBottomState("first_Bet");
+                        } else {
+                            this.gameScreen.switchBottomState("three_choose");
+                        }
+                        break;
+                    }
                 case GameProxy.POP_CARD: {
                     this.userGetCards(data.holeCards);
                     break;

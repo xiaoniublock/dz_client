@@ -239,6 +239,22 @@ module game {
             params.push(card);
             tween.call(finishAnimationFunction, this, params);
         }
+        /**
+         * 停止上一个用户的转圈，开始下一个转圈
+         */
+        public changePlayer(uid:string,nextUid:string){
+          this.users[UserUtils.getInstance().getUserFromUid(uid).seat-1].stoprotate();
+          let nextUser = UserUtils.getInstance().getUserFromUid(nextUid);
+          this.users[nextUser.seat-1].startrotate(30);
+        }
+        /**
+         * 用户弃牌
+         */
+        public playerFold(uid:string,raiseStack:number){
+            if(raiseStack==0){
+          this.users[UserUtils.getInstance().getUserFromUid(uid).seat-1].playerOut() ;
+            }
+        }
 
         //通用加注效果
         public addChipAnimation(chip: number, userPosition: number) {
