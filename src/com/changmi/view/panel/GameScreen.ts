@@ -6,6 +6,7 @@ module game {
         public backBtn: eui.Button;
         public switchBtn: eui.Button;
         public first_Bet: egret.tween.TweenGroup;
+       
         public giveUpBtn: eui.Button;
         public passBtn: eui.Button;
         public addChipBtn: eui.Button;
@@ -30,6 +31,7 @@ module game {
         public MoneyBtnNormal: eui.Button;
         public MoneyBtnBig: eui.Button;
         public MoneyBtnBiggest: eui.Button;
+        public count_group: eui.Group;
 
 
         public multipleBtn1: eui.Button;

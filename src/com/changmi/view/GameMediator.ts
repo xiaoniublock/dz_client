@@ -117,6 +117,8 @@ module game {
                         this.gameScreen.changePlayer(data.uid, data.nextplayer);
                         if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
                             this.gameScreen.switchBottomState("first_Bet");
+                            CachePool.addObj("stake", data.stake);
+                            this.changeBtnState(data.operator, data.stake);
                         } else {
                             this.gameScreen.switchBottomState("three_choose");
                         }
@@ -168,6 +170,33 @@ module game {
         public userGetCards(cards: Array<number>) {
             UserUtils.getInstance().getOwnUser().initcards(cards);
             this.gameScreen.beginAnimation();
+        }
+        public changeBtnState(operator: number, stake: number) {
+            switch (operator) {
+                case StateCode.FOLLOWBET:
+                    this.gameScreen.passBtn.alpha = 1;
+                    this.gameScreen.passBtn.touchEnabled = true;
+                    this.gameScreen.passBtn.label = "跟 注";
+                    this.gameScreen.addChipBtn.label = "加 注";
+                    break;
+                case StateCode.PASSBET:
+                    this.gameScreen.passBtn.alpha = 1;
+                    this.gameScreen.passBtn.touchEnabled = true;
+                    this.gameScreen.passBtn.label = "让 牌";
+                    this.gameScreen.addChipBtn.label = "加 注";
+                    break;
+                case StateCode.JUSTALLIN:
+                    this.gameScreen.passBtn.alpha = 0.5;
+                    this.gameScreen.passBtn.touchEnabled = false;
+                    this.gameScreen.addChipBtn.label = "全 下";
+                    break;
+            }
+            if (operator == StateCode.JUSTALLIN)
+                return;
+            for (let i = 0; i < this.gameScreen.count_group.numChildren - 2; i++) {
+                let money: eui.Button = <eui.Button>this.gameScreen.count_group.getChildAt(i);
+                parseInt(money.label) > stake ? (money.alpha = 1, money.touchEnabled = true) : (money.alpha = 0.5, money.touchEnabled = false);
+            }
         }
     }
 }

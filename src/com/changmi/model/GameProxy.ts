@@ -141,7 +141,6 @@ module game {
                  this.sendNotification(GameProxy.FOLD, content);
                     //this.onGameOver(content);
                     break;
-
             }
         }
         public set nextStep(nextStep: number) {
