@@ -198,7 +198,11 @@ module game {
             }
             if (operator == StateCode.JUSTALLIN)
                 return;
-            for (let i = 0; i < this.gameScreen.count_group.numChildren - 2; i++) {
+            this.gameScreen.RangeMoneyBtn.label=stake+"";
+            this.gameScreen.RangeMoneySlider.minimum=stake;
+            this.gameScreen.RangeMoneySlider.snapInterval=100;
+            this.gameScreen.RangeMoneySlider.maximum=UserUtils.getInstance().getOwnUser().money;
+            for (let i = 0; i < this.gameScreen.count_group.numChildren - 3; i++) {
                 let money: eui.Button = <eui.Button>this.gameScreen.count_group.getChildAt(i);
                 parseInt(money.label) > stake ? (money.alpha = 1, money.touchEnabled = true) : (money.alpha = 0.5, money.touchEnabled = false);
             }
