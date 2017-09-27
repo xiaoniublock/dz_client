@@ -152,8 +152,13 @@ module game {
         }
 
         public countBetNum(event: egret.TouchEvent) {
-            this.gameScreen.addChipAnimation(parseInt(event.currentTarget.label), 4);
-            this.sendNotification(GameCommand.ACTION, event.currentTarget.label);
+            var data: BaseMsg = new BaseMsg();
+            data.command = Commands.PLAYERBET;
+            data.content = { "action":1, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1" , "raiseStack":parseInt(event.currentTarget.label)};
+            NetController.getInstance().sendData(NetController.GAMESOCKET,data);
+
+            // this.gameScreen.addChipAnimation(parseInt(event.currentTarget.label), 4);
+            // this.sendNotification(GameCommand.ACTION, event.currentTarget.label);
 
         }
 
