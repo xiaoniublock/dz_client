@@ -45,10 +45,10 @@ class User extends eui.Component {
 	}
 	public initcards(cards: Array<number>) {
 		for (let i = 0; i < cards.length; i++) {
-			let color = parseInt(""+cards[i] / 100);
+			let color = parseInt("" + cards[i] / 100);
 			let index = cards[i] % 100;
-			if(!this._cards){
-				this._cards=new CardGroups();
+			if (!this._cards) {
+				this._cards = new CardGroups();
 			}
 			this._cards.initCards(new Card(index, color));
 		}
@@ -201,7 +201,7 @@ class User extends eui.Component {
 	}
 
 	public stoprotate() {
-		this.removeEventListener(egret.Event.ENTER_FRAME, this.frameFun, this);
+		this.angle = 0;
 		this.dispatchEventWith(User.GIVEUP);
 	}
 
@@ -220,7 +220,7 @@ class User extends eui.Component {
 		}
 		if (this.angle < 1) {
 			this.angle = 1000;
-			this.stoprotate();
+			this.removeEventListener(egret.Event.ENTER_FRAME, this.frameFun, this);
 		}
 		this.shape.graphics.clear();
 		this.shape.graphics.beginFill(0x00ffff, 1);
@@ -304,9 +304,9 @@ class User extends eui.Component {
 	 */
 	public showPlayerCardGroup() {
 		this.playerCardGroup.visible = true;
-		for (let i=0;i<this.playerCardGroup.numChildren;i++){
-			let card=<Card>this.playerCardGroup.getChildAt(i);
-			card.source=this.cards.cards[i].source;
+		for (let i = 0; i < this.playerCardGroup.numChildren; i++) {
+			let card = <Card>this.playerCardGroup.getChildAt(i);
+			card.source = this.cards.cards[i].source;
 			card.startrotateAndChangeSource();
 		}
 	}
