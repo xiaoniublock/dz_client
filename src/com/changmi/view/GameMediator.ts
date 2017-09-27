@@ -141,12 +141,12 @@ module game {
         }
 
         public passAction(event: egret.TouchEvent) {
-            for (var i = 0; i < 7; i++) {
-                if (this.gameScreen.chips[i].chipNum != 0) {
-                    this.gameScreen.chips[i].gotoBaseAnimation(this.gameScreen["baseChipNum"]);
-                }
-            }
-            this.sendNotification(GameCommand.ACTION, Actions.pass);
+            // for (var i = 0; i < 7; i++) {
+            //     if (this.gameScreen.chips[i].chipNum != 0) {
+            //         this.gameScreen.chips[i].gotoBaseAnimation(this.gameScreen["baseChipNum"]);
+            //     }
+            // }
+            this.sendNotification(GameCommand.ACTION, {"action":CachePool.getObj("action"),"raiseStack": CachePool.getObj("stake")});
         }
 
         public addChipAction(event: egret.TouchEvent) {
@@ -154,13 +154,13 @@ module game {
         }
 
         public countBetNum(event: egret.TouchEvent) {
-            var data: BaseMsg = new BaseMsg();
-            data.command = Commands.PLAYERBET;
-            data.content = { "action":1, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1" , "raiseStack":parseInt(event.currentTarget.label)};
-            NetController.getInstance().sendData(NetController.GAMESOCKET,data);
+            // var data: BaseMsg = new BaseMsg();
+            // data.command = Commands.PLAYERBET;
+            // data.content = { "action": 1, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1", "raiseStack": parseInt(event.currentTarget.label) };
+            // NetController.getInstance().sendData(NetController.GAMESOCKET, data);
 
             // this.gameScreen.addChipAnimation(parseInt(event.currentTarget.label), 4);
-            // this.sendNotification(GameCommand.ACTION, event.currentTarget.label);
+            this.sendNotification(GameCommand.ACTION,{"action":Actions.bet,"raiseStack":parseInt(event.currentTarget.label)});
 
         }
 
@@ -179,29 +179,30 @@ module game {
         public changeBtnState(operator: number, stake: number) {
             switch (operator) {
                 case StateCode.FOLLOWBET:
-                    this.gameScreen.passBtn.alpha = 1;
-                    this.gameScreen.passBtn.touchEnabled = true;
-                    this.gameScreen.passBtn.label = "跟 注";
-                    this.gameScreen.addChipBtn.label = "加 注";
+                    this.gameScreen.passBtn.label = "跟    注";
+                    CachePool.addObj("action", Actions.bet);
                     break;
                 case StateCode.PASSBET:
-                    this.gameScreen.passBtn.alpha = 1;
-                    this.gameScreen.passBtn.touchEnabled = true;
-                    this.gameScreen.passBtn.label = "让 牌";
-                    this.gameScreen.addChipBtn.label = "加 注";
+                    this.gameScreen.passBtn.label = "让    牌";
+                    CachePool.addObj("action", Actions.pass);
                     break;
                 case StateCode.JUSTALLIN:
-                    this.gameScreen.passBtn.alpha = 0.5;
-                    this.gameScreen.passBtn.touchEnabled = false;
-                    this.gameScreen.addChipBtn.label = "全 下";
+                    this.gameScreen.passBtn.label = "全    下";
+                    CachePool.addObj("action", Actions.allin);
+                    this.gameScreen.addChipBtn.alpha = 0.5;
+                    this.gameScreen.addChipBtn.touchEnabled = false;
                     break;
             }
-            if (operator == StateCode.JUSTALLIN)
+            if (operator != StateCode.JUSTALLIN) {
+                this.gameScreen.addChipBtn.alpha = 1;
+                this.gameScreen.addChipBtn.touchEnabled = true;
+            } else {
                 return;
-            this.gameScreen.RangeMoneyBtn.label=stake+"";
-            this.gameScreen.RangeMoneySlider.minimum=stake;
-            this.gameScreen.RangeMoneySlider.snapInterval=100;
-            this.gameScreen.RangeMoneySlider.maximum=UserUtils.getInstance().getOwnUser().money;
+            }
+            this.gameScreen.RangeMoneyBtn.label = stake + "";
+            this.gameScreen.RangeMoneySlider.minimum = stake;
+            this.gameScreen.RangeMoneySlider.snapInterval = 100;
+            this.gameScreen.RangeMoneySlider.maximum = UserUtils.getInstance().getOwnUser().money;
             for (let i = 0; i < this.gameScreen.count_group.numChildren - 3; i++) {
                 let money: eui.Button = <eui.Button>this.gameScreen.count_group.getChildAt(i);
                 parseInt(money.label) > stake ? (money.alpha = 1, money.touchEnabled = true) : (money.alpha = 0.5, money.touchEnabled = false);

@@ -55,22 +55,23 @@ module game {
          * 根据传过来的信息判断操作，是让，弃牌，下注等操作，然后sendData
          */
         public playAction(data: any) {
-            console.log(<String>data);
             var msg = new BaseMsg();
             msg.command = Commands.PLAYERBET;
-            msg.content = { "name": "112" };
-            switch (data) {
+            switch (data.action) {
+                case Actions.bet:
+                msg.content = { "action": Actions.bet, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1" , "raiseStack":data.raiseStack};
+                    break;
+                case Actions.allin:
+                 msg.content = { "action": Actions.allin, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1" , "raiseStack":UserUtils.getInstance().getOwnUser().money};
+                    break;
                 case Actions.giveup:
-
+                 msg.content = { "action": Actions.giveup, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1" , "raiseStack":0};
                     break;
                 case Actions.pass:
-
-                    break;
-                default://不是弃牌不是让牌，那就是下注咯
-
+                 msg.content = { "action": Actions.pass, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1" , "raiseStack":0};
                     break;
             }
-            // NetController.getInstance().sendData(NetController.GAMESOCKET,msg);
+            NetController.getInstance().sendData(NetController.GAMESOCKET,msg);
         }
         public sendReady(){
             var data:BaseMsg = new BaseMsg();
@@ -124,20 +125,20 @@ module game {
             console.warn('action', action);
             if (action == undefined) return;
             switch (action) {
-                case 1:
+                case Actions.bet:
                     this.sendNotification(GameProxy.ADD_CHIP, content);
                     // this.my_cards = content.cards.sort(function(a,b){return b-a});
                     // this.refreshMyCard(this.my_cards);
                     break;
-                case 2:
+                case Actions.pass:
                  this.sendNotification(GameProxy.CHECK, content);
                     //this.onGamePlay(content);
                     break;
-                case 3:
+                case Actions.allin:
                  this.sendNotification(GameProxy.AllIN, content);
                     //this.onGameOver(content);
                      break;
-                case 4:
+                case Actions.giveup:
                  this.sendNotification(GameProxy.FOLD, content);
                     //this.onGameOver(content);
                     break;
@@ -154,10 +155,10 @@ module game {
     /**基本操作代码*/
 }
 class Actions {
-    public static giveup = 1;
+    public static bet = 1;
     public static pass = 2;
-    public static giveUpOrPass = 3;
-    public static followAny = 4;
-    public static autoPass = 5;
+    public static allin = 3;
+    public static giveup = 4;
+  
 
 }

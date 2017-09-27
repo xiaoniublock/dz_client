@@ -39,10 +39,10 @@ class NetController {
         if (!this.wsGame) {
             this.wsGame = new WS();
         }
-        // this.wsGame.connect("118.31.69.15", 9000, "game");    //阿里云ip
+        this.wsGame.connect("118.31.69.15", 9000, "game");    //阿里云ip
         // this.wsGame.connect("echo.websocket.org", 80, "game");
         // this.wsGame.connect("192.168.1.154", 9000,"game");      //陈飞的ip
-        this.wsGame.connect("192.168.1.49", 9000,"game");    //陈飞的ip
+        // this.wsGame.connect("192.168.1.49", 9000,"game");    //陈飞的ip
     }
     public close(type: number): void {
         switch (type) {
