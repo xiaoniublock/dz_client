@@ -159,6 +159,8 @@ class Actions {
     public static pass = 2;
     public static allin = 3;
     public static giveup = 4;
-  
+    public static giveUpOrPass=5;
+    public static autoPass=6;
+    public static followAny=7;
 
 }

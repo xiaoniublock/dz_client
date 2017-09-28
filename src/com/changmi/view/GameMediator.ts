@@ -42,16 +42,19 @@ module game {
                 case "giveUpOrPass": {
                     this.gameScreen.checkBox_autoPass.selected = false;
                     this.gameScreen.checkBox_followAny.selected = false;
+                    CachePool.addObj("preAction", Actions.giveUpOrPass);
                     break;
                 }
                 case "autoPass": {
                     this.gameScreen.checkBox_giveUp.selected = false;
                     this.gameScreen.checkBox_followAny.selected = false;
+                    CachePool.addObj("preAction", Actions.autoPass);
                     break;
                 }
                 case "followAny": {
                     this.gameScreen.checkBox_giveUp.selected = false;
                     this.gameScreen.checkBox_autoPass.selected = false;
+                    CachePool.addObj("preAction", Actions.followAny);
                     break;
                 }
             }
@@ -59,7 +62,7 @@ module game {
             //  this.sendNotification(GameCommand.ACTION,event.currentTarget.name);
 
 
-
+            CachePool.addObj("preCheckBox", checkBox);
             if (checkBox.currentState === "disabled" || checkBox.currentState === "disabledAndSelected") {
                 // label.text = "禁用状态，无法选择";
             } else {
@@ -135,18 +138,18 @@ module game {
             return <GameScreen><any>(this.viewComponent);
         }
 
-        public giveupAction(event: egret.TouchEvent) {
-            this.gameScreen.giveChipAction(parseInt(this.gameScreen["baseChipNum"].text), 4);
-            this.sendNotification(GameCommand.ACTION, Actions.giveup);
+        public giveupAction(event?: egret.TouchEvent) {
+            // this.gameScreen.giveChipAction(parseInt(this.gameScreen["baseChipNum"].text), 4);
+            this.sendNotification(GameCommand.ACTION, { "action": Actions.giveup, "raiseStack": 0 });
         }
 
-        public passAction(event: egret.TouchEvent) {
+        public passAction(event?: egret.TouchEvent) {
             // for (var i = 0; i < 7; i++) {
             //     if (this.gameScreen.chips[i].chipNum != 0) {
             //         this.gameScreen.chips[i].gotoBaseAnimation(this.gameScreen["baseChipNum"]);
             //     }
             // }
-            this.sendNotification(GameCommand.ACTION, {"action":CachePool.getObj("action"),"raiseStack": CachePool.getObj("stake")});
+            this.sendNotification(GameCommand.ACTION, { "action": CachePool.getObj("action"), "raiseStack": CachePool.getObj("stake") });
         }
 
         public addChipAction(event: egret.TouchEvent) {
@@ -160,7 +163,7 @@ module game {
             // NetController.getInstance().sendData(NetController.GAMESOCKET, data);
 
             // this.gameScreen.addChipAnimation(parseInt(event.currentTarget.label), 4);
-            this.sendNotification(GameCommand.ACTION,{"action":Actions.bet,"raiseStack":parseInt(event.currentTarget.label)});
+            this.sendNotification(GameCommand.ACTION, { "action": Actions.bet, "raiseStack": parseInt(event.currentTarget.label) });
 
         }
 
@@ -176,23 +179,40 @@ module game {
             UserUtils.getInstance().getOwnUser().initcards(cards);
             this.gameScreen.beginAnimation();
         }
+
         public changeBtnState(operator: number, stake: number) {
+            let preAction = CachePool.getObj("preAction");
             switch (operator) {
                 case StateCode.FOLLOWBET:
                     this.gameScreen.passBtn.label = "跟    注";
                     CachePool.addObj("action", Actions.bet);
+                    if (preAction&&(preAction == Actions.followAny)) {
+                        this.passAction();
+                    } else if (preAction == Actions.giveUpOrPass) {
+                        this.giveupAction();
+                    }
                     break;
                 case StateCode.PASSBET:
                     this.gameScreen.passBtn.label = "让    牌";
                     CachePool.addObj("action", Actions.pass);
+                    if (preAction&&(preAction == Actions.autoPass || preAction == Actions.giveUpOrPass)) {
+                        this.passAction();
+                    }
                     break;
                 case StateCode.JUSTALLIN:
                     this.gameScreen.passBtn.label = "全    下";
                     CachePool.addObj("action", Actions.allin);
                     this.gameScreen.addChipBtn.alpha = 0.5;
                     this.gameScreen.addChipBtn.touchEnabled = false;
+                    if (preAction&&(preAction == Actions.giveUpOrPass)) {
+                        this.giveupAction();
+                    }
                     break;
             }
+             let checkBox=(<eui.CheckBox>CachePool.getObj("preCheckBox"));
+             if(checkBox){
+                 checkBox.selected=false;
+             }
             if (operator != StateCode.JUSTALLIN) {
                 this.gameScreen.addChipBtn.alpha = 1;
                 this.gameScreen.addChipBtn.touchEnabled = true;
