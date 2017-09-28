@@ -92,6 +92,9 @@ module game {
                 GameProxy.REM_USER,
                 GameProxy.ADD_CHIP,
                 GameProxy.POP_CARD,
+                GameProxy.FOLD,
+                GameProxy.CHECK,
+                GameProxy.AllIN,
                 GameProxy.POP_PUBLICCARD
             ];
         }
