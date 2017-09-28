@@ -6,7 +6,7 @@ module game {
         public backBtn: eui.Button;
         public switchBtn: eui.Button;
         public first_Bet: egret.tween.TweenGroup;
-       
+
         public giveUpBtn: eui.Button;
         public passBtn: eui.Button;
         public addChipBtn: eui.Button;
@@ -60,14 +60,14 @@ module game {
 
             function sendCardToUserTimer() {
                 index++;
-                if(index == this.sendCardToUserTimer.repeatCount){
+                if (index == this.sendCardToUserTimer.repeatCount) {
                     return;
                 }
                 if (UserUtils.getInstance().getUserFromIndex(index % userCount).seat == 4) {
-                    this.sendOwnCard(index/userCount,UserUtils.getInstance().getOwnUser().cards.cards[parseInt(""+index/userCount)]);
+                    this.sendOwnCard(index / userCount, UserUtils.getInstance().getOwnUser().cards.cards[parseInt("" + index / userCount)]);
                     return;
                 }
-                var userSeat:number = UserUtils.getInstance().getUserFromIndex(index % userCount).seat - 1;
+                var userSeat: number = UserUtils.getInstance().getUserFromIndex(index % userCount).seat - 1;
                 var x: number = this.users[userSeat].x + 102 + 104; //一个是group的位置偏移，一个是user位置偏移
                 var y: number = this.users[userSeat].y + 47 + 64;
                 if (this.users[userSeat].visible) {  //如果这个位置有人
@@ -156,7 +156,8 @@ module game {
         /**
          * 发公共牌，有三个回合，第一回合发三张，后面两回合每次发一张
          */
-        public sendPublicCard(round: number, cards: Array<Card>) {
+        public sendPublicCard(round: number) {
+            var cards = CardUtils.getInstance().getPublicCards();
             switch (round) {
                 case 1: {
                     for (var i = 0; i < 3; i++) {
@@ -219,7 +220,7 @@ module game {
         }
 
         private onVSLiderChange(e: egret.Event) {
-            var scale = this.RangeMoneySlider.pendingValue / this.RangeMoneySlider.maximum;
+            var scale = (this.RangeMoneySlider.pendingValue - this.RangeMoneySlider.minimum) / (this.RangeMoneySlider.maximum - this.RangeMoneySlider.pendingValue);
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,
                 30 + (1 - scale) * this.RangeMoneySlider.height * 0.82,
                 26,
@@ -244,22 +245,29 @@ module game {
         /**
          * 停止上一个用户的转圈，开始下一个转圈
          */
-        public changePlayer(uid:string,nextUid:string){
-          this.users[UserUtils.getInstance().getUserFromUid(uid).seat-1].stoprotate();
-          let nextUser = UserUtils.getInstance().getUserFromUid(nextUid);
-          this.users[nextUser.seat-1].startrotate(30);
+        public changePlayer(uid: string, nextUid: string) {
+            if (uid != ""){
+                this.users[UserUtils.getInstance().getUserFromUid(uid).seat - 1].stoprotate();
+            }
+            if (nextUid != ""){
+                let nextUser = UserUtils.getInstance().getUserFromUid(nextUid);
+                this.users[nextUser.seat - 1].startrotate(30);
+            }
         }
         /**
          * 用户弃牌
          */
-        public playerFold(uid:string,raiseStack:number){
-            if(raiseStack==0){
-          this.users[UserUtils.getInstance().getUserFromUid(uid).seat-1].playerOut() ;
+        public playerFold(uid: string, raiseStack: number) {
+            if (raiseStack == 0) {
+                this.users[UserUtils.getInstance().getUserFromUid(uid).seat - 1].playerOut();
             }
         }
 
         //通用加注效果
         public addChipAnimation(chip: number, userPosition: number) {
+            if (chip == 0) {
+                return;
+            }
             var chipImg: eui.Image = new eui.Image();
             chipImg.x = this.users[userPosition - 1].x + 50;
             chipImg.y = this.users[userPosition - 1].y + 140;
