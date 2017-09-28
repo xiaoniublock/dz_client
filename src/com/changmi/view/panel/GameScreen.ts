@@ -246,10 +246,10 @@ module game {
          * 停止上一个用户的转圈，开始下一个转圈
          */
         public changePlayer(uid: string, nextUid: string) {
-            if (uid != ""){
+            if (uid != "") {
                 this.users[UserUtils.getInstance().getUserFromUid(uid).seat - 1].stoprotate();
             }
-            if (nextUid != ""){
+            if (nextUid != "") {
                 let nextUser = UserUtils.getInstance().getUserFromUid(nextUid);
                 this.users[nextUser.seat - 1].startrotate(30);
             }
@@ -291,7 +291,10 @@ module game {
             tween.call(function () {
                 this.chips[userPosition - 1].chipNum += chip;
                 this.UserGroup.removeChild(chipImg);
+                if (userPosition == 4)
+                    CachePool.addObj("ownBet", this.chips[userPosition - 1].chipNum);
             }, this);
+
         }
 
         //给钱动画——未完成

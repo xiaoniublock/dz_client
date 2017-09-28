@@ -124,7 +124,10 @@ module game {
                         this.gameScreen.changePlayer(data.uid, data.nextplayer);
                         if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
                             this.gameScreen.switchBottomState("first_Bet");
-                            CachePool.addObj("stake", data.stake);
+                            let ownBet=CachePool.getObj("ownBet");
+                            if(!ownBet)
+                            ownBet=0;
+                            CachePool.addObj("canBet", data.stake-ownBet);
                             this.changeBtnState(data.operator, data.stake);
                         } else {
                             this.gameScreen.switchBottomState("three_choose");
@@ -141,7 +144,7 @@ module game {
 
                     if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
                         this.gameScreen.switchBottomState("first_Bet");
-                        CachePool.addObj("stake", 0);
+                        CachePool.addObj("canBet", 0);
                         this.changeBtnState(data.operator, 0);
                     } else {
                         this.gameScreen.switchBottomState("three_choose");
@@ -164,7 +167,7 @@ module game {
             //         this.gameScreen.chips[i].gotoBaseAnimation(this.gameScreen["baseChipNum"]);
             //     }
             // }
-            this.sendNotification(GameCommand.ACTION, { "action": CachePool.getObj("action"), "raiseStack": CachePool.getObj("stake") });
+            this.sendNotification(GameCommand.ACTION, { "action": CachePool.getObj("action"), "raiseStack": CachePool.getObj("canBet") });
         }
 
         public addChipAction(event: egret.TouchEvent) {
@@ -201,7 +204,7 @@ module game {
                 case StateCode.FOLLOWBET:
                     this.gameScreen.passBtn.label = "跟    注";
                     CachePool.addObj("action", Actions.bet);
-                    if (preAction&&(preAction == Actions.followAny)) {
+                    if (preAction && (preAction == Actions.followAny)) {
                         this.passAction();
                     } else if (preAction == Actions.giveUpOrPass) {
                         this.giveupAction();
@@ -210,7 +213,7 @@ module game {
                 case StateCode.PASSBET:
                     this.gameScreen.passBtn.label = "让    牌";
                     CachePool.addObj("action", Actions.pass);
-                    if (preAction&&(preAction == Actions.autoPass || preAction == Actions.giveUpOrPass)) {
+                    if (preAction && (preAction == Actions.autoPass || preAction == Actions.giveUpOrPass)) {
                         this.passAction();
                     }
                     break;
@@ -219,26 +222,25 @@ module game {
                     CachePool.addObj("action", Actions.allin);
                     this.gameScreen.addChipBtn.alpha = 0.5;
                     this.gameScreen.addChipBtn.touchEnabled = false;
-                    if (preAction&&(preAction == Actions.giveUpOrPass)) {
+                    if (preAction && (preAction == Actions.giveUpOrPass)) {
                         this.giveupAction();
                     }
                     break;
             }
-             let checkBox=(<eui.CheckBox>CachePool.getObj("preCheckBox"));
-             if(checkBox){
-                 checkBox.selected=false;
-             }
+            let checkBox = (<eui.CheckBox>CachePool.getObj("preCheckBox"));
+            if (checkBox) {
+                checkBox.selected = false;
+            }
             if (operator != StateCode.JUSTALLIN) {
                 this.gameScreen.addChipBtn.alpha = 1;
                 this.gameScreen.addChipBtn.touchEnabled = true;
             } else {
                 return;
             }
-            this.gameScreen.RangeMoneyBtn.label = stake + "";
             this.gameScreen.RangeMoneySlider.minimum = stake;
             this.gameScreen.RangeMoneySlider.snapInterval = 100;
             this.gameScreen.RangeMoneySlider.maximum = 1000;//UserUtils.getInstance().getOwnUser().money;
-            var scale = this.gameScreen.RangeMoneySlider.pendingValue / this.gameScreen.RangeMoneySlider.maximum;
+            var scale = (this.gameScreen.RangeMoneySlider.pendingValue - this.gameScreen.RangeMoneySlider.minimum) / (this.gameScreen.RangeMoneySlider.maximum - this.gameScreen.RangeMoneySlider.pendingValue);
             this.gameScreen.RangeMoneySlider["change"].mask = new egret.Rectangle(0,
                 30 + (1 - scale) * this.gameScreen.RangeMoneySlider.height * 0.82,
                 26,
