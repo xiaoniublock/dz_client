@@ -88,7 +88,8 @@ module game {
                 GameProxy.ADD_USER,
                 GameProxy.REM_USER,
                 GameProxy.ADD_CHIP,
-                GameProxy.POP_CARD
+                GameProxy.POP_CARD,
+                GameProxy.POP_PUBLICCARD
             ];
         }
 
@@ -128,7 +129,18 @@ module game {
                     this.userGetCards(data.holeCards);
                     break;
                 }
+                case GameProxy.POP_PUBLICCARD: {
+                    this.gameScreen.sendPublicCard(data.times);
+                    this.gameScreen.changePlayer("", data.nextplayer);
 
+                    if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
+                        this.gameScreen.switchBottomState("first_Bet");
+                        CachePool.addObj("stake", 0);
+                        this.changeBtnState(data.operator, 0);
+                    } else {
+                        this.gameScreen.switchBottomState("three_choose");
+                    }
+                }
             }
         }
         public get gameScreen(): GameScreen {
@@ -146,7 +158,7 @@ module game {
             //         this.gameScreen.chips[i].gotoBaseAnimation(this.gameScreen["baseChipNum"]);
             //     }
             // }
-            this.sendNotification(GameCommand.ACTION, {"action":CachePool.getObj("action"),"raiseStack": CachePool.getObj("stake")});
+            this.sendNotification(GameCommand.ACTION, { "action": CachePool.getObj("action"), "raiseStack": CachePool.getObj("stake") });
         }
 
         public addChipAction(event: egret.TouchEvent) {
@@ -160,7 +172,7 @@ module game {
             // NetController.getInstance().sendData(NetController.GAMESOCKET, data);
 
             // this.gameScreen.addChipAnimation(parseInt(event.currentTarget.label), 4);
-            this.sendNotification(GameCommand.ACTION,{"action":Actions.bet,"raiseStack":parseInt(event.currentTarget.label)});
+            this.sendNotification(GameCommand.ACTION, { "action": Actions.bet, "raiseStack": parseInt(event.currentTarget.label) });
 
         }
 
@@ -202,7 +214,13 @@ module game {
             this.gameScreen.RangeMoneyBtn.label = stake + "";
             this.gameScreen.RangeMoneySlider.minimum = stake;
             this.gameScreen.RangeMoneySlider.snapInterval = 100;
-            this.gameScreen.RangeMoneySlider.maximum = UserUtils.getInstance().getOwnUser().money;
+            this.gameScreen.RangeMoneySlider.maximum = 1000;//UserUtils.getInstance().getOwnUser().money;
+            var scale = this.gameScreen.RangeMoneySlider.pendingValue / this.gameScreen.RangeMoneySlider.maximum;
+            this.gameScreen.RangeMoneySlider["change"].mask = new egret.Rectangle(0,
+                30 + (1 - scale) * this.gameScreen.RangeMoneySlider.height * 0.82,
+                26,
+                scale * this.gameScreen.RangeMoneySlider.height * 0.82);
+            this.gameScreen.RangeMoneyBtn.label = "" + this.gameScreen.RangeMoneySlider.pendingValue;
             for (let i = 0; i < this.gameScreen.count_group.numChildren - 3; i++) {
                 let money: eui.Button = <eui.Button>this.gameScreen.count_group.getChildAt(i);
                 parseInt(money.label) > stake ? (money.alpha = 1, money.touchEnabled = true) : (money.alpha = 0.5, money.touchEnabled = false);

@@ -24,7 +24,8 @@ class CardUtils {
         return this.publicCards[index];
     }
     /**逐一添加公共牌 */
-    public addPublicCards(card: Card) {
+    public addPublicCard(cardNumber: number) {
+        var card:Card = new Card(cardNumber % 100,parseInt("" + cardNumber / 100));
         this.publicCards.push(card);
     }
     /**清空公共牌 */

@@ -27,11 +27,15 @@ module game {
         /**
          * 弃牌
          */
-        public static FOLD : string = "fold";
+        public static FOLD: string = "fold";
         /**
          * 全下
          */
-        public static AllIN : string = "all-in";
+        public static AllIN: string = "all-in";
+        /**
+         * 发公共牌
+         */
+        public static POP_PUBLICCARD: string = "pop_publiccard";
         /**
          * 发牌
          */
@@ -73,11 +77,11 @@ module game {
             }
             NetController.getInstance().sendData(NetController.GAMESOCKET,msg);
         }
-        public sendReady(){
-            var data:BaseMsg = new BaseMsg();
+        public sendReady() {
+            var data: BaseMsg = new BaseMsg();
             data.command = Commands.INIT_PLAYER;
-            data.content = { "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1" ,"code":"0"};
-            NetController.getInstance().sendData(NetController.GAMESOCKET,data);
+            data.content = { "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1", "code": "0" };
+            NetController.getInstance().sendData(NetController.GAMESOCKET, data);
         }
 
         /**收到服务器消息*/
@@ -95,23 +99,35 @@ module game {
                     break;
                 //玩家各种操作
                 case Commands.PLAYERBET:
-                if(data.content)
-                    this.onRecivePlayGame(data.content);
+                    if (data.content)
+                        this.onRecivePlayGame(data.content);
                     break;
                 //开始发公共牌
                 case Commands.PUSH_PUBLICCARD:
+                    if (data.content){
+                        //第一次发公共牌
+                        if (data.content.times == 1){
+                            CardUtils.getInstance().putPublicCards(data.content.poker);
+                        }else{
+                            var cardNumber = data.content.poker[0];
+                            CardUtils.getInstance().addPublicCard(cardNumber);
+                        }
+                        this.sendNotification(GameProxy.POP_PUBLICCARD,data.content);
+                    }
+
+                        
                     //this.onRecivePlayGame(data.content);
                     break;
                 //给每个人发手牌
                 case Commands.PUSH_OWNCARD:
-                      this.sendNotification(GameProxy.POP_CARD, data.content);
+                    this.sendNotification(GameProxy.POP_CARD, data.content);
                     break;
                 //游戏判定
                 case Commands.RESULT:
                     //this.onRecivePlayGame(data.content);
                     break;
                 //确定庄家
-                 case Commands.BANKER_PLAYER:
+                case Commands.BANKER_PLAYER:
                     //this.onRecivePlayGame(data.content);
                     break;
 
@@ -131,15 +147,15 @@ module game {
                     // this.refreshMyCard(this.my_cards);
                     break;
                 case Actions.pass:
-                 this.sendNotification(GameProxy.CHECK, content);
+                    this.sendNotification(GameProxy.CHECK, content);
                     //this.onGamePlay(content);
                     break;
                 case Actions.allin:
-                 this.sendNotification(GameProxy.AllIN, content);
+                    this.sendNotification(GameProxy.AllIN, content);
                     //this.onGameOver(content);
                      break;
                 case Actions.giveup:
-                 this.sendNotification(GameProxy.FOLD, content);
+                    this.sendNotification(GameProxy.FOLD, content);
                     //this.onGameOver(content);
                     break;
             }
@@ -161,4 +177,10 @@ class Actions {
     public static giveup = 4;
   
 
+}
+
+class Operator {
+    public static pass = 1;
+    public static follow = 2;
+    public static allIn = 3;
 }
