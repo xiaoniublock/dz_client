@@ -172,6 +172,8 @@ module game {
         }
 
         public passAction(event?: egret.TouchEvent) {
+            console.log(CachePool.getObj("canBet"));
+
             this.sendNotification(GameCommand.ACTION, { "action": CachePool.getObj("action"), "raiseStack": CachePool.getObj("canBet") });
         }
 
@@ -251,7 +253,9 @@ module game {
                 26,
                 scale * this.gameScreen.RangeMoneySlider.height * 0.82);
             this.gameScreen.RangeMoneyBtn.label = "" + this.gameScreen.RangeMoneySlider.pendingValue;
-            for (let i = 0; i < this.gameScreen.count_group.numChildren - 3; i++) {
+            console.log(this.gameScreen.count_group.numChildren);
+
+            for (let i = 0; i < this.gameScreen.count_group.numChildren - 2; i++) {
                 let money: eui.Button = <eui.Button>this.gameScreen.count_group.getChildAt(i);
                 parseInt(money.label) > stake ? (money.alpha = 1, money.touchEnabled = true) : (money.alpha = 0.5, money.touchEnabled = false);
             }
