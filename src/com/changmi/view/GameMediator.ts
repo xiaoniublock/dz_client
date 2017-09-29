@@ -152,9 +152,9 @@ module game {
                     this.gameScreen.sendPublicCard(data.times);
                     this.gameScreen.changePlayer("", data.nextplayer);
 
+                    CachePool.addObj("ownBet", 0);
                     if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
                         this.gameScreen.switchBottomState("first_Bet");
-                        CachePool.addObj("canBet", 0);
                         this.changeBtnState(data.operator, 0);
                     } else {
                         this.gameScreen.switchBottomState("three_choose");
