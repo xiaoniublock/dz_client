@@ -172,9 +172,10 @@ module game {
                 }
                 case 2:
                 case 3: {
-                    let card = (<Card>this.publicCardsGroup.getChildAt(round + 1));
-                    card.index = cards[0].index;
-                    card.color = cards[0].color;
+                    var index = round + 1;
+                    let card = (<Card>this.publicCardsGroup.getChildAt(index));
+                    card.index = cards[index].index;
+                    card.color = cards[index].color;
                     this.cardAnimationWithOrigin(this.publicCardsGroup.x + card.x, this.publicCardsGroup.y + card.y, this.sendCard, [card]);
                     break;
                 }

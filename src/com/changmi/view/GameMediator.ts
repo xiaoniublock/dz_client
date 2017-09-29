@@ -124,10 +124,10 @@ module game {
                         this.gameScreen.changePlayer(data.uid, data.nextplayer);
                         if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
                             this.gameScreen.switchBottomState("first_Bet");
-                            let ownBet=CachePool.getObj("ownBet");
-                            if(!ownBet)
-                            ownBet=0;
-                            CachePool.addObj("canBet", data.stake-ownBet);
+                            let ownBet = CachePool.getObj("ownBet");
+                            if (!ownBet)
+                                ownBet = 0;
+                            CachePool.addObj("canBet", data.stake - ownBet);
                             this.changeBtnState(data.operator, data.stake);
                         } else {
                             this.gameScreen.switchBottomState("three_choose");
@@ -139,6 +139,16 @@ module game {
                     break;
                 }
                 case GameProxy.POP_PUBLICCARD: {
+                    var timer: egret.Timer = new egret.Timer(1000, 1);
+                    timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
+                        for (var i = 0; i < 7; i++) {
+                            if (this.gameScreen.chips[i].chipNum != 0) {
+                                this.gameScreen.chips[i].gotoBaseAnimation(this.gameScreen["baseChipNum"]);
+                            }
+                        }
+                    }, this);
+                    timer.start();
+
                     this.gameScreen.sendPublicCard(data.times);
                     this.gameScreen.changePlayer("", data.nextplayer);
 
@@ -162,11 +172,6 @@ module game {
         }
 
         public passAction(event?: egret.TouchEvent) {
-            // for (var i = 0; i < 7; i++) {
-            //     if (this.gameScreen.chips[i].chipNum != 0) {
-            //         this.gameScreen.chips[i].gotoBaseAnimation(this.gameScreen["baseChipNum"]);
-            //     }
-            // }
             this.sendNotification(GameCommand.ACTION, { "action": CachePool.getObj("action"), "raiseStack": CachePool.getObj("canBet") });
         }
 

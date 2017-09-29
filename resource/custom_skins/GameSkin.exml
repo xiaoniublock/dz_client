@@ -94,8 +94,8 @@
 		<e:Button id="MoneyBtnSmallest" label="500" includeIn="count_choose" left="23" y="8" skinName="skins.PurpleNormalButtonSkin"/>
 		<e:Button id="MoneyBtnSmall" label="1000" includeIn="count_choose" left="225" y="8" skinName="skins.PurpleNormalButtonSkin"/>
 		<e:Button id="MoneyBtnNormal" label="2500" includeIn="count_choose" left="425" y="8" skinName="skins.PurpleNormalButtonSkin"/>
-		<e:Button id="MoneyBtnBig" label="5000" includeIn="count_choose" left="626" y="8" skinName="skins.PurpleNormalButtonSkin"/>
-		<e:Button id="MoneyBtnBiggest" label="10000" includeIn="count_choose" left="829" y="8" skinName="skins.PurpleNormalButtonSkin"/>
+		<e:Button id="MoneyBtnBig" label="50" includeIn="count_choose" left="626" y="8" skinName="skins.PurpleNormalButtonSkin"/>
+		<e:Button id="MoneyBtnBiggest" label="25" includeIn="count_choose" left="829" y="8" skinName="skins.PurpleNormalButtonSkin"/>
 		<e:Button id="RangeMoneyBtn" label="200" includeIn="count_choose" left="1049" y="8" skinName="skins.OrangeButtonSkin"/>
 		<e:VSlider id="RangeMoneySlider" width="103" height="543" x="1123" y="-531" anchorOffsetX="0" anchorOffsetY="0" skinName="skins.RangeMoneySkin" minimum="1" maximum="20" snapInterval="1"/>
 	</e:Group>
