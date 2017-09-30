@@ -139,16 +139,7 @@ module game {
                     break;
                 }
                 case GameProxy.POP_PUBLICCARD: {
-                    var timer: egret.Timer = new egret.Timer(1000, 1);
-                    timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
-                        for (var i = 0; i < 7; i++) {
-                            if (this.gameScreen.chips[i].chipNum != 0) {
-                                this.gameScreen.chips[i].gotoBaseAnimation(this.gameScreen["baseChipNum"]);
-                            }
-                        }
-                    }, this);
-                    timer.start();
-
+                    this.gameScreen.sendMoneyAnimation();
                     this.gameScreen.sendPublicCard(data.times);
                     this.gameScreen.changePlayer("", data.nextplayer);
 
@@ -246,8 +237,8 @@ module game {
             }
             this.gameScreen.RangeMoneySlider.minimum = stake;
             this.gameScreen.RangeMoneySlider.snapInterval = 100;
-            this.gameScreen.RangeMoneySlider.maximum = 1000;//UserUtils.getInstance().getOwnUser().money;
-            var scale = (this.gameScreen.RangeMoneySlider.pendingValue - this.gameScreen.RangeMoneySlider.minimum) / (this.gameScreen.RangeMoneySlider.maximum - this.gameScreen.RangeMoneySlider.pendingValue);
+            this.gameScreen.RangeMoneySlider.maximum = 100000;//UserUtils.getInstance().getOwnUser().money;
+            var scale = (this.gameScreen.RangeMoneySlider.pendingValue - this.gameScreen.RangeMoneySlider.minimum) / (this.gameScreen.RangeMoneySlider.maximum - this.gameScreen.RangeMoneySlider.minimum);
             this.gameScreen.RangeMoneySlider["change"].mask = new egret.Rectangle(0,
                 30 + (1 - scale) * this.gameScreen.RangeMoneySlider.height * 0.82,
                 26,
