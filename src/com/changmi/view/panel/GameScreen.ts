@@ -102,6 +102,7 @@ module game {
             var readyId: string = CachePool.getObj("ready");
             for (var i = 0; i < userpool.length; i++) {
                 var user: User = userpool[i];
+                user.cardNum = 0;
                 this.addOneUserAction(user);
                 if (user.uId == readyId) {
                     this.users[user.seat - 1].startrotate(CachePool.getObj("time"));
@@ -112,11 +113,11 @@ module game {
                 card.createCardSource(CardUtils.getInstance().getPublicCard(i).index, CardUtils.getInstance().getPublicCard(i).color)
                 card.visible = true;
             }
-            let card1: Card = new Card(5, 2);
-            let card2: Card = new Card(5, 3);
-            let cardGroup: Array<Card> = [];
-            cardGroup.push(card1);
-            cardGroup.push(card2);
+            // let card1: Card = new Card(5, 2);
+            // let card2: Card = new Card(5, 3);
+            // let cardGroup: Array<Card> = [];
+            // cardGroup.push(card1);
+            // cardGroup.push(card2);
             // this.showPlayerCards("10089", cardGroup);
             this["baseChipNum"].text = CachePool.getObj("jackpot");
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0, 0, 0, 0);
@@ -245,7 +246,7 @@ module game {
         }
 
         private onVSLiderChange(e: egret.Event) {
-            var scale = (this.RangeMoneySlider.pendingValue - this.RangeMoneySlider.minimum) / (this.RangeMoneySlider.maximum - this.RangeMoneySlider.pendingValue);
+            var scale = (this.RangeMoneySlider.pendingValue - this.RangeMoneySlider.minimum) / (this.RangeMoneySlider.maximum - this.RangeMoneySlider.minimum);
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,
                 30 + (1 - scale) * this.RangeMoneySlider.height * 0.82,
                 26,
@@ -254,6 +255,19 @@ module game {
         }
 
         //下面都是动画效果
+
+        //收钱动画
+        public sendMoneyAnimation() {
+            var timer: egret.Timer = new egret.Timer(1000, 1);
+            timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
+                for (var i = 0; i < 7; i++) {
+                    if (this.chips[i].chipNum != 0) {
+                        this.chips[i].gotoBaseAnimation(this["baseChipNum"]);
+                    }
+                }
+            }, this);
+            timer.start();
+        }
 
         //通用发牌效果
         public cardAnimationWithOrigin(x: number, y: number, finishAnimationFunction: Function, params?: any[]) {
