@@ -183,6 +183,12 @@ module game {
             }
 
         }
+        public hidePublicCard(){
+            for(let i=0;i<this.publicCardsGroup.numChildren;i++){
+                this.publicCardsGroup.getChildAt(i).visible=false;
+            }
+            CardUtils.getInstance().clearPublicCards();
+        }
         /**
          * 发玩家的手牌
          */
@@ -192,7 +198,25 @@ module game {
             card.color = data.color;
             this.cardAnimationWithOrigin(this.userCardsGroup.x + card.x, this.userCardsGroup.y + card.y, this.sendCard, [card]);
         }
-
+        /**
+         * 隐藏玩家手牌
+         */
+        public hideOwnCards(){
+            this.userCardsGroup.getChildAt(0).visible=false;
+            this.userCardsGroup.getChildAt(1).visible=false;
+        }
+        /**
+         * 重置游戏最后开出底牌的人信息
+         * 1.隐藏手牌
+         * 2.隐藏牌型信息
+         */
+        public hideOtherCardsAndResetName(){
+            for(let i=0;i<this.users.length;i++){
+                this.users[i].hidePlayerCardGroup();
+                this.users[i].hideCardType();
+            }
+        }
+        
         /**
          * 显示手牌
          */
