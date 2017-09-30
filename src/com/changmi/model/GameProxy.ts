@@ -40,6 +40,10 @@ module game {
          * 发牌
          */
         public static POP_CARD: string = "pop_card";
+        /**
+         * 重置桌上信息
+         */
+        public static GAME_RESET: string = "game_reset";
 
         private _nextStep: number;
 
@@ -82,6 +86,11 @@ module game {
             data.command = Commands.INIT_PLAYER;
             data.content = { "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1", "code": "0" };
             NetController.getInstance().sendData(NetController.GAMESOCKET, data);
+        }
+
+        public resetTable(){
+           this.sendNotification(GameProxy.GAME_RESET);
+           
         }
 
         /**收到服务器消息*/

@@ -3,7 +3,8 @@
 	<w:Config id="15de5542d81" ></w:Config>
 	<e:Rect width="126" height="174" x="1" y="1" anchorOffsetX="0" anchorOffsetY="1.44" fillAlpha="0.7" fillColor="0x1a1a1a" ellipseWidth="10" ellipseHeight="10"/>
 	<e:Image id="progress" width="128" height="176" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="progressArc_png"/>
-	<e:Label id="userNameLabel" text="Label" size="25" horizontalCenter="0" y="0"/>
+	<e:Label id="userNameLabel" text="" size="25" horizontalCenter="0" y="0"/>
+	<e:Label id="cardTypeLabel" text="Label" size="25" horizontalCenter="0" y="0"/>
 	<e:Label id="goldNumLabel" text="Label" size="27" textColor="0xc5b259" bottom="0" horizontalCenter="0"/>
 
 	<e:Image id="headImg" width="115" height="113" x="6" y="33" anchorOffsetX="0" anchorOffsetY="0" source=""/>

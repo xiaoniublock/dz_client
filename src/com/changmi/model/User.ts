@@ -23,6 +23,7 @@ class User extends eui.Component {
 	private _cardType: string;//手牌组合类型
 
 	public userNameLabel: eui.Label;
+	public cardTypeLabel: eui.Label;
 	public goldNumLabel: eui.Label;
 	public headImg: eui.Image;
 	public progress: eui.Image;
@@ -93,6 +94,11 @@ class User extends eui.Component {
 
 	public set cardType(cardType: string) {
 		this._cardType = cardType;
+		if (this.cardTypeLabel){
+			this.cardTypeLabel.visible=true;
+			this.userNameLabel.visible=false;
+			this.cardTypeLabel.text = cardType;
+		}
 	}
 	public set uId(uId: string) {
 		this._uId = uId;
@@ -107,8 +113,10 @@ class User extends eui.Component {
 
 	public set name(name: string) {
 		this._name = name;
-		if (this.userNameLabel)
+		if (this.userNameLabel){
+			this.cardTypeLabel.visible=false;
 			this.userNameLabel.text = name;
+		}
 	}
 
 	public set money(money: number) {
@@ -310,4 +318,14 @@ class User extends eui.Component {
 			card.startrotateAndChangeSource();
 		}
 	}
+	public hidePlayerCardGroup(){
+		if(this.playerCardGroup.visible)
+		this.playerCardGroup.visible = false;
+	}
+	public hideCardType(){
+		if(this.cardTypeLabel.visible)
+		this.cardTypeLabel.visible=false;
+		this.userNameLabel.visible=true;
+	}
+
 }

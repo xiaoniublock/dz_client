@@ -95,7 +95,8 @@ module game {
                 GameProxy.FOLD,
                 GameProxy.CHECK,
                 GameProxy.AllIN,
-                GameProxy.POP_PUBLICCARD
+                GameProxy.POP_PUBLICCARD,
+                GameProxy.GAME_RESET
             ];
         }
 
@@ -150,7 +151,13 @@ module game {
                     } else {
                         this.gameScreen.switchBottomState("three_choose");
                     }
+                    break;
                 }
+                case GameProxy.GAME_RESET:
+                this.gameScreen.hideOwnCards();
+                this.gameScreen.hideOtherCardsAndResetName();
+                this.gameScreen.hidePublicCard();
+                break;
             }
         }
         public get gameScreen(): GameScreen {
