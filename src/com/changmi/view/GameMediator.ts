@@ -140,24 +140,28 @@ module game {
                     break;
                 }
                 case GameProxy.POP_PUBLICCARD: {
-                    this.gameScreen.sendMoneyAnimation();
-                    this.gameScreen.sendPublicCard(data.times);
-                    this.gameScreen.changePlayer("", data.nextplayer);
+                    var timer: egret.Timer = new egret.Timer(1000, 1);
+                    timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
+                        this.gameScreen.sendMoneyAnimation();
+                        this.gameScreen.sendPublicCard(data.times);
+                        this.gameScreen.changePlayer("", data.nextplayer);
 
-                    CachePool.clear("ownBet");
-                    if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
-                        this.gameScreen.switchBottomState("first_Bet");
-                        this.changeBtnState(data.operator, 0);
-                    } else {
-                        this.gameScreen.switchBottomState("three_choose");
-                    }
+                        CachePool.clear("ownBet");
+                        if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
+                            this.gameScreen.switchBottomState("first_Bet");
+                            this.changeBtnState(data.operator, 0);
+                        } else {
+                            this.gameScreen.switchBottomState("three_choose");
+                        }
+                    }, this);
+                    timer.start();
                     break;
                 }
                 case GameProxy.GAME_RESET:
-                this.gameScreen.hideOwnCards();
-                this.gameScreen.hideOtherCardsAndResetName();
-                this.gameScreen.hidePublicCard();
-                break;
+                    this.gameScreen.hideOwnCards();
+                    this.gameScreen.hideOtherCardsAndResetName();
+                    this.gameScreen.hidePublicCard();
+                    break;
             }
         }
         public get gameScreen(): GameScreen {
