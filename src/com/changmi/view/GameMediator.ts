@@ -179,6 +179,7 @@ module game {
                     this.gameScreen.hideOwnCards();
                     this.gameScreen.hideOtherCardsAndResetName();
                     this.gameScreen.hidePublicCard();
+                    CachePool.clearAll();
                     break;
                 }
             }
