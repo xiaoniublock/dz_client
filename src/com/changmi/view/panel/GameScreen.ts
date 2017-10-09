@@ -184,9 +184,9 @@ module game {
             }
 
         }
-        public hidePublicCard(){
-            for(let i=0;i<this.publicCardsGroup.numChildren;i++){
-                this.publicCardsGroup.getChildAt(i).visible=false;
+        public hidePublicCard() {
+            for (let i = 0; i < this.publicCardsGroup.numChildren; i++) {
+                this.publicCardsGroup.getChildAt(i).visible = false;
             }
             CardUtils.getInstance().clearPublicCards();
         }
@@ -202,22 +202,22 @@ module game {
         /**
          * 隐藏玩家手牌
          */
-        public hideOwnCards(){
-            this.userCardsGroup.getChildAt(0).visible=false;
-            this.userCardsGroup.getChildAt(1).visible=false;
+        public hideOwnCards() {
+            this.userCardsGroup.getChildAt(0).visible = false;
+            this.userCardsGroup.getChildAt(1).visible = false;
         }
         /**
          * 重置游戏最后开出底牌的人信息
          * 1.隐藏手牌
          * 2.隐藏牌型信息
          */
-        public hideOtherCardsAndResetName(){
-            for(let i=0;i<this.users.length;i++){
+        public hideOtherCardsAndResetName() {
+            for (let i = 0; i < this.users.length; i++) {
                 this.users[i].hidePlayerCardGroup();
                 this.users[i].hideCardType();
             }
         }
-        
+
         /**
          * 显示手牌
          */
@@ -258,15 +258,11 @@ module game {
 
         //收钱动画
         public sendMoneyAnimation() {
-            var timer: egret.Timer = new egret.Timer(1000, 1);
-            timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
-                for (var i = 0; i < 7; i++) {
-                    if (this.chips[i].chipNum != 0) {
-                        this.chips[i].gotoBaseAnimation(this["baseChipNum"]);
-                    }
+            for (var i = 0; i < 7; i++) {
+                if (this.chips[i].chipNum != 0) {
+                    this.chips[i].gotoBaseAnimation(this["baseChipNum"]);
                 }
-            }, this);
-            timer.start();
+            }
         }
 
         //通用发牌效果
