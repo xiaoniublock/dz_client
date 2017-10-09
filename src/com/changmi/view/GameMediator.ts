@@ -144,7 +144,7 @@ module game {
                     this.gameScreen.sendPublicCard(data.times);
                     this.gameScreen.changePlayer("", data.nextplayer);
 
-                    CachePool.addObj("ownBet", 0);
+                    CachePool.clear("ownBet");
                     if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
                         this.gameScreen.switchBottomState("first_Bet");
                         this.changeBtnState(data.operator, 0);
