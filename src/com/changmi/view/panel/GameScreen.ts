@@ -333,6 +333,33 @@ module game {
 
         }
 
+        //显示高亮公共牌
+        public showHeightLightPublicCard(cardArray:Array<number>){
+            for (var i = 0;i < 5;i++){
+                var card:Card = <Card>this.publicCardsGroup.getChildAt(i);
+                if (card.visible){
+                    for (var j = 0;j < cardArray.length;j++){
+                        var isSame:boolean = card.isSameAs(cardArray[j]);
+                        card.isHeightLight = isSame;
+                        if (isSame){
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        //显示单个用户手牌
+        public showUserCards(cardArray:Array<number>,userPosition:number){
+            this.users[userPosition].showPlayerCardGroup(cardArray);
+            this.users[userPosition].cardNum = 0;
+        }
+
+        //修改用户名字文本为牌型
+        public changeUserNameLabelToCardShape(cardShape:string,userPosition:number){
+            this.users[userPosition].cardType = cardShape;
+        }
+
         //给钱动画——未完成
         public giveChipAction(chip: number, userPosition: number) {
             var chipNumArray: Array<number> = [10000, 2500, 1000, 300, 50];
@@ -353,10 +380,10 @@ module game {
             timer.start();
 
             AnimationUtils.getInstance().changeLabelNumber(this["baseChipNum"], -chip);
-            this.users[userPosition - 1].addChip(chip);
+            this.users[userPosition].addChip(chip);
 
             function giveChip() {
-                this.giveChipAnimation(this.users[userPosition - 1].x, this.users[userPosition - 1].y, chipArray[timer.currentCount]);
+                this.giveChipAnimation(this.users[userPosition].x, this.users[userPosition].y, chipArray[timer.currentCount]);
             }
 
             function timerComplete() {

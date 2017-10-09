@@ -13,6 +13,8 @@ class Card extends eui.Image {
     public _index: number;
     /**扑克花色，1：黑 2:红，3：花，4：方片 */
     public _color: number;
+    /**是否高亮，true为高亮 */
+    public _isHeightLight: boolean;
 
     private playCount: number = 0;
 
@@ -24,12 +26,24 @@ class Card extends eui.Image {
         return this._color;
     }
 
+    public get isHeightLight(): boolean {
+        return this._isHeightLight;
+    }
+
     public set index(index: number) {
         this._index = index;
     }
 
     public set color(color: number) {
         this._color = color;
+    }
+
+    public set isHeightLight(isHeightLight: boolean){
+        this._isHeightLight = isHeightLight;
+    }
+
+    public isSameAs(card:number) : boolean{
+        return (this.index == card % 100) && (this.color == card / 100) ? true : false;
     }
 
     public createCardSource(index: number, color: number) {

@@ -41,6 +41,10 @@ module game {
          */
         public static POP_CARD: string = "pop_card";
         /**
+         * 结束
+         */
+        public static RESULT: string = "result";
+        /**
          * 重置桌上信息
          */
         public static GAME_RESET: string = "game_reset";
@@ -133,6 +137,7 @@ module game {
                     break;
                 //游戏判定
                 case Commands.RESULT:
+                    this.sendNotification(GameProxy.RESULT, data.content);
                     //this.onRecivePlayGame(data.content);
                     break;
                 //确定庄家

@@ -97,6 +97,7 @@ module game {
                 GameProxy.CHECK,
                 GameProxy.AllIN,
                 GameProxy.POP_PUBLICCARD,
+                GameProxy.RESULT,
                 GameProxy.GAME_RESET
             ];
         }
@@ -158,11 +159,28 @@ module game {
                     timer.start();
                     break;
                 }
-                case GameProxy.GAME_RESET:
+                case GameProxy.RESULT:{
+                    var userArray:Array<any> = data.user;
+                    //显示高亮牌
+                    this.gameScreen.showHeightLightPublicCard(data.bestGroup);
+                    //给钱动画和显示手牌
+                    for (var i = 0;i < userArray.length;i++){
+                        var user:User = UserUtils.getInstance().getUserFromUid(userArray[i].uid);
+                        //给钱
+                        this.gameScreen.giveChipAction(userArray[i].winStake,user.seat);
+                        //显示手牌
+                        this.gameScreen.showUserCards(userArray[i].holeCards,user.seat);
+                        //改牌型文本
+                        this.gameScreen.changeUserNameLabelToCardShape(CardResult[userArray[i].pokerType - 1],user.seat);
+                    }
+                    break;
+                }
+                case GameProxy.GAME_RESET:{
                     this.gameScreen.hideOwnCards();
                     this.gameScreen.hideOtherCardsAndResetName();
                     this.gameScreen.hidePublicCard();
                     break;
+                }
             }
         }
         public get gameScreen(): GameScreen {

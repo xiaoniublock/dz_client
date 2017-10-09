@@ -1,6 +1,6 @@
 // TypeScript file
 enum CardResult {
-    高牌 ,//高牌
+    高牌,
     一对,
     两对,
     三条,

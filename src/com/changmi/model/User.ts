@@ -310,12 +310,11 @@ class User extends eui.Component {
 	/**
 	 * 显示用户手牌
 	 */
-	public showPlayerCardGroup() {
+	public showPlayerCardGroup(cardArray:Array<number>) {
 		this.playerCardGroup.visible = true;
-		for (let i = 0; i < this.playerCardGroup.numChildren; i++) {
+		for (let i = 0; i < 2; i++) {
 			let card = <Card>this.playerCardGroup.getChildAt(i);
-			card.source = this.cards.cards[i].source;
-			card.startrotateAndChangeSource();
+			card.createCardSource(cardArray[i] % 100,parseInt("" + cardArray[i] / 100));
 		}
 	}
 	public hidePlayerCardGroup(){
