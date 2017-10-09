@@ -236,6 +236,7 @@ module game {
             if (checkBox) {
                 checkBox.selected = false;
             }
+            CachePool.clear("preAction");
             if (operator != StateCode.JUSTALLIN) {
                 this.gameScreen.addChipBtn.alpha = 1;
                 this.gameScreen.addChipBtn.touchEnabled = true;
