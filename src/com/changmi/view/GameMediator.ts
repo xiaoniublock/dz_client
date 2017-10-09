@@ -77,6 +77,7 @@ module game {
         public backButtonClick(event: egret.TouchEvent) {
             console.warn("点击返回");
             this.sendNotification(LobbyCommand.CHANGE, 1);
+            this.sendNotification(GameProxy.GAME_RESET);
             NetController.getInstance().close(NetController.GAMESOCKET);
         }
         public switchButtonClick(event: egret.TouchEvent) {
