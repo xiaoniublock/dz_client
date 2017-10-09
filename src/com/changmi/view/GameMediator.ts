@@ -159,23 +159,34 @@ module game {
                     timer.start();
                     break;
                 }
-                case GameProxy.RESULT:{
-                    var userArray:Array<any> = data.user;
-                    //显示高亮牌
-                    this.gameScreen.showHeightLightPublicCard(data.bestGroup);
-                    //给钱动画和显示手牌
-                    for (var i = 0;i < userArray.length;i++){
-                        var user:User = UserUtils.getInstance().getUserFromUid(userArray[i].uid);
-                        //给钱
-                        this.gameScreen.giveChipAction(userArray[i].winStake,user.seat);
-                        //显示手牌
-                        this.gameScreen.showUserCards(userArray[i].holeCards,user.seat);
-                        //改牌型文本
-                        this.gameScreen.changeUserNameLabelToCardShape(CardResult[userArray[i].pokerType - 1],user.seat);
-                    }
+                case GameProxy.RESULT: {
+                    var timer: egret.Timer = new egret.Timer(1000, 1);
+                    timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
+                        this.gameScreen.sendMoneyAnimation();
+                        timer_2.start();
+                    }, this);
+
+                    var timer_2: egret.Timer = new egret.Timer(1000, 1);
+                    timer_2.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
+                        var userArray: Array<any> = data.user;
+                        //显示高亮牌
+                        this.gameScreen.showHeightLightPublicCard(data.bestGroup);
+                        //给钱动画和显示手牌
+                        for (var i = 0; i < userArray.length; i++) {
+                            var user: User = UserUtils.getInstance().getUserFromUid(userArray[i].uid);
+                            //给钱
+                            this.gameScreen.giveChipAction(userArray[i].winStake, user.seat);
+                            //显示手牌
+                            this.gameScreen.showUserCards(userArray[i].holeCards, user.seat);
+                            //改牌型文本
+                            this.gameScreen.changeUserNameLabelToCardShape(CardResult[userArray[i].pokerType - 1], user.seat);
+                        }
+                    }, this);
+
+                    timer.start();
                     break;
                 }
-                case GameProxy.GAME_RESET:{
+                case GameProxy.GAME_RESET: {
                     this.gameScreen.hideOwnCards();
                     this.gameScreen.hideOtherCardsAndResetName();
                     this.gameScreen.hidePublicCard();
