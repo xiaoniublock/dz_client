@@ -238,12 +238,10 @@ module game {
             if (state == "count_choose") {
                 this.count_choose.play(0);
             }
-            if (state == "three_choose") {
+            if (state == "three_choose"&&this.skin.currentState!="three_choose") {
                 this.three_choose.play(0);
             }
             this.skin.currentState = state + "";
-
-            console.log(state);
         }
 
         private onVSLiderChange(e: egret.Event) {
