@@ -63,11 +63,11 @@ module game {
                 if (index == this.sendCardToUserTimer.repeatCount) {
                     return;
                 }
-                if (UserUtils.getInstance().getUserFromIndex(index % userCount).seat == 4) {
+                if (UserUtils.getInstance().getUserFromIndex(index % userCount).seat == 3) {
                     this.sendOwnCard(index / userCount, UserUtils.getInstance().getOwnUser().cards.cards[parseInt("" + index / userCount)]);
                     return;
                 }
-                var userSeat: number = UserUtils.getInstance().getUserFromIndex(index % userCount).seat - 1;
+                var userSeat: number = UserUtils.getInstance().getUserFromIndex(index % userCount).seat;
                 var x: number = this.users[userSeat].x + 102 + 104; //一个是group的位置偏移，一个是user位置偏移
                 var y: number = this.users[userSeat].y + 47 + 64;
                 if (this.users[userSeat].visible) {  //如果这个位置有人
@@ -105,7 +105,7 @@ module game {
                 user.cardNum = 0;
                 this.addOneUserAction(user);
                 if (user.uId == readyId) {
-                    this.users[user.seat - 1].startrotate(CachePool.getObj("time"));
+                    this.users[user.seat].startrotate(CachePool.getObj("time"));
                 }
             }
             for (var i = 0; i < CardUtils.getInstance().getPublicCards().length; i++) {
@@ -136,7 +136,7 @@ module game {
          * 增加单人方法
          */
         public addOneUserAction(user: User) {
-            var index = user.seat - 1;
+            var index = user.seat;
             this.users[index].name = user.name;
             this.users[index].money = user.money;
             this.users[index].cardNum = 0;
@@ -151,7 +151,9 @@ module game {
          * 删除单人方法
          */
         public removeOneUserAction(index: number) {
-            this.users[index].visible = false;
+            if (index){
+                this.users[index].visible = false;
+            }
         }
 
         /**
@@ -224,9 +226,9 @@ module game {
          */
         public showPlayerCards(uid: string, cardGroup: Array<Card>) {
             let user: User = UserUtils.getInstance().getUserFromUid(uid);
-            this.users[user.seat - 1].playerCardGroup.visible = true;
-            for (let i = 0; i < this.users[user.seat - 1].playerCardGroup.numChildren; i++) {
-                let card: Card = <Card>this.users[user.seat - 1].playerCardGroup.getChildAt(i);
+            this.users[user.seat].playerCardGroup.visible = true;
+            for (let i = 0; i < this.users[user.seat].playerCardGroup.numChildren; i++) {
+                let card: Card = <Card>this.users[user.seat].playerCardGroup.getChildAt(i);
                 card.createCardSource(cardGroup[i].index, cardGroup[i].color);
             }
         }
@@ -283,11 +285,11 @@ module game {
          */
         public changePlayer(uid: string, nextUid: string) {
             if (uid != "") {
-                this.users[UserUtils.getInstance().getUserFromUid(uid).seat - 1].stoprotate();
+                this.users[UserUtils.getInstance().getUserFromUid(uid).seat].stoprotate();
             }
             if (nextUid != "") {
                 let nextUser = UserUtils.getInstance().getUserFromUid(nextUid);
-                this.users[nextUser.seat - 1].startrotate(30);
+                this.users[nextUser.seat].startrotate(30);
             }
         }
         /**
@@ -295,7 +297,7 @@ module game {
          */
         public playerFold(uid: string, raiseStack: number) {
             if (raiseStack == 0) {
-                this.users[UserUtils.getInstance().getUserFromUid(uid).seat - 1].playerOut();
+                this.users[UserUtils.getInstance().getUserFromUid(uid).seat].playerOut();
             }
         }
 
@@ -305,8 +307,8 @@ module game {
                 return;
             }
             var chipImg: eui.Image = new eui.Image();
-            chipImg.x = this.users[userPosition - 1].x + 50;
-            chipImg.y = this.users[userPosition - 1].y + 140;
+            chipImg.x = this.users[userPosition].x + 50;
+            chipImg.y = this.users[userPosition].y + 140;
             this.UserGroup.addChild(chipImg);
 
             if (chip <= 300) {
@@ -321,14 +323,14 @@ module game {
                 chipImg.texture = RES.getRes("gamescreen.chip_5000_more");
             }
 
-            this.users[userPosition - 1].money -= chip;
+            this.users[userPosition].money -= chip;
             var tween: egret.Tween = egret.Tween.get(chipImg);
-            tween.to({ x: this.chips[userPosition - 1].x + 40, y: this.chips[userPosition - 1].y, scale: 0.5, alpha: 0.5 }, 400, egret.Ease.sineOut);
+            tween.to({ x: this.chips[userPosition].x + 40, y: this.chips[userPosition].y, scale: 0.5, alpha: 0.5 }, 400, egret.Ease.sineOut);
             tween.call(function () {
-                this.chips[userPosition - 1].chipNum += chip;
+                this.chips[userPosition].chipNum += chip;
                 this.UserGroup.removeChild(chipImg);
-                if (userPosition == 4)
-                    CachePool.addObj("ownBet", this.chips[userPosition - 1].chipNum);
+                if (userPosition == 3)
+                    CachePool.addObj("ownBet", this.chips[userPosition].chipNum);
             }, this);
 
         }
@@ -351,6 +353,9 @@ module game {
 
         //显示单个用户手牌
         public showUserCards(cardArray:Array<number>,userPosition:number){
+            if (userPosition == 3){
+                return;
+            }
             this.users[userPosition].showPlayerCardGroup(cardArray);
             this.users[userPosition].cardNum = 0;
         }
@@ -383,7 +388,10 @@ module game {
             this.users[userPosition].addChip(chip);
 
             function giveChip() {
-                this.giveChipAnimation(this.users[userPosition].x, this.users[userPosition].y, chipArray[timer.currentCount]);
+                if(timer.currentCount == 0){
+                    return;
+                }
+                this.giveChipAnimation(this.users[userPosition].x, this.users[userPosition].y, chipArray[timer.currentCount - 1]);
             }
 
             function timerComplete() {

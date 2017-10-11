@@ -51,14 +51,14 @@ class UserUtils {
 		if (this.userPools.length != 0 && this.ownUser) {
 			for (var i = 0; i < this.userPools.length; i++) {
 				if (this.userPools[i].uId == this.ownUser.uId) {
-					this.userPools[i].seat = 4;
+					this.userPools[i].seat = 3;
 					this.ownUser.chairId = this.userPools[i].chairId;
 					break;
 				}
 			}
 			for (var i = 0; i < this.userPools.length; i++) {
-				if (this.userPools[i].seat != 4) {
-					let userseat: number = (this.userPools[i].chairId - (this.ownUser.chairId - 4) + 7) % 7;
+				if (this.userPools[i].seat != 3) {
+					let userseat: number = (this.userPools[i].chairId - (this.ownUser.chairId - 3) + 7) % 7;
 					this.userPools[i].seat = (userseat == 0 ? 7 : userseat);
 				}
 
@@ -66,7 +66,7 @@ class UserUtils {
 		}
 	}
 	public sortUserSeat(user: User) {
-		let userseat: number = (user.chairId + Math.abs(4 - this.ownUser.chairId)) % 7;
+		let userseat: number = (user.chairId + Math.abs(3 - this.ownUser.chairId)) % 7;
 		user.seat = (userseat == 0 ? 7 : userseat);
 	}
 }
