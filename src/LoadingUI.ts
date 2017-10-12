@@ -32,6 +32,7 @@ class LoadingUI extends eui.Component {
     public lable_progress: eui.Label;
     public load_progress: eui.ProgressBar;
     public button_loginEnter: eui.Image;
+    public et_uname:eui.EditableText;
     private currentX: number;
     public static CREATESENCE = "createSence";
     public constructor() {
@@ -62,7 +63,9 @@ class LoadingUI extends eui.Component {
                 console.log("post data : ", request.response);
             }, this);
             let own: User = new User();
-            own.uId = "1";//JSON.parse(request.response).id;
+            own.uId = this.et_uname.text;//JSON.parse(request.response).id;
+            console.log(this.et_uname.text);
+            
             UserUtils.getInstance().saveOwnUser(own);
             this.dispatchEventWith(LoadingUI.CREATESENCE);
         }, this);

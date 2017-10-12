@@ -5,6 +5,8 @@
 	<e:ProgressBar id="load_progress" width="865" height="83" y="603"  horizontalCenter="0"/>
 	<e:Label id="lable_progress" text="100%" x="220" y="572" width="83" height="28" size="28"/>
 	<e:Image id="button_loginEnter" width="173" height="70" y="609.5" source="ic_signin_png" x="598" visible="false"/>
+	<e:EditableText id="et_uname" width="339" height="47" text="" x="559.5" y="519" anchorOffsetX="0" anchorOffsetY="0" verticalAlign="middle" textAlign="center" prompt="用户id" promptColor="0xf9f7f7"/>
+	<e:Label text="账号：" x="415" y="527.5"/>
     
 
 </e:Skin>
