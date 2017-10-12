@@ -11,6 +11,7 @@ class User extends eui.Component {
 	private _isGiveUp: boolean;		//判断该用户是否已经放弃游戏
 	private _isCardVisible: boolean;	//设置是否可见该玩家的牌
 
+	private _tId: string;//桌子ID
 	private _uId: string;//用户ID
 	private _name: string;//用户名
 	private _money: number;//筹码
@@ -57,6 +58,11 @@ class User extends eui.Component {
 	public get cardType(): string {
 		return this._cardType;
 	}
+
+	public get tId(): string {
+		return this._tId;
+	}
+
 	public get uId(): string {
 		return this._uId;
 	}
@@ -100,6 +106,11 @@ class User extends eui.Component {
 			this.cardTypeLabel.text = cardType;
 		}
 	}
+
+	public set tId(tId: string) {
+		this._tId = tId;
+	}
+
 	public set uId(uId: string) {
 		this._uId = uId;
 	}

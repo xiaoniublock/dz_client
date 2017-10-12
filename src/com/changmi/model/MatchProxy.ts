@@ -10,12 +10,13 @@ module game {
         public constructor() {
             super(MatchProxy.NAME);
             NetController.getInstance().addListener(Commands.MATCH_PLAYER, this);
+            NetController.getInstance().addListener(Commands.REQUIRE_TABLEID, this);
         }
         /**开始匹配游戏*/
         public matchPlayer() {
             NetController.getInstance().addSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction);
-            // NetController.getInstance().connectMatch();
-            NetController.getInstance().connectGame();
+            NetController.getInstance().connectMatch();
+            // NetController.getInstance().connectGame();
             // 打开加载中界面
             this.sendNotification(LobbyCommand.CHANGE, 2);
             // this.start.enabled = false;
@@ -28,20 +29,20 @@ module game {
                 //匹配服务连接成功发送用户id
                 case "match":
                     var data = new BaseMsg();
-                    // data.command = Commands.MATCH_PLAYER;
-                    data.content = { "uId": "1" };
-                    NetController.getInstance().sendData(NetController.MATCHSOCKET, data, (data: BaseMsg) => {
-                        console.warn("onGetTableId" + data);
-                        NetController.getInstance().close(NetController.MATCHSOCKET);
-                        NetController.getInstance().connectGame();
-                    }
-                        , this);
+                    data.command = Commands.REQUIRE_TABLEID;
+                    data.content = { "uId": UserUtils.getInstance().getOwnUser().uId };
+                    NetController.getInstance().sendData(NetController.MATCHSOCKET, data);//, (data: BaseMsg) => {
+                    //     console.warn("onGetTableId" + data);
+                    //     NetController.getInstance().close(NetController.MATCHSOCKET);
+                    //     NetController.getInstance().connectGame();
+                    // }
+                    //     , this);
                     break;
                 //游戏服务连接成功发送桌子id
                 case "game":
                     var data = new BaseMsg();
                     data.command = Commands.MATCH_PLAYER;
-                    data.content = { "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1" };
+                    data.content = { "uId": UserUtils.getInstance().getOwnUser().uId, "tId": UserUtils.getInstance().getOwnUser().tId };
                     NetController.getInstance().sendData(NetController.GAMESOCKET, data);
                     break;
             }
@@ -52,8 +53,21 @@ module game {
             let command = data.command;
             console.warn('onReciveMsg', command);
             switch (command) {
+                //匹配桌子
+                case Commands.REQUIRE_TABLEID: {
+                    console.warn("onGetTableId" + data);
+                    if (data.content.tId != -1) {
+                        UserUtils.getInstance().getOwnUser().tId = data.content.tId;
+                        NetController.getInstance().connectGame();
+                    }else{
+                        TextUtils.showTextTip("匹配失败，嗷了个嗷！！！");
+                        this.sendNotification(LobbyCommand.CHANGE, 1);
+                    }
+                     NetController.getInstance().close(NetController.MATCHSOCKET);
+                    break;
+                }
                 //加入玩家，更新界面
-                case Commands.MATCH_PLAYER:
+                case Commands.MATCH_PLAYER: {
                     console.warn("onMatchPlayerBack" + data);
                     UserUtils.getInstance().initUsers(data.content["user"]);
                     CardUtils.getInstance().putPublicCards(data.content["poker"]);
@@ -65,6 +79,7 @@ module game {
                         NetController.getInstance().removeSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction);
                     }, this, 3000);
                     break;
+                }
             }
         }
 

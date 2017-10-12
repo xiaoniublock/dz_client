@@ -71,16 +71,16 @@ module game {
             msg.command = Commands.PLAYERBET;
             switch (data.action) {
                 case Actions.bet:
-                msg.content = { "action": Actions.bet, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1" , "raiseStack":data.raiseStack};
+                msg.content = { "action": Actions.bet, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": UserUtils.getInstance().getOwnUser().tId , "raiseStack":data.raiseStack};
                     break;
                 case Actions.allin:
-                 msg.content = { "action": Actions.allin, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1" , "raiseStack":UserUtils.getInstance().getOwnUser().money};
+                 msg.content = { "action": Actions.allin, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": UserUtils.getInstance().getOwnUser().tId , "raiseStack":UserUtils.getInstance().getOwnUser().money};
                     break;
                 case Actions.giveup:
-                 msg.content = { "action": Actions.giveup, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1" , "raiseStack":0};
+                 msg.content = { "action": Actions.giveup, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": UserUtils.getInstance().getOwnUser().tId , "raiseStack":0};
                     break;
                 case Actions.pass:
-                 msg.content = { "action": Actions.pass, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1" , "raiseStack":0};
+                 msg.content = { "action": Actions.pass, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": UserUtils.getInstance().getOwnUser().tId , "raiseStack":0};
                     break;
             }
             NetController.getInstance().sendData(NetController.GAMESOCKET,msg);
@@ -88,7 +88,7 @@ module game {
         public sendReady() {
             var data: BaseMsg = new BaseMsg();
             data.command = Commands.INIT_PLAYER;
-            data.content = { "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1", "code": "0" };
+            data.content = { "uId": UserUtils.getInstance().getOwnUser().uId, "tId": UserUtils.getInstance().getOwnUser().tId, "code": "0" };
             NetController.getInstance().sendData(NetController.GAMESOCKET, data);
         }
 
@@ -108,7 +108,8 @@ module game {
                     break;
                 //玩家退出，更新界面
                 case Commands.REM_PLAYER:
-                    this.sendNotification(GameProxy.REM_USER, UserUtils.getInstance().popUser(data.content["uId"]));
+                    this.sendNotification(GameProxy.CHECK, data.content);
+                    this.sendNotification(GameProxy.REM_USER, UserUtils.getInstance().popUser(data.content["uid"]));
                     break;
                 //玩家各种操作
                 case Commands.PLAYERBET:

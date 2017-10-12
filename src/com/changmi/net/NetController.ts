@@ -29,7 +29,7 @@ class NetController {
         if (!this.wsMatch) {
             this.wsMatch = new WS();
         }
-        this.wsMatch.connect("118.31.69.15", 9000, "match"); //阿里云ip
+        this.wsMatch.connect("118.31.69.15", 9002, "match"); //阿里云ip
         // this.wsMatch.connect("echo.websocket.org", 80,"match");
         // this.wsMatch.connect("192.168.1.154", 9000,"match");    //陈飞的ip
         // this.wsMatch.connect("192.168.1.79", 9000,"match");    //陈飞的ip
@@ -137,4 +137,5 @@ class Commands {
     public static MATCH_PLAYER = 7;
     public static INIT_PLAYER = 8;
     public static BANKER_PLAYER = 9;
+    public static REQUIRE_TABLEID = 10;
 }
