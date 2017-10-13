@@ -1,37 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="skins.LobbySkin" width="1334" height="750" xmlns:e="http://ns.egret.com/eui">
-	<e:Image width="1334" height="750" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="bg_lobby"/>
-	<e:Image id="btn_start" width="480" height="220" top="14" right="43" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.start_png"/>
-	<e:Image width="480" height="220" top="220" right="43" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.game_png"/>
-	<e:Image  width="480" height="220" bottom="123" right="43" anchorOffsetX="0" anchorOffsetY="0" source="lobby_json.match_png"/>
-	
-			<e:Image width="1020" height="120"   left="147" right="167"  source="lobbyscreen.bottom_background" bottom="0"/>
-			
-				<e:Image id="image_icon" width="129" height="134" left="233" bottom="20"/>
-				<e:Label id="text_username" text="萧新一" width="120" bottom="60"  left="370"  size="17"  bold="true" textAlign="center" verticalAlign="middle" height="29"/>
-				<e:Image id="image_gold" width="39" height="39" left="333" bottom="8"  source="lobbyscreen.Gold"/>
-				<e:Label id="text_count" text="10000000" left="358" bottom="8" size="12" backgroundColor="0x000000" verticalAlign="middle" textAlign="center" width="138" height="37"/>
-				<e:Image id="image_plus" width="37" height="37" left="480" bottom="8" source="lobbyscreen.plus"/>
-		
-		
-			
-					<e:Image id="btn_activity" width="48" height="48" left="565"  bottom="34" source="lobbyscreen.activity"/>
-					<e:Label text="活动" size="12" width="47" height="22" left="566" bottom="8" textAlign="center"/>
-				
-					
-					<e:Image id="btn_emailBox" width="48" height="48" left="685"  bottom="34" source="lobbyscreen.mailbox"/>
-					<e:Label text="邮箱" size="12" width="47" height="22" left="685" bottom="8" textAlign="center"/>
-				
-					
-					<e:Image id="btn_rank" width="48" height="48" left="809"  bottom="34" source="lobbyscreen.Ranking"/>
-					<e:Label text="排行" size="12" width="47" height="22" left="811" bottom="8" textAlign="center"/>
-				
-					
-					<e:Image id="btn_setting"  width="48" height="48" left="926" bottom="34" source="lobbyscreen.Set_up"/>
-					<e:Label text="设置" size="12" width="47" height="22" left="925" bottom="8" textAlign="center"/>
+	<e:Image width="1334" height="750" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="bg_lobby" />
+	<e:Button id="btn_start" width="471" height="206" top="10" right="43" anchorOffsetX="0" anchorOffsetY="0">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="lobby_json.start_png" source.down="lobbyBtnDown.ic_start_down" />
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button width="471" height="206" top="216" right="43" anchorOffsetX="0" anchorOffsetY="0">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="lobby_json.game_png" source.down="lobbyBtnDown.ic_game_down" />
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button width="471" height="206" top="432" right="43" anchorOffsetX="0" anchorOffsetY="0">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="lobby_json.match_png" />
+				<e:Image width="100%" height="100%" source="lobbyBtnDown.ic_match_down" includeIn="down" />
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Image width="1011" height="110" left="161" right="161" source="lobbyscreen.bottom_background" bottom="0" />
+	<e:Image id="image_icon" width="134" height="134" left="210" bottom="24" />
+	<e:Label id="text_username" text="萧新一" width="120" bottom="60" left="370" size="20" bold="true" textAlign="center"
+	         verticalAlign="middle" height="29" />
+	<e:Image id="image_gold" width="42" height="42" left="333" bottom="8" source="lobbyscreen.Gold" />
+	<e:Label id="text_count" text="10000000" left="358" bottom="8" size="20" backgroundColor="0x000000"
+	         verticalAlign="middle" textAlign="center" width="138" height="37" />
+	<e:Button id="image_plus" width="42" height="42" left="480" bottom="8"  >
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="lobbyscreen.plus" source.down="lobbyBtnDown.ic_plus_down"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button id="btn_activity" width="53" height="53" left="565" bottom="34">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="lobbyscreen.activity" source.down="lobbyBtnDown.ic_activity_down"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
 
-
-			
-	<e:Image id="btn_shop" width="240" height="111" source="lobbyscreen.Shopping"  bottom="0" right="96"/>
-		
+	</e:Button>
+	<e:Label text="活动" size="20" width="53" height="24" left="566" bottom="8" textAlign="center" />
+	<e:Button id="btn_emailBox" width="53" height="53" left="685" bottom="34"  >
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="lobbyscreen.mailbox" source.down="lobbyBtnDown.ic_mailbox_down"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Label text="邮箱" size="20" width="53" height="24" left="685" bottom="8" textAlign="center" />
+	<e:Button id="btn_rank" width="53" height="53" left="809" bottom="34" >
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="lobbyscreen.Ranking" source.down="lobbyBtnDown.ic_ranking_down"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Label text="排行" size="20" width="53" height="24" left="809" bottom="8" textAlign="center" />
+	<e:Button id="btn_setting" width="53" height="53" left="925" bottom="35"  >
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="lobbyscreen.Set_up" source.down="lobbyBtnDown.ic_set_up_down"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Label text="设置" size="20" width="53" height="24" left="926" bottom="8" textAlign="center" />
+	<e:Image id="btn_shop" width="240" height="111" source="lobbyscreen.Shopping" bottom="0" right="96" />
 </e:Skin>
