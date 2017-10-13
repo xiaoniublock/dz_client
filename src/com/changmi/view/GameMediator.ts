@@ -190,7 +190,9 @@ module game {
                     break;
                 }
                 case GameProxy.GAME_RESET: {
+                    UserUtils.getInstance().getOwnUser().clearcards();
                     this.gameScreen.hideOwnCards();
+                    this.gameScreen.hideAllUserAndChip();
                     this.gameScreen.hideOtherCardsAndResetName();
                     this.gameScreen.hidePublicCard();
                     CachePool.clearAll();

@@ -23,6 +23,9 @@ class CardGroups {
         }
          this._cards.push(card);
     }
+    public clearCards(){
+        this._cards=[];
+    }
     /**
      * 合并两个group生成新的group
      */

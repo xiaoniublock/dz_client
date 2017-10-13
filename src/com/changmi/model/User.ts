@@ -55,6 +55,9 @@ class User extends eui.Component {
 			this._cards.initCards(new Card(index, color));
 		}
 	}
+	public clearcards() {
+		this._cards.clearCards();
+	}
 	public get cardType(): string {
 		return this._cardType;
 	}

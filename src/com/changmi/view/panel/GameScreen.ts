@@ -189,6 +189,7 @@ module game {
         public hidePublicCard() {
             for (let i = 0; i < this.publicCardsGroup.numChildren; i++) {
                 this.publicCardsGroup.getChildAt(i).visible = false;
+                (<Card>this.publicCardsGroup.getChildAt(i)).source = "poker_bg_png";
             }
             CardUtils.getInstance().clearPublicCards();
         }
@@ -207,6 +208,18 @@ module game {
         public hideOwnCards() {
             this.userCardsGroup.getChildAt(0).visible = false;
             this.userCardsGroup.getChildAt(1).visible = false;
+            (<Card>this.userCardsGroup.getChildAt(0)).source = "poker_bg_png";
+            (<Card>this.userCardsGroup.getChildAt(1)).source = "poker_bg_png";
+        }
+
+        /**
+         * 隐藏所有玩家和筹码
+         */
+        public hideAllUserAndChip(){
+            for(var i = 0;i < 7;i++){
+                this.users[i].visible = false;
+                this.chips[i].chipNum = 0;
+            }
         }
         /**
          * 重置游戏最后开出底牌的人信息
