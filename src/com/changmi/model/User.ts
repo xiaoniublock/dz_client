@@ -100,9 +100,9 @@ class User extends eui.Component {
 
 	public set cardType(cardType: string) {
 		this._cardType = cardType;
-		if (this.cardTypeLabel){
-			this.cardTypeLabel.visible=true;
-			this.userNameLabel.visible=false;
+		if (this.cardTypeLabel) {
+			this.cardTypeLabel.visible = true;
+			this.userNameLabel.visible = false;
 			this.cardTypeLabel.text = cardType;
 		}
 	}
@@ -124,8 +124,9 @@ class User extends eui.Component {
 
 	public set name(name: string) {
 		this._name = name;
-		if (this.userNameLabel){
-			this.cardTypeLabel.visible=false;
+		if (this.userNameLabel) {
+			this.cardTypeLabel.visible = false;
+			this.userNameLabel.visible=true;
 			this.userNameLabel.text = name;
 		}
 	}
@@ -321,21 +322,17 @@ class User extends eui.Component {
 	/**
 	 * 显示用户手牌
 	 */
-	public showPlayerCardGroup(cardArray:Array<number>) {
+	public showPlayerCardGroup(cardArray: Array<number>) {
 		this.playerCardGroup.visible = true;
 		for (let i = 0; i < 2; i++) {
 			let card = <Card>this.playerCardGroup.getChildAt(i);
-			card.createCardSource(cardArray[i] % 100,parseInt("" + cardArray[i] / 100));
+			card.createCardSource(cardArray[i] % 100, parseInt("" + cardArray[i] / 100));
 		}
 	}
-	public hidePlayerCardGroup(){
-		if(this.playerCardGroup.visible)
-		this.playerCardGroup.visible = false;
+	public hidePlayerCardGroup() {
+		if (this.playerCardGroup.visible)
+			this.playerCardGroup.visible = false;
 	}
-	public hideCardType(){
-		if(this.cardTypeLabel.visible)
-		this.cardTypeLabel.visible=false;
-		this.userNameLabel.visible=true;
-	}
+	
 
 }

@@ -216,7 +216,6 @@ module game {
         public hideOtherCardsAndResetName() {
             for (let i = 0; i < this.users.length; i++) {
                 this.users[i].hidePlayerCardGroup();
-                this.users[i].hideCardType();
                 this.users[i].resetPlayerOut();
             }
         }
@@ -327,8 +326,6 @@ module game {
             tween.call(function () {
                 this.chips[userPosition].chipNum += chip;
                 this.UserGroup.removeChild(chipImg);
-                if (userPosition == 3)
-                    CachePool.addObj("ownBet", this.chips[userPosition].chipNum);
             }, this);
 
         }

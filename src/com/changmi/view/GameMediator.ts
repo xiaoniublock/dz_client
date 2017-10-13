@@ -125,6 +125,9 @@ module game {
                 case GameProxy.CHECK:
                     {
                         this.gameScreen.changePlayer(data.uid, data.nextplayer);
+                        if (data.uid == UserUtils.getInstance().getOwnUser().uId){
+                            CachePool.addObj("ownBet", data.stake);
+                        }
                         if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
                             this.gameScreen.switchBottomState("first_Bet");
                             let ownBet = CachePool.getObj("ownBet");
