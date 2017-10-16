@@ -296,7 +296,7 @@ module game {
 
             for (let i = 0; i < this.gameScreen.count_group.numChildren - 2; i++) {
                 let money: eui.Button = <eui.Button>this.gameScreen.count_group.getChildAt(i);
-                parseInt(money.label) > stake ? (money.alpha = 1, money.touchEnabled = true) : (money.alpha = 0.5, money.touchEnabled = false);
+                (parseInt(money.label) > stake&& parseInt(money.label)<this.gameScreen.users[3].money)? (money.alpha = 1, money.touchEnabled = true) : (money.alpha = 0.5, money.touchEnabled = false);
             }
         }
     }
