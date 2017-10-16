@@ -95,9 +95,6 @@ class Main extends egret.DisplayObjectContainer {
             //设置加载进度界面
             this.loadingView = new LoadingUI();
             this.appContainer.addChild(this.loadingView);
-            egret.ExternalInterface.addCallback("sendToJS", function (message: string) {
-                console.log("message form native : " + message);//message form native : message from native
-            });
         }
         if (event.groupName == "preload") {
             RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);

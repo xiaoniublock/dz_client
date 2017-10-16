@@ -75,7 +75,7 @@ module game {
                         UserUtils.getInstance().getOwnUser().tId = data.content.tId;
                         NetController.getInstance().connectGame();
                     } else {
-                        TextUtils.showTextTip("匹配失败，嗷了个嗷！！！");
+                        game.TextUtils.showTextTip("匹配失败，嗷了个嗷！！！");
                         this.sendNotification(LobbyCommand.CHANGE, 1);
                     }
                     this.clientDisconnect = true;

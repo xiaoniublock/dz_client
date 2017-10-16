@@ -31,8 +31,23 @@ class LoadingUI extends eui.Component {
 
     public lable_progress: eui.Label;
     public load_progress: eui.ProgressBar;
-    public button_loginEnter: eui.Image;
-    public et_uname:eui.EditableText;
+    public group_login:eui.Group;
+    public group_normal:eui.Group;
+
+
+    public btn_accountLogin:eui.Button;
+    public btn_register:eui.Button;
+    public btn_next:eui.Button;
+    public btn_complete:eui.Button;
+    public btn_login:eui.Button;
+
+    public et_phone:eui.EditableText;
+    public et_password:eui.EditableText;
+    public et_sms:eui.EditableText;
+
+
+    public btn_close:eui.Image;
+    public btnShow: egret.tween.TweenGroup;
     private currentX: number;
     public static CREATESENCE = "createSence";
     public constructor() {
@@ -48,7 +63,30 @@ class LoadingUI extends eui.Component {
             this.load_progress.minimum = 0;//设置进度条的最小值
             RES.loadGroup("preload");
         }, this);
-        this.button_loginEnter.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+        this.btn_accountLogin.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
+           this.skin.currentState="login";
+        },this);
+        this.btn_close.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
+             this.skin.currentState="closeGroup";
+        },this);
+        this.btn_register.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
+           
+            this.skin.currentState="register";
+        },this);
+        this.btn_next.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
+             this.skin.currentState="smscheck";
+        },this);
+        this.btn_complete.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
+             this.skin.currentState="login";
+        },this);
+        
+        this.btn_login.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+            let phone=this.et_phone.text;
+            let password=this.et_password.text;
+            if(phone==""||password==""){
+                 game.TextUtils.showTextTip("账户密码不能为空！！！");
+                return;
+            }
             let data = { uname: 'pisa', pwd: 'pisa' };
             HttpAPI.HttpGET("http://192.168.1.129/login", data, (event) => {
                 console.log("登录成功");
@@ -63,8 +101,7 @@ class LoadingUI extends eui.Component {
                 console.log("post data : ", request.response);
             }, this);
             let own: User = new User();
-            own.uId = this.et_uname.text;//JSON.parse(request.response).id;
-            console.log(this.et_uname.text);
+            own.uId = phone;//JSON.parse(request.response).id;
             UserUtils.getInstance().saveOwnUser(own);
             this.dispatchEventWith(LoadingUI.CREATESENCE);
         }, this);
@@ -78,7 +115,8 @@ class LoadingUI extends eui.Component {
         this.lable_progress.x = this.currentX + Math.ceil(this.load_progress.width * (current / total));
     }
     public showEnterButton() {
-        this.button_loginEnter.visible = true;
+        this.group_login.visible = true;
+        this.btnShow.play(0);
         this.load_progress.visible = false;
         this.lable_progress.visible = false;
     }
