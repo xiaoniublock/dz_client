@@ -102,12 +102,12 @@ class NetController {
     }
 
     /**接收到数据时都事件监听*/
-    public addSocketStateListener(command, callback) {
-        this.dispatcher.addEventListener(command + "", callback, this);
+    public addSocketStateListener(command, callback, thisObject) {
+        this.dispatcher.addEventListener(command + "", callback, thisObject);
     }
     /**接收到数据时都事件监听*/
-    public removeSocketStateListener(command, callback) {
-        this.dispatcher.removeEventListener(command + "", callback, this);
+    public removeSocketStateListener(command, callback, thisObject) {
+        this.dispatcher.removeEventListener(command + "", callback, thisObject);
     }
 
     public sendSocketSucceed(type): void {

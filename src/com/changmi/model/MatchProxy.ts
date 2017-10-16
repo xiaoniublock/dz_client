@@ -1,8 +1,8 @@
 // TypeScript file
 module game {
-    
+
     export class MatchProxy extends puremvc.Proxy implements puremvc.IProxy {
-        public clientDisconnect:boolean = false;  //false为本地主动断开，true为服务器忽然断开
+        public clientDisconnect: boolean = false;  //false为本地主动断开，true为服务器忽然断开
         public static NAME: string = "MatchProxy";
         /**
          * 匹配成功返回这张桌子上的玩家数据
@@ -15,8 +15,8 @@ module game {
         }
         /**开始匹配游戏*/
         public matchPlayer() {
-            NetController.getInstance().addSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction.bind(this));
-            NetController.getInstance().addSocketStateListener(NetController.CLOSESUCCEED, this.disconnectFunction.bind(this));
+            NetController.getInstance().addSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction, this);
+            NetController.getInstance().addSocketStateListener(NetController.CLOSESUCCEED, this.disconnectFunction, this);
             NetController.getInstance().connectMatch();
             // NetController.getInstance().connectGame();
             // 打开加载中界面
@@ -33,12 +33,7 @@ module game {
                     var data = new BaseMsg();
                     data.command = Commands.REQUIRE_TABLEID;
                     data.content = { "uId": UserUtils.getInstance().getOwnUser().uId };
-                    NetController.getInstance().sendData(NetController.MATCHSOCKET, data);//, (data: BaseMsg) => {
-                    //     console.warn("onGetTableId" + data);
-                    //     NetController.getInstance().close(NetController.MATCHSOCKET);
-                    //     NetController.getInstance().connectGame();
-                    // }
-                    //     , this);
+                    NetController.getInstance().sendData(NetController.MATCHSOCKET, data);
                     break;
                 //游戏服务连接成功发送桌子id
                 case "game":
@@ -51,16 +46,16 @@ module game {
 
         }
         private disconnectFunction(evt: egret.Event) {
-            console.log(evt.data);
             switch (evt.data) {
                 //匹配服务连接成功发送用户id
-                case "match":
+                case "match":{
                     //如果是服务器主动断开则走条件1，客户端主动断开则走条件2
-                    if(this.clientDisconnect){
+                    if (this.clientDisconnect) {
                         this.clientDisconnect = false;
-                    }else{
+                    } else {
                         this.sendNotification(LobbyCommand.CHANGE, 1);
                     }
+                }
             }
         }
         /**收到服务器消息*/
@@ -71,7 +66,7 @@ module game {
                 //匹配桌子
                 case Commands.REQUIRE_TABLEID: {
                     console.warn("onGetTableId" + data);
-                    if (data.content.tId != -1) {
+                    if (data.content.tId >= 0) {
                         UserUtils.getInstance().getOwnUser().tId = data.content.tId;
                         NetController.getInstance().connectGame();
                     } else {
@@ -91,11 +86,11 @@ module game {
                     CachePool.addObj("ready", data.content["ready"]);
                     CachePool.addObj("time", data.content["time"]);
                     this.sendNotification(GameCommand.START_GAME);
-                    NetController.getInstance().removeSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction);
+                    NetController.getInstance().removeSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction, this);
+                    NetController.getInstance().removeSocketStateListener(NetController.CLOSESUCCEED, this.disconnectFunction, this);
                     break;
                 }
             }
         }
-
     }
 }
