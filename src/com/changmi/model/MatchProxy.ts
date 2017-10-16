@@ -59,11 +59,11 @@ module game {
                     if (data.content.tId != -1) {
                         UserUtils.getInstance().getOwnUser().tId = data.content.tId;
                         NetController.getInstance().connectGame();
-                    }else{
+                    } else {
                         TextUtils.showTextTip("匹配失败，嗷了个嗷！！！");
                         this.sendNotification(LobbyCommand.CHANGE, 1);
                     }
-                     NetController.getInstance().close(NetController.MATCHSOCKET);
+                    NetController.getInstance().close(NetController.MATCHSOCKET);
                     break;
                 }
                 //加入玩家，更新界面
@@ -74,10 +74,8 @@ module game {
                     CachePool.addObj("jackpot", data.content["jackpot"]);
                     CachePool.addObj("ready", data.content["ready"]);
                     CachePool.addObj("time", data.content["time"]);
-                    egret.setTimeout(() => {
-                        this.sendNotification(GameCommand.START_GAME);
-                        NetController.getInstance().removeSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction);
-                    }, this, 3000);
+                    this.sendNotification(GameCommand.START_GAME);
+                    NetController.getInstance().removeSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction);
                     break;
                 }
             }
