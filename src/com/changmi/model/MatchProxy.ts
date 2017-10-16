@@ -1,7 +1,8 @@
 // TypeScript file
 module game {
-
+    
     export class MatchProxy extends puremvc.Proxy implements puremvc.IProxy {
+        public clientDisconnect:boolean = false;  //false为本地主动断开，true为服务器忽然断开
         public static NAME: string = "MatchProxy";
         /**
          * 匹配成功返回这张桌子上的玩家数据
@@ -14,7 +15,8 @@ module game {
         }
         /**开始匹配游戏*/
         public matchPlayer() {
-            NetController.getInstance().addSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction);
+            NetController.getInstance().addSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction.bind(this));
+            NetController.getInstance().addSocketStateListener(NetController.CLOSESUCCEED, this.disconnectFunction.bind(this));
             NetController.getInstance().connectMatch();
             // NetController.getInstance().connectGame();
             // 打开加载中界面
@@ -48,6 +50,19 @@ module game {
             }
 
         }
+        private disconnectFunction(evt: egret.Event) {
+            console.log(evt.data);
+            switch (evt.data) {
+                //匹配服务连接成功发送用户id
+                case "match":
+                    //如果是服务器主动断开则走条件1，客户端主动断开则走条件2
+                    if(this.clientDisconnect){
+                        this.clientDisconnect = false;
+                    }else{
+                        this.sendNotification(LobbyCommand.CHANGE, 1);
+                    }
+            }
+        }
         /**收到服务器消息*/
         private onReciveMsg(data: BaseMsg) {
             let command = data.command;
@@ -63,7 +78,8 @@ module game {
                         TextUtils.showTextTip("匹配失败，嗷了个嗷！！！");
                         this.sendNotification(LobbyCommand.CHANGE, 1);
                     }
-                     NetController.getInstance().close(NetController.MATCHSOCKET);
+                    this.clientDisconnect = true;
+                    NetController.getInstance().close(NetController.MATCHSOCKET);
                     break;
                 }
                 //加入玩家，更新界面
