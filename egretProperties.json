@@ -1,8 +1,10 @@
 {
 	"native": {
 		"path_ignore": [],
-		"ios_path": "../../Desktop/nidage",
-		"android_as_path": "../dzapp"
+
+		"android_as_path": "../dzApp",
+		"ios_path": "../../Desktop/dzpk"
+
 	},
 	"publish": {
 		"web": 0,
