@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="LoadUISkin" width="1334" height="750" currentState="normal" xmlns:e="http://ns.egret.com/eui"
-        xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*"  states="normal,register,login,smscheck,closeGroup" >
+        xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*"  states="normal,register,login,smscheck,closeGroup,resetPassword,sms_reset" >
 	<w:Declarations>
 		<tween:TweenGroup id="btnShow">
 			<tween:TweenItem target="{btn_touristLogin}">
@@ -99,22 +99,22 @@
 	</e:Group>
 	<e:Group id="group_normal" width="760" height="492" x="287" bottom="180" visible.normal="false" visible.closeGroup="false">
 	<e:Image width="760" height="492" source="loginResource_json.bg_login" anchorOffsetX="0" anchorOffsetY="0" />
-		<e:Image width="260" height="70" x="250" y="24" source="loginResource_json.fonts_account" source.register="loginResource_json.fonts_register"/>
-		<e:Group width="522" height="84" x="119" y="108" visible.smscheck="false">
+		<e:Image width="260" height="70" x="250" y="24" source="loginResource_json.fonts_account" source.register="loginResource_json.fonts_register" source.smscheck="loginResource_json.fonts_register" source.resetPassword="loginResource_json.fonts_Reset" source.sms_reset="loginResource_json.fonts_Reset"/>
+		<e:Group width="522" height="84" x="119" y="108" visible.smscheck="false" visible.sms_reset="false">
 		<e:Image width="100%" height="100%" source="bg_edittext_png" anchorOffsetX="0" anchorOffsetY="0" />
-		<e:EditableText id="et_phone" width="100%" height="100%" x="40" verticalAlign="middle" textAlign="left" textColor="0x515151" prompt="输入手机号" promptColor="0xa7a7a7" fontFamily="Microsoft YaHei"/>
-			<e:Label text="39" includeIn="smscheck" x="469" y="27" textColor="0x185694" size="30" fontFamily="Microsoft YaHei"/>
+		<e:EditableText id="et_phone" width="100%" height="100%" x="40" verticalAlign="middle" textAlign="left" textColor="0x515151" prompt="输入手机号" promptColor="0xa7a7a7" fontFamily="Microsoft YaHei" inputType="tel" text.resetPassword=""/>
+			<e:Label text="39" includeIn="smscheck,sms_reset" x="469" y="27" textColor="0x185694" size="30" fontFamily="Microsoft YaHei"/>
 		</e:Group>
-		<e:Group width="522" height="84" x="119" y="108" visible.register="false" visible.login="false">
+		<e:Group width="522" height="84" x="119" y="108" visible.register="false" visible.login="false" visible.resetPassword="false">
 		<e:Image width="100%" height="100%" source="bg_edittext_png" anchorOffsetX="0" anchorOffsetY="0" />
-		<e:EditableText id="et_sms" width="100%" height="100%" x="40" verticalAlign="middle" textAlign="left" textColor="0x515151" prompt="输入验证码" promptColor="0xa7a7a7" fontFamily="Microsoft YaHei"/>
-			<e:Label text="39" includeIn="smscheck" x="469" y="27" textColor="0x185694" size="30" fontFamily="Microsoft YaHei"/>
+		<e:EditableText id="et_sms" width="100%" height="100%" x="40" verticalAlign="middle" textAlign="left" textColor="0x515151" prompt="输入验证码" promptColor="0xa7a7a7" fontFamily="Microsoft YaHei" inputType="tel"/>
+			<e:Label text="39" includeIn="smscheck,sms_reset" x="469" y="27" textColor="0x185694" size="30" fontFamily="Microsoft YaHei"/>
 		</e:Group>
-		<e:Group width="522" height="84" x="119" y="208" visible.smscheck="false">
+		<e:Group width="522" height="84" x="119" y="208" visible.smscheck="false" visible.sms_reset="false">
 		<e:Image width="100%" height="100%" source="bg_edittext_png" anchorOffsetX="0" anchorOffsetY="0" />
-		<e:EditableText id="et_password" width="100%" height="100%" x="40" verticalAlign="middle" textAlign="left" textColor="0x515151" prompt="输入密码" promptColor="0xa7a7a7"  fontFamily="Microsoft YaHei"/>
+		<e:EditableText id="et_password" width="100%" height="100%" x="40" verticalAlign="middle" textAlign="left" textColor="0x515151" prompt="输入密码" promptColor="0xa7a7a7"  fontFamily="Microsoft YaHei" inputType="password" displayAsPassword="true"/>
 		</e:Group>
-		<e:Button id="btn_login" label="" x="119" width="258" height="142" bottom="44" visible.register="false" visible.smscheck="false">
+		<e:Button id="btn_login" label="" x="119" width="258" height="142" bottom="44" visible.register="false" visible.smscheck="false" visible.resetPassword="false" visible.sms_reset="false">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="loginResource_json.ic_sign_in" source.down="loginResource_json.ic_sign_in_press"/>
@@ -122,7 +122,7 @@
 				</e:Skin>
 			</e:skinName>
 		</e:Button>
-		<e:Button id="btn_register" label="" width="220" height="78" right="119" bottom="44" visible.register="false" visible.smscheck="false">
+		<e:Button id="btn_register" label="" width="220" height="78" right="119" bottom="44" visible.register="false" visible.smscheck="false" visible.resetPassword="false" visible.sms_reset="false">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="loginResource_json.ic_register" source.down="loginResource_json.ic_register_press"/>
@@ -130,8 +130,8 @@
 				</e:Skin>
 			</e:skinName>
 		</e:Button>
-		<e:Label text="忘记密码" x="460" y="320" size="32" visible.register="false" visible.smscheck="false" fontFamily="Microsoft YaHei"/>
-		<e:Button id="btn_next" label="" includeIn="register" x="270" bottom="44">
+		<e:Label id="btn_forget" text="忘记密码" x="460" y="320" size="32" visible.register="false" visible.smscheck="false" fontFamily="Microsoft YaHei" visible.resetPassword="false" visible.sms_reset="false"/>
+		<e:Button id="btn_next" label="" includeIn="register,resetPassword" x="270" bottom="44">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="loginResource_json.ic_next_step." source.down="loginResource_json.ic_next_step_press"/>
@@ -140,7 +140,7 @@
 			</e:skinName>
 		</e:Button>
 		<e:Image id="btn_close" width="64" height="64" x="714" y="-19" source="loginResource_json.ic_close"/>
-		<e:Button id="btn_complete" label="" includeIn="smscheck" x="270" y="274">
+		<e:Button id="btn_complete" label="" includeIn="smscheck,sms_reset" x="270" y="274">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="loginResource_json.ic_complete" source.down="loginResource_json.ic_complete_press"/>
@@ -148,7 +148,7 @@
 				</e:Skin>
 			</e:skinName>
 		</e:Button>
-		<e:CheckBox id="check_agreement" label="同意(游戏的协议)" includeIn="register" x="119" y="309">
+		<e:CheckBox id="check_agreement" label="同意(游戏的协议)" includeIn="register,resetPassword" x="119" y="309" visible.resetPassword="false">
 		</e:CheckBox>
 	</e:Group>
 	

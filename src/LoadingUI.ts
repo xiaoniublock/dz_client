@@ -31,22 +31,24 @@ class LoadingUI extends eui.Component {
 
     public lable_progress: eui.Label;
     public load_progress: eui.ProgressBar;
-    public group_login:eui.Group;
-    public group_normal:eui.Group;
+    public group_login: eui.Group;
+    public group_normal: eui.Group;
 
 
-    public btn_accountLogin:eui.Button;
-    public btn_register:eui.Button;
-    public btn_next:eui.Button;
-    public btn_complete:eui.Button;
-    public btn_login:eui.Button;
+    public btn_accountLogin: eui.Button;
+    public btn_register: eui.Button;
+    public btn_next: eui.Button;
+    public btn_complete: eui.Button;
+    public btn_login: eui.Button;
 
-    public et_phone:eui.EditableText;
-    public et_password:eui.EditableText;
-    public et_sms:eui.EditableText;
+    public et_phone: eui.EditableText;
+    public et_password: eui.EditableText;
+    public et_sms: eui.EditableText;
 
 
-    public btn_close:eui.Image;
+    public btn_close: eui.Image;
+    public btn_forget: eui.Image;
+
     public btnShow: egret.tween.TweenGroup;
     private currentX: number;
     public static CREATESENCE = "createSence";
@@ -63,28 +65,35 @@ class LoadingUI extends eui.Component {
             this.load_progress.minimum = 0;//设置进度条的最小值
             RES.loadGroup("preload");
         }, this);
-        this.btn_accountLogin.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
-           this.skin.currentState="login";
-        },this);
-        this.btn_close.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
-             this.skin.currentState="closeGroup";
-        },this);
-        this.btn_register.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
-           
-            this.skin.currentState="register";
-        },this);
-        this.btn_next.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
-             this.skin.currentState="smscheck";
-        },this);
-        this.btn_complete.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
-             this.skin.currentState="login";
-        },this);
-        
+        this.btn_accountLogin.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+            this.skin.currentState = "login";
+        }, this);
+        this.btn_close.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+            this.skin.currentState = "closeGroup";
+        }, this);
+        this.btn_register.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+            this.skin.currentState = "register";
+        }, this);
+        this.btn_next.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+            if (this.skin.currentState == "register") {
+                this.skin.currentState = "smscheck";
+            } else if (this.skin.currentState == "resetPassword") {
+                this.skin.currentState = "sms_reset";
+            }
+        }, this);
+        this.btn_complete.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+            this.skin.currentState = "login";
+            this.et_sms.text="";
+        }, this);
+        this.btn_forget.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+            this.skin.currentState = "resetPassword";
+        }, this);
+
         this.btn_login.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-            let phone=this.et_phone.text;
-            let password=this.et_password.text;
-            if(phone==""||password==""){
-                 game.TextUtils.showTextTip("账户密码不能为空！！！");
+            let phone = this.et_phone.text;
+            let password = this.et_password.text;
+            if (phone == "" || password == "") {
+                game.TextUtils.showTextTip("账户密码不能为空！！！");
                 return;
             }
             let data = { uname: 'pisa', pwd: 'pisa' };
