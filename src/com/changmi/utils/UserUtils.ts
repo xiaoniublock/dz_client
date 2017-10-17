@@ -59,6 +59,7 @@ class UserUtils {
 			for (var i = 0; i < this.userPools.length; i++) {
 				if (this.userPools[i].seat != 3) {
 					let userseat: number = (this.userPools[i].chairId - (this.ownUser.chairId - 3) + 7) % 7;
+					this.userPools[i].seat =  userseat;
 				}
 
 			}
@@ -66,5 +67,6 @@ class UserUtils {
 	}
 	public sortUserSeat(user: User) {
 		let userseat: number = (user.chairId + Math.abs(3 - this.ownUser.chairId)) % 7;
+		user.seat = userseat;
 	}
 }
