@@ -13,6 +13,8 @@ class NetController {
     public static CONNECTSUCCEED: string = "CONNECTSUCCEED";
     /**断开成功 */
     public static CLOSESUCCEED: string = "CLOSESUCCEED";
+    /**链接出错 */
+    public static CONNECTERROR: string = "CONNECTERROR";
 
     public constructor() {
         this.dispatcher = new egret.EventDispatcher();
@@ -115,6 +117,9 @@ class NetController {
     }
     public sendSocketClose(type): void {
         this.dispatcher.dispatchEventWith(NetController.CLOSESUCCEED, true, type);
+    }
+    public sendSocketError(type): void {
+        this.dispatcher.dispatchEventWith(NetController.CONNECTERROR, true, type);
     }
 }
 

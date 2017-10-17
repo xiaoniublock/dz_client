@@ -336,6 +336,8 @@ class User extends eui.Component {
 		if (this.playerCardGroup.visible)
 			this.playerCardGroup.visible = false;
 	}
-	
+	public getOwnCard(index:number):Card {
+		return <Card>this.playerCardGroup.getChildAt(index);
+	}
 
 }

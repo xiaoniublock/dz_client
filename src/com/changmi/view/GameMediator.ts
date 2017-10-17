@@ -6,7 +6,6 @@ module game {
         public constructor(viewComponent: any) {
             super(GameMediator.NAME, viewComponent);
             this.gameScreen.backBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.backButtonClick, this);
-            this.gameScreen.switchBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.switchButtonClick, this);
             this.gameScreen.checkBox_giveUp.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onChange, this);
             this.gameScreen.checkBox_autoPass.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onChange, this);
             this.gameScreen.checkBox_followAny.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onChange, this);
@@ -80,12 +79,7 @@ module game {
             this.sendNotification(GameProxy.GAME_RESET);
             NetController.getInstance().close(NetController.GAMESOCKET);
         }
-        public switchButtonClick(event: egret.TouchEvent) {
-            let stats: Array<String> = ["first_Bet", "count_choose", "three_choose"];
-
-            this.sendNotification(GameProxy.CHANGE_STATE, stats[this.num % 3]);
-            this.num++;
-        }
+        
         public listNotificationInterests(): Array<any> {
             return [
                 GameProxy.CHANGE_STATE,
@@ -172,8 +166,6 @@ module game {
                     var timer_2: egret.Timer = new egret.Timer(1000, 1);
                     timer_2.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
                         var userArray: Array<any> = data.user;
-                        //显示高亮牌
-                        this.gameScreen.showHeightLightPublicCard(data.bestGroup);
                         //给钱动画和显示手牌
                         for (var i = 0; i < userArray.length; i++) {
                             var user: User = UserUtils.getInstance().getUserFromUid(userArray[i].uid);
@@ -184,6 +176,8 @@ module game {
                             //改牌型文本
                             this.gameScreen.changeUserNameLabelToCardShape(CardResult[userArray[i].pokerType - 1], user.seat);
                         }
+                        //显示高亮牌
+                        this.gameScreen.showHeightLightPublicCard(data.bestGroup, data.user);
                     }, this);
 
                     timer.start();
@@ -283,21 +277,20 @@ module game {
             } else {
                 return;
             }
-            this.gameScreen.RangeMoneySlider.minimum = stake;
+
+            var ownBet = CachePool.getObj("ownBet") ? CachePool.getObj("ownBet") : 0;
+            var minimun = stake - ownBet;
+            var maximum = this.gameScreen.users[3].money;
+            this.gameScreen.RangeMoneySlider.minimum = minimun;
             this.gameScreen.RangeMoneySlider.snapInterval = 100;
-            this.gameScreen.RangeMoneySlider.maximum = this.gameScreen.users[3].money;
-            this.gameScreen.RangeMoneySlider.pendingValue = stake;
-            var scale = (this.gameScreen.RangeMoneySlider.pendingValue - this.gameScreen.RangeMoneySlider.minimum) / (this.gameScreen.RangeMoneySlider.maximum - this.gameScreen.RangeMoneySlider.minimum);
-            this.gameScreen.RangeMoneySlider["change"].mask = new egret.Rectangle(0,
-                30 + (1 - scale) * this.gameScreen.RangeMoneySlider.height * 0.82,
-                26,
-                scale * this.gameScreen.RangeMoneySlider.height * 0.82);
-            this.gameScreen.RangeMoneyBtn.label = "" + this.gameScreen.RangeMoneySlider.pendingValue;
-            console.log(this.gameScreen.count_group.numChildren);
+            this.gameScreen.RangeMoneySlider.maximum = maximum;
+            this.gameScreen.RangeMoneySlider.pendingValue = minimun;
+            this.gameScreen.RangeMoneySlider["change"].mask = new egret.Rectangle(0, 30 + this.gameScreen.RangeMoneySlider.height * 0.82, 26, 0);
+            this.gameScreen.RangeMoneyBtn.label = "" + minimun;
 
             for (let i = 0; i < this.gameScreen.count_group.numChildren - 2; i++) {
                 let money: eui.Button = <eui.Button>this.gameScreen.count_group.getChildAt(i);
-                (parseInt(money.label) > stake&& parseInt(money.label)<this.gameScreen.users[3].money)? (money.alpha = 1, money.touchEnabled = true) : (money.alpha = 0.5, money.touchEnabled = false);
+                (parseInt(money.label) >= minimun && parseInt(money.label) <= maximum)? (money.alpha = 1, money.touchEnabled = true) : (money.alpha = 0.5, money.touchEnabled = false);
             }
         }
     }

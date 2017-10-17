@@ -4,7 +4,6 @@ module game {
     export class GameScreen extends eui.Component {
 
         public backBtn: eui.Button;
-        public switchBtn: eui.Button;
         public first_Bet: egret.tween.TweenGroup;
 
         public giveUpBtn: eui.Button;
@@ -89,11 +88,6 @@ module game {
         //刷新页面
         public createCompleteEvent() {
             this.skinName = "skins.GameSkin";
-            this.switchBtn = new eui.Button();
-            this.switchBtn.label = "切换你";
-            this.switchBtn.left = 0;
-            this.switchBtn.verticalCenter = 0;
-            this.addChild(this.switchBtn);
 
             //测试用
             this.users = [this["User_1"], this["User_2"], this["User_3"], this["User_4"], this["User_5"], this["User_6"], this["User_7"]];
@@ -151,7 +145,7 @@ module game {
          * 删除单人方法
          */
         public removeOneUserAction(index: number) {
-            if (index){
+            if (index) {
                 this.users[index].visible = false;
             }
         }
@@ -189,6 +183,7 @@ module game {
         public hidePublicCard() {
             for (let i = 0; i < this.publicCardsGroup.numChildren; i++) {
                 this.publicCardsGroup.getChildAt(i).visible = false;
+                (<Card>this.publicCardsGroup.getChildAt(i)).isHeightLight = true;
                 (<Card>this.publicCardsGroup.getChildAt(i)).source = "poker_bg_png";
             }
             CardUtils.getInstance().clearPublicCards();
@@ -210,13 +205,15 @@ module game {
             this.userCardsGroup.getChildAt(1).visible = false;
             (<Card>this.userCardsGroup.getChildAt(0)).source = "poker_bg_png";
             (<Card>this.userCardsGroup.getChildAt(1)).source = "poker_bg_png";
+            (<Card>this.userCardsGroup.getChildAt(0)).isHeightLight = true;
+            (<Card>this.userCardsGroup.getChildAt(1)).isHeightLight = true;
         }
 
         /**
          * 隐藏所有玩家和筹码
          */
-        public hideAllUserAndChip(){
-            for(var i = 0;i < 7;i++){
+        public hideAllUserAndChip() {
+            for (var i = 0; i < 7; i++) {
                 this.users[i].visible = false;
                 this.chips[i].chipNum = 0;
             }
@@ -252,7 +249,7 @@ module game {
             if (state == "count_choose") {
                 this.count_choose.play(0);
             }
-            if (state == "three_choose"&&this.skin.currentState!="three_choose") {
+            if (state == "three_choose" && this.skin.currentState != "three_choose") {
                 this.three_choose.play(0);
             }
             this.skin.currentState = state + "";
@@ -343,25 +340,46 @@ module game {
 
         }
 
-        //显示高亮公共牌
-        public showHeightLightPublicCard(cardArray:Array<number>){
-            for (var i = 0;i < 5;i++){
-                var card:Card = <Card>this.publicCardsGroup.getChildAt(i);
-                if (card.visible){
-                    for (var j = 0;j < cardArray.length;j++){
-                        var isSame:boolean = card.isSameAs(cardArray[j]);
-                        card.isHeightLight = isSame;
-                        if (isSame){
-                            break;
+        //显示高亮公共牌以及胜者高亮手牌
+        public showHeightLightPublicCard(cardArray: Array<number>, users: Array<any>) {
+            for (let i = 0; i < 5; i++) {
+                let publicOneCard: Card = <Card>this.publicCardsGroup.getChildAt(i);
+                for (let j = 0; j < cardArray.length; j++) {
+                    let isSame: boolean = publicOneCard.isSameAs(cardArray[j]);
+                    publicOneCard.isHeightLight = isSame;
+                    if (isSame) {
+                        break;
+                    }
+                }
+            }
+            for (let i = 0; i < users.length; i++) {
+                let user: User = <User>this.users[UserUtils.getInstance().getUserFromUid(users[i].uid).seat];
+                for (let j = 0; j < 2; j++) {
+                    let userOwnCard: Card;
+                    if (users[i].uid == UserUtils.getInstance().getOwnUser().uId){
+                        userOwnCard = <Card>this.userCardsGroup.getChildAt(j);
+                    } else {
+                        userOwnCard = user.getOwnCard(j);
+                    }
+                    
+                    if (users[i].isWinner) {
+                        for (let k = 0; k < cardArray.length; k++) {
+                            let isSame: boolean = userOwnCard.isSameAs(cardArray[k]);
+                            userOwnCard.isHeightLight = isSame;
+                            if (isSame) {
+                                break;
+                            }
                         }
+                    } else {
+                        userOwnCard.isHeightLight = false;
                     }
                 }
             }
         }
 
         //显示单个用户手牌
-        public showUserCards(cardArray:Array<number>,userPosition:number){
-            if (userPosition == 3){
+        public showUserCards(cardArray: Array<number>, userPosition: number) {
+            if (userPosition == 3) {
                 return;
             }
             this.users[userPosition].showPlayerCardGroup(cardArray);
@@ -369,7 +387,7 @@ module game {
         }
 
         //修改用户名字文本为牌型
-        public changeUserNameLabelToCardShape(cardShape:string,userPosition:number){
+        public changeUserNameLabelToCardShape(cardShape: string, userPosition: number) {
             this.users[userPosition].cardType = cardShape;
         }
 
@@ -396,7 +414,7 @@ module game {
             this.users[userPosition].addChip(chip);
 
             function giveChip() {
-                if(timer.currentCount == 0){
+                if (timer.currentCount == 0) {
                     return;
                 }
                 this.giveChipAnimation(this.users[userPosition].x, this.users[userPosition].y, chipArray[timer.currentCount - 1]);

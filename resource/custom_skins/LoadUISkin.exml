@@ -107,12 +107,16 @@
 		</e:Group>
 		<e:Group width="522" height="84" x="119" y="108" visible.register="false" visible.login="false" visible.resetPassword="false">
 		<e:Image width="100%" height="100%" source="bg_edittext_png" anchorOffsetX="0" anchorOffsetY="0" />
+
 		<e:EditableText id="et_sms" width="100%" height="100%" x="40" verticalAlign="middle" textAlign="left" textColor="0x515151" prompt="输入验证码" promptColor="0xa7a7a7" fontFamily="Microsoft YaHei" inputType="tel"/>
 			<e:Label text="39" includeIn="smscheck,sms_reset" x="469" y="27" textColor="0x185694" size="30" fontFamily="Microsoft YaHei"/>
+
 		</e:Group>
 		<e:Group width="522" height="84" x="119" y="208" visible.smscheck="false" visible.sms_reset="false">
 		<e:Image width="100%" height="100%" source="bg_edittext_png" anchorOffsetX="0" anchorOffsetY="0" />
+
 		<e:EditableText id="et_password" width="100%" height="100%" x="40" verticalAlign="middle" textAlign="left" textColor="0x515151" prompt="输入密码" promptColor="0xa7a7a7"  fontFamily="Microsoft YaHei" inputType="password" displayAsPassword="true"/>
+
 		</e:Group>
 		<e:Button id="btn_login" label="" x="119" width="258" height="142" bottom="44" visible.register="false" visible.smscheck="false" visible.resetPassword="false" visible.sms_reset="false">
 			<e:skinName>
