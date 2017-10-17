@@ -14,7 +14,7 @@ class Card extends eui.Image {
     /**扑克花色，1：黑 2:红，3：花，4：方片 */
     public _color: number;
     /**是否高亮，true为高亮 */
-    public _isHeightLight: boolean;
+    public _isHeightLight: boolean = true;
 
     private playCount: number = 0;
 
@@ -40,10 +40,19 @@ class Card extends eui.Image {
 
     public set isHeightLight(isHeightLight: boolean){
         this._isHeightLight = isHeightLight;
+        var index:number = isHeightLight ? 1 : 0.5;
+        var colorMatrix = [
+			index, 0, 0, 0, 0,
+			0, index, 0, 0, 0,
+			0, 0, index, 0, 0,
+			0, 0, 0, 1, 0
+		];
+		var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
+		this.filters = [colorFlilter];
     }
 
     public isSameAs(card:number) : boolean{
-        return (this.index == card % 100) && (this.color == card / 100) ? true : false;
+        return (this.index == card % 100) && (this.color == parseInt("" + card / 100)) ? true : false;
     }
 
     public createCardSource(index: number, color: number) {

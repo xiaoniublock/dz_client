@@ -17,6 +17,7 @@ module game {
         public matchPlayer() {
             NetController.getInstance().addSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction, this);
             NetController.getInstance().addSocketStateListener(NetController.CLOSESUCCEED, this.disconnectFunction, this);
+            NetController.getInstance().addSocketStateListener(NetController.CONNECTERROR, this.connectErrorFunction, this);
             NetController.getInstance().connectMatch();
             // NetController.getInstance().connectGame();
             // 打开加载中界面
@@ -55,6 +56,15 @@ module game {
                     } else {
                         this.sendNotification(LobbyCommand.CHANGE, 1);
                     }
+                }
+            }
+        }
+        private connectErrorFunction(evt: egret.Event) {
+            switch (evt.data) {
+                //匹配服务连接成功发送用户id
+                case "match":{
+                    this.sendNotification(LobbyCommand.CHANGE, 1);
+                    game.TextUtils.showTextTip("系统出错，嗷了个嗷！！！");
                 }
             }
         }

@@ -64,5 +64,6 @@ class WS {
     }
     private onSocketError(): void {
         NetController.getInstance().showState("socket error");
+        NetController.getInstance().sendSocketError(this.type);
     }
 }
