@@ -19,6 +19,7 @@ module game {
 		public startrotateAndChangeSource() {
 			this.addEventListener(egret.Event.ENTER_FRAME, this.chipTurn, this);
 			this.addEventListener(egret.Event.ENTER_FRAME, this.loadingTurn, this);
+			this.stage.frameRate = 30;
 		}
 
 		public stoprotate() {

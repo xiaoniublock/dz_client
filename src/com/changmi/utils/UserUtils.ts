@@ -27,6 +27,9 @@ class UserUtils {
 			}
 		}
 	}
+	public clearAllUser() {
+		this.userPools.splice(0,this.userPools.length);
+	}
 	public getUsers(): Array<User> {
 		return this.userPools;
 	}

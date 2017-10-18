@@ -57,6 +57,15 @@ class NetController {
         }
     }
 
+    public isConnected(type: number): boolean {
+        switch (type) {
+            case NetController.MATCHSOCKET:
+                return this.wsMatch.connected();
+            case NetController.GAMESOCKET:
+                return this.wsGame.connected();
+        }
+    }
+
     /**读取数据*/
     public readData(msg: BaseMsg): void {
         // let seq = msg.seq;
@@ -70,8 +79,8 @@ class NetController {
         //     delete this.callBackPool[seq];
         // } else //没有seq说明是服务器主动发送的
         // {
-            console.log('来自服务器的主动消息 ：' + msg);
-            this.dispatcher.dispatchEventWith(msg.command + '', false, msg);
+        console.log('来自服务器的主动消息 ：' + msg);
+        this.dispatcher.dispatchEventWith(msg.command + '', false, msg);
         // }
     }
 
@@ -81,7 +90,7 @@ class NetController {
     }
 
     /**发送数据*/
-    public sendData(type: number, data: BaseMsg, callback?: Function , thisObj?) {
+    public sendData(type: number, data: BaseMsg, callback?: Function, thisObj?) {
         if (callback) {
             data.seq = this.sequence++;
         }

@@ -12,12 +12,14 @@ module game {
             super(MatchProxy.NAME);
             NetController.getInstance().addListener(Commands.MATCH_PLAYER, this);
             NetController.getInstance().addListener(Commands.REQUIRE_TABLEID, this);
-        }
-        /**开始匹配游戏*/
-        public matchPlayer() {
+
             NetController.getInstance().addSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction, this);
             NetController.getInstance().addSocketStateListener(NetController.CLOSESUCCEED, this.disconnectFunction, this);
             NetController.getInstance().addSocketStateListener(NetController.CONNECTERROR, this.connectErrorFunction, this);
+        }
+        /**开始匹配游戏*/
+        public matchPlayer() {
+            
             NetController.getInstance().connectMatch();
             // NetController.getInstance().connectGame();
             // 打开加载中界面
@@ -56,6 +58,10 @@ module game {
                     } else {
                         this.sendNotification(LobbyCommand.CHANGE, 1);
                     }
+                    break;
+                }
+                case "game":{
+                    game.TextUtils.showTextTip(NetController.getInstance().isConnected(NetController.GAMESOCKET)?"未断开":"断开");
                 }
             }
         }
@@ -96,8 +102,6 @@ module game {
                     CachePool.addObj("ready", data.content["ready"]);
                     CachePool.addObj("time", data.content["time"]);
                     this.sendNotification(GameCommand.START_GAME);
-                    NetController.getInstance().removeSocketStateListener(NetController.CONNECTSUCCEED, this.stateFunction, this);
-                    NetController.getInstance().removeSocketStateListener(NetController.CLOSESUCCEED, this.disconnectFunction, this);
                     break;
                 }
             }

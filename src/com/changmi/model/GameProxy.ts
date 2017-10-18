@@ -92,11 +92,6 @@ module game {
             NetController.getInstance().sendData(NetController.GAMESOCKET, data);
         }
 
-        public resetTable(){
-           this.sendNotification(GameProxy.GAME_RESET);
-           
-        }
-
         /**收到服务器消息*/
         private onReciveMsg(data: BaseMsg) {
             let command = data.command;

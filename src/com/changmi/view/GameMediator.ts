@@ -81,7 +81,6 @@ module game {
         public backButtonClick(event: egret.TouchEvent) {
             console.warn("点击返回");
             this.sendNotification(LobbyCommand.CHANGE, 1);
-            this.sendNotification(GameProxy.GAME_RESET);
 
             // var data = new BaseMsg();
             // data.command = Commands.EXIT_TABLE;
@@ -196,6 +195,7 @@ module game {
                 }
                 case GameProxy.GAME_RESET: {
                     UserUtils.getInstance().getOwnUser().clearcards();
+                    UserUtils.getInstance().clearAllUser();
                     this.gameScreen.hideOwnCards();
                     this.gameScreen.hideAllUserAndChip();
                     this.gameScreen.hideOtherCardsAndResetName();
@@ -295,7 +295,8 @@ module game {
             this.gameScreen.RangeMoneySlider.minimum = minimun;
             this.gameScreen.RangeMoneySlider.snapInterval = 100;
             this.gameScreen.RangeMoneySlider.maximum = maximum;
-            this.gameScreen.RangeMoneySlider.pendingValue = minimun;
+            // this.gameScreen.RangeMoneySlider.pendingValue = minimun;
+            this.gameScreen.RangeMoneySlider.value = minimun;
             this.gameScreen.RangeMoneySlider["change"].mask = new egret.Rectangle(0, 30 + this.gameScreen.RangeMoneySlider.height * 0.82, 26, 0);
             this.gameScreen.RangeMoneyBtn.label = "" + minimun;
 

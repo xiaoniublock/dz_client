@@ -50,6 +50,7 @@ module game {
             var data: any = notification.getBody();
             switch (notification.getName()) {
                 case GameCommand.MATCH_PLAYER: {
+                    this.sendNotification(GameProxy.GAME_RESET);
                     matchProxy.matchPlayer();
                     break;
                 }
