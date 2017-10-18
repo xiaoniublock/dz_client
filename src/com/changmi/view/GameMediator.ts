@@ -35,25 +35,25 @@ module game {
         ///处理复选框的change事件回调
         private onChange(event: egret.TouchEvent) {
             ///获得当前复选框
-            var checkBox: eui.CheckBox = <eui.CheckBox>event.target;
-
+            let checkBox: eui.CheckBox = <eui.CheckBox>event.target;
+            let preAction:number;
             switch (checkBox.name) { //强行单选化
                 case "giveUpOrPass": {
                     this.gameScreen.checkBox_autoPass.selected = false;
                     this.gameScreen.checkBox_followAny.selected = false;
-                    CachePool.addObj("preAction", Actions.giveUpOrPass);
+                    preAction=Actions.giveUpOrPass;
                     break;
                 }
                 case "autoPass": {
                     this.gameScreen.checkBox_giveUp.selected = false;
                     this.gameScreen.checkBox_followAny.selected = false;
-                    CachePool.addObj("preAction", Actions.autoPass);
+                    preAction=Actions.autoPass;
                     break;
                 }
                 case "followAny": {
                     this.gameScreen.checkBox_giveUp.selected = false;
                     this.gameScreen.checkBox_autoPass.selected = false;
-                    CachePool.addObj("preAction", Actions.followAny);
+                    preAction=Actions.followAny;
                     break;
                 }
             }
@@ -62,11 +62,16 @@ module game {
 
 
             CachePool.addObj("preCheckBox", checkBox);
-            if (checkBox.currentState === "disabled" || checkBox.currentState === "disabledAndSelected") {
+            if (checkBox.currentState == "disabled" || checkBox.currentState == "disabledAndSelected") {
                 // label.text = "禁用状态，无法选择";
             } else {
                 ///获得当前复选框的标签并显示出来
                 console.log(checkBox.selected);
+                if(checkBox.selected){
+                     CachePool.addObj("preAction", preAction);
+                }else{
+                     CachePool.clear("preAction");
+                }
                 ///取消显示设置复选框的状态，由内部的 getCurrentState() 决定。
                 // checkBox.currentState = null;
             }
@@ -111,11 +116,11 @@ module game {
                     this.gameScreen.removeOneUserAction(<number><any>data);
                     break;
                 }
+                case GameProxy.FOLD:
+                    this.gameScreen.playerFold(data.uid, data.raiseStack);
                 case GameProxy.ADD_CHIP:
                 case GameProxy.AllIN:
                     this.userAddChip(data.uid, data.raiseStack);
-                case GameProxy.FOLD:
-                    this.gameScreen.playerFold(data.uid, data.raiseStack);
                 case GameProxy.CHECK:
                     {
                         this.gameScreen.changePlayer(data.uid, data.nextplayer);
