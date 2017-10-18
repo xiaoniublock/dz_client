@@ -143,4 +143,5 @@ class Commands {
     public static INIT_PLAYER = 8;
     public static BANKER_PLAYER = 9;
     public static REQUIRE_TABLEID = 10;
+    public static EXIT_TABLE = 11;
 }

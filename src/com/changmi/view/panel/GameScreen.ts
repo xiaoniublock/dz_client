@@ -145,7 +145,7 @@ module game {
          * 删除单人方法
          */
         public removeOneUserAction(index: number) {
-            if (index) {
+            if (index >= 0) {
                 this.users[index].visible = false;
             }
         }

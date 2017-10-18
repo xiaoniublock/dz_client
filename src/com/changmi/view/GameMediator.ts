@@ -82,6 +82,12 @@ module game {
             console.warn("点击返回");
             this.sendNotification(LobbyCommand.CHANGE, 1);
             this.sendNotification(GameProxy.GAME_RESET);
+
+            // var data = new BaseMsg();
+            // data.command = Commands.EXIT_TABLE;
+            // data.content = { "uId": UserUtils.getInstance().getOwnUser().uId, "tId": UserUtils.getInstance().getOwnUser().tId };
+            // NetController.getInstance().sendData(NetController.MATCHSOCKET, data);
+
             NetController.getInstance().close(NetController.GAMESOCKET);
         }
         
