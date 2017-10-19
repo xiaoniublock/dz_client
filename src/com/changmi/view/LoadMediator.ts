@@ -40,7 +40,6 @@ module game {
                     break;
                 }
 				case LoadMediator.PRESS_BACK:{
-					this.timer.reset();
 					this.backAction();
 				}
 			}
@@ -52,6 +51,7 @@ module game {
 		}
 
 		public backAction(){
+			this.timer.reset();
 			this.loadScreen.stoprotate();
 			this.sendNotification(LobbyCommand.CHANGE, 1);
 			if (NetController.getInstance().isConnected(NetController.MATCHSOCKET)){
