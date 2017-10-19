@@ -60,8 +60,14 @@ class NetController {
     public isConnected(type: number): boolean {
         switch (type) {
             case NetController.MATCHSOCKET:
+                if (!this.wsMatch){
+                    return false;
+                }
                 return this.wsMatch.connected();
             case NetController.GAMESOCKET:
+                if (!this.wsGame){
+                    return false;
+                }
                 return this.wsGame.connected();
         }
     }

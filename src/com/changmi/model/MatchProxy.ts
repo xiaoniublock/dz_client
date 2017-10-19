@@ -24,6 +24,7 @@ module game {
             // NetController.getInstance().connectGame();
             // 打开加载中界面
             this.sendNotification(LobbyCommand.CHANGE, 2);
+            this.sendNotification(LoadMediator.BEGIN_ROTATE);
             // this.start.enabled = false;
             // this.tipTween();
 
@@ -87,6 +88,7 @@ module game {
                         NetController.getInstance().connectGame();
                     } else {
                         game.TextUtils.showTextTip("匹配失败，嗷了个嗷！！！");
+                        this.sendNotification(LoadMediator.STOP_ROTATE);
                         this.sendNotification(LobbyCommand.CHANGE, 1);
                     }
                     this.clientDisconnect = true;
@@ -95,7 +97,7 @@ module game {
                 }
                 //加入玩家，更新界面
                 case Commands.MATCH_PLAYER: {
-                    console.warn("onMatchPlayerBack" + data);
+                    this.sendNotification(LoadMediator.STOP_ROTATE);
                     UserUtils.getInstance().initUsers(data.content["user"]);
                     CardUtils.getInstance().putPublicCards(data.content["poker"]);
                     CachePool.addObj("jackpot", data.content["jackpot"]);

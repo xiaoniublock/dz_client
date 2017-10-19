@@ -9,6 +9,7 @@ module game {
 		public constructor() {
 			super();
 			this.addEventListener(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
+			ApplicationFacade.getInstance().registerMediator(new LoadMediator(this));
 		}
 
 		public createCompleteEvent() {
@@ -23,8 +24,6 @@ module game {
 		}
 
 		public stoprotate() {
-			this.playCount = 0;
-			LoadMediator.getInstance().startAction();
 			this.removeEventListener(egret.Event.ENTER_FRAME, this.chipTurn, this);
 			this.removeEventListener(egret.Event.ENTER_FRAME, this.loadingTurn, this);
 		}
