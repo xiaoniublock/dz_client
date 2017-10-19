@@ -13,7 +13,7 @@ module game {
 
 		public constructor(viewComponent: any) {
             super(LoadMediator.NAME, viewComponent);
-			this.timer = new egret.Timer(1000,22);
+			this.timer = new egret.Timer(1000,2);
 			this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.timeOver,this);
 		}
 

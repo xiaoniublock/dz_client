@@ -66,9 +66,9 @@
 		<e:Label id="yourCardShape" text="同花顺..不存在的" x="651" y="572" size="22" textColor="0x7eff00" anchorOffsetX="0" width="168" textAlign="center" visible="false"/>
 	</e:Group>
 
-	<e:Group id="userCardsGroup" width="165" height="117" x="753" y="496" >
+	<e:Group id="userCardsGroup" width="165" height="117" x="741" y="496" >
 		<ns1:Card width="78" height="117" x="0" source="poker_bg_png" visible="false"/>
-		<ns1:Card width="78" height="117" x="94" source="poker_bg_png" visible="false"/>
+		<ns1:Card width="78" height="117" x="86" source="poker_bg_png" visible="false"/>
 	</e:Group>
 	<e:Group id="publicCardsGroup" width="418" height="117" x="410" y="290">
 		<ns1:Card width="78" height="117" x="0" source="poker_bg_png" visible="false"/>
