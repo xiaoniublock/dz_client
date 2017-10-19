@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,lobby_json,lobbyScreenBackground_png,lobbyscreen,game_background_png,gamescreen,RangeMoneyGold_png,progressArc_png,board_1,board_2,board_3,board_4,poker_bg_png,poker_bg2_png,ic_background loding_png,bg_lobby,lobbyBtnDown,loginResource_json,bg_edittext_png",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,lobby_json,lobbyScreenBackground_png,lobbyscreen,game_background_png,gamescreen,RangeMoneyGold_png,board_1,board_2,board_3,board_4,poker_bg_png,poker_bg2_png,ic_background loding_png,bg_lobby,lobbyBtnDown,loginResource_json,bg_edittext_png,progressArc_png",
 			"name": "preload"
 		},
 		{
@@ -174,11 +174,6 @@
 			"name": "RangeMoneyGold_png"
 		},
 		{
-			"url": "assets/progressArc.png",
-			"type": "image",
-			"name": "progressArc_png"
-		},
-		{
 			"url": "assets/Board/board_1.json",
 			"type": "sheet",
 			"name": "board_1",
@@ -263,6 +258,11 @@
 			"name": "bg_edittext_png",
 			"type": "image",
 			"url": "assets/LoadUI/bg_edittext.png"
+		},
+		{
+			"name": "progressArc_png",
+			"type": "image",
+			"url": "assets/progressArc.png"
 		}
 	]
 }

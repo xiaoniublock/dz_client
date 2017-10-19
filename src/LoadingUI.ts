@@ -59,6 +59,7 @@ class LoadingUI extends eui.Component {
     }
 
     private createView(): void {
+        egret.ExternalInterface.call("closeImgAndTxt", "message from js");
         this.load_progress.once(eui.UIEvent.COMPLETE, () => {
             this.currentX = this.lable_progress.x;
             this.load_progress.maximum = 100;//设置进度条的最大值
