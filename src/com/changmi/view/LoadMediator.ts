@@ -22,7 +22,8 @@ module game {
 		public listNotificationInterests(): Array<any> {
             return [
                 LoadMediator.BEGIN_ROTATE,
-				LoadMediator.STOP_ROTATE
+				LoadMediator.STOP_ROTATE,
+				LoadMediator.PRESS_BACK
             ];
         }
 

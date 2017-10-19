@@ -9,18 +9,6 @@ module game {
 
         public constructor() {
             super();
-            egret.ExternalInterface.addCallback("activityBack", function (message: string) {
-                console.log("message form native : " + message);//message form native : message from native
-                console.log("currentScreen" + this.currentScreen);
-                if (this.currentScreen == "loadingScreen" && this.currentScreen != undefined) {
-                    this.enterLobbyScreen();
-                } else if (this.currentScreen == "gameScreen") {
-
-                }
-                else {
-                    egret.ExternalInterface.call("closeActivity", "message from js");
-                }
-            }.bind(this));
         }
 
         public enterLobbyScreen() {

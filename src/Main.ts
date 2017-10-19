@@ -108,10 +108,27 @@ class Main extends egret.DisplayObjectContainer {
     private createScene() {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
             this.loadingView.showEnterButton();
+            let applicationFacade: game.ApplicationFacade = game.ApplicationFacade.getInstance();
+            applicationFacade.startUp(this.appContainer);
             this.loadingView.addEventListener(LoadingUI.CREATESENCE, () => {
                 this.appContainer.removeChild(this.loadingView);
-                this.startCreateScene();
+                applicationFacade.sendNotification(game.LobbyCommand.CHANGE, 1);
             }, this);
+            egret.ImageLoader.crossOrigin = "anonymous";
+
+            egret.ExternalInterface.addCallback("activityBack", function (message: string) {
+                console.log("message form native : " + message);//message form native : message from native
+                console.warn("currentScreen" + this.appContainer.currentScreen);
+                if (this.appContainer.currentScreen == "loadingScreen" && this.appContainer.currentScreen != "") {
+                    applicationFacade.sendNotification(game.LoadMediator.PRESS_BACK);
+                } else if (this.appContainer.currentScreen == "gameScreen") {
+
+                }
+                else {
+                    egret.ExternalInterface.call("closeActivity", "message from js");
+                }
+            }.bind(this));
+
         }
     }
 
@@ -145,11 +162,8 @@ class Main extends egret.DisplayObjectContainer {
 
     protected startCreateScene(): void {
         //图片跨域加载
-        egret.ImageLoader.crossOrigin = "anonymous";
 
-        let applicationFacade: game.ApplicationFacade = game.ApplicationFacade.getInstance();
-        applicationFacade.startUp(this.appContainer);
-        applicationFacade.sendNotification(game.LobbyCommand.CHANGE, 1);
+
     }
 
 }
