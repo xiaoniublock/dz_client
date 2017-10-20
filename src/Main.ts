@@ -104,7 +104,9 @@ class Main extends egret.DisplayObjectContainer {
             applicationFacade.startUp(this.appContainer);
             applicationFacade.sendNotification(game.LobbyCommand.CHANGE, 4);
             egret.ImageLoader.crossOrigin = "anonymous";
-
+            //请求获取唯一标示
+            egret.ExternalInterface.call("requestUnique", "message from js");
+            //Android返回按钮信息监听
             egret.ExternalInterface.addCallback("activityBack", function (message: string) {
                 console.log("message form native : " + message);//message form native : message from native
                 console.warn("currentScreen" + this.appContainer.currentScreen);
@@ -116,6 +118,11 @@ class Main extends egret.DisplayObjectContainer {
                 else {
                     egret.ExternalInterface.call("closeActivity", "message from js");
                 }
+            }.bind(this));
+            //接收到唯一标示
+            egret.ExternalInterface.addCallback("requireUnique", function (message: string) {
+                console.log("message form native : " + message);//message form native : message from native
+                
             }.bind(this));
 
         }
