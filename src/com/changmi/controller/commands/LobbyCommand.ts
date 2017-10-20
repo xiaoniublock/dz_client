@@ -42,11 +42,11 @@ module game {
             switch (notification.getName()) {
                 case LobbyCommand.CHANGE: {
                     if (data == 1)
-                        appMediator.main.enterLobbyScreen();
+                        this.sendNotification(ApplicationMediator.ENTER_LOBBY);
                     else if (data == 2)
-                        appMediator.main.enterLoadingScreen();
+                    this.sendNotification(ApplicationMediator.ENTER_LOADING);
                     else
-                        appMediator.main.enterGameScreen();
+                    this.sendNotification(ApplicationMediator.ENTER_GAME);
                     break;
                 }
                 case LobbyCommand.SHOW_SETTING: {
