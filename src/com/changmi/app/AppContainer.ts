@@ -5,10 +5,19 @@ module game {
         public lobbyScreen: LobbyScreen = new LobbyScreen();
         public gameScreen: GameScreen = new GameScreen();
         public loadingScreen: LoadScreen = new LoadScreen();
+        public loadAndLoadScreen:LoadAndLoginScreen=new LoadAndLoginScreen();
         public currentScreen: string;
 
         public constructor() {
             super();
+        }
+
+         public enterLoadAndLoginScreen() {
+            console.warn("进入加载登录页");
+            this.currentScreen = "loadAndLoadScreen";
+            this.removeChildren();
+            this.addChild(this.loadAndLoadScreen);
+
         }
 
         public enterLobbyScreen() {

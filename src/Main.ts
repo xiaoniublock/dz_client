@@ -32,8 +32,6 @@ class Main extends egret.DisplayObjectContainer {
      * 加载进度界面
      * loading process interface
      */
-    private loadingView: LoadingUI;
-
     private appContainer: game.AppContainer;
 
     public constructor() {
@@ -92,11 +90,6 @@ class Main extends egret.DisplayObjectContainer {
     private onResourceLoadComplete(event: RES.ResourceEvent): void {
         if (event.groupName == "loading") {
             //Config loading process interface
-            //设置加载进度界面
-            this.loadingView = new LoadingUI();
-            this.appContainer.addChild(this.loadingView);
-        }
-        if (event.groupName == "preload") {
             RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
@@ -107,13 +100,9 @@ class Main extends egret.DisplayObjectContainer {
     }
     private createScene() {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
-            this.loadingView.showEnterButton();
             let applicationFacade: game.ApplicationFacade = game.ApplicationFacade.getInstance();
             applicationFacade.startUp(this.appContainer);
-            this.loadingView.addEventListener(LoadingUI.CREATESENCE, () => {
-                this.appContainer.removeChild(this.loadingView);
-                applicationFacade.sendNotification(game.LobbyCommand.CHANGE, 1);
-            }, this);
+            applicationFacade.sendNotification(game.LobbyCommand.CHANGE, 4);
             egret.ImageLoader.crossOrigin = "anonymous";
 
             egret.ExternalInterface.addCallback("activityBack", function (message: string) {
@@ -155,15 +144,7 @@ class Main extends egret.DisplayObjectContainer {
      * loading process of preload resource
      */
     private onResourceProgress(event: RES.ResourceEvent): void {
-        if (event.groupName == "preload") {
-            this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
-        }
-    }
-
-    protected startCreateScene(): void {
-        //图片跨域加载
-
-
+        
     }
 
 }

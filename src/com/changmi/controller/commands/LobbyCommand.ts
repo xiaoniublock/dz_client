@@ -45,8 +45,10 @@ module game {
                         this.sendNotification(ApplicationMediator.ENTER_LOBBY);
                     else if (data == 2)
                     this.sendNotification(ApplicationMediator.ENTER_LOADING);
-                    else
+                    else if(data == 3)
                     this.sendNotification(ApplicationMediator.ENTER_GAME);
+                    else
+                    this.sendNotification(ApplicationMediator.ENTER_LOADANDLOGIN);
                     break;
                 }
                 case LobbyCommand.SHOW_SETTING: {

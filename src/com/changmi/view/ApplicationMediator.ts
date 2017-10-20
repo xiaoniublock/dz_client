@@ -4,6 +4,8 @@ module game {
 
     export class ApplicationMediator extends puremvc.Mediator implements puremvc.IMediator {
         public static NAME: string = "ApplicationMediator";
+        /**进入预加载登录 */
+        public static ENTER_LOADANDLOGIN: string = "enterLoadAndLoginScreen";
         /**进入大厅 */
         public static ENTER_LOBBY: string = "enterLobbyScreen";
         /**进入等待页面 */
@@ -16,6 +18,7 @@ module game {
 
         public listNotificationInterests(): Array<any> {
             return [
+                ApplicationMediator.ENTER_LOADANDLOGIN,
                 ApplicationMediator.ENTER_LOBBY,
                 ApplicationMediator.ENTER_LOADING,
                 ApplicationMediator.ENTER_GAME
@@ -24,6 +27,9 @@ module game {
 
         public handleNotification(notification: puremvc.INotification): void {
             switch (notification.getName()) {
+                case ApplicationMediator.ENTER_LOADANDLOGIN: {
+                    this.main.enterLoadAndLoginScreen();
+                } break;
                 case ApplicationMediator.ENTER_LOBBY: {
                     this.main.enterLobbyScreen();
                 } break;

@@ -5,7 +5,7 @@
 			"name": "preload"
 		},
 		{
-			"keys": "egret_icon_png,ic_progress_bar_png,bg_background_png,bg_progress_bar_png,ic_logo_png,ic_signin_png",
+			"keys": "egret_icon_png,ic_progress_bar_png,bg_background_png,bg_progress_bar_png,ic_logo_png",
 			"name": "loading"
 		}
 	],
@@ -231,11 +231,6 @@
 			"url": "assets/ic_background loding.png",
 			"type": "image",
 			"name": "ic_background loding_png"
-		},
-		{
-			"url": "assets/Button/ic_signin.png",
-			"type": "image",
-			"name": "ic_signin_png"
 		},
 		{
 			"url": "assets/dz/bg_lobby.jpg",

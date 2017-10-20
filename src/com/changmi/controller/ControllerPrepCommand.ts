@@ -10,6 +10,7 @@ module game {
         public execute(notification: puremvc.INotification): void {
             (new LobbyCommand()).register();
             (new GameCommand()).register();
+            (new LoginCommand()).register();
         }
     }
 }

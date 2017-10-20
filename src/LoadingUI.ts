@@ -59,75 +59,7 @@ class LoadingUI extends eui.Component {
     }
 
     private createView(): void {
-        egret.ExternalInterface.call("closeImgAndTxt", "message from js");
-        this.load_progress.once(eui.UIEvent.COMPLETE, () => {
-            this.currentX = this.lable_progress.x;
-            this.load_progress.maximum = 100;//设置进度条的最大值
-            this.load_progress.minimum = 0;//设置进度条的最小值
-            RES.loadGroup("preload");
-        }, this);
-        this.btn_accountLogin.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-            this.skin.currentState = "login";
-        }, this);
-        this.btn_close.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-            this.skin.currentState = "closeGroup";
-        }, this);
-        this.btn_register.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-            this.skin.currentState = "register";
-        }, this);
-        this.btn_next.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-            if (this.skin.currentState == "register") {
-                this.skin.currentState = "smscheck";
-            } else if (this.skin.currentState == "resetPassword") {
-                this.skin.currentState = "sms_reset";
-            }
-        }, this);
-        this.btn_complete.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-            this.skin.currentState = "login";
-            this.et_sms.text="";
-        }, this);
-        this.btn_forget.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-            this.skin.currentState = "resetPassword";
-        }, this);
 
-        this.btn_login.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-            let phone = this.et_phone.text;
-            let password = this.et_password.text;
-            if (phone == "" || password == "") {
-                game.TextUtils.showTextTip("账户密码不能为空！！！");
-                return;
-            }
-            let data = { uname: 'pisa', pwd: 'pisa' };
-            HttpAPI.HttpGET("http://192.168.1.129/login", data, (event) => {
-                console.log("登录成功");
-                var request = <egret.HttpRequest>event.currentTarget;
-                // let own: User = new User();
-                // console.log("post data : ", JSON.parse(request.response).id);
-                // own.uId = JSON.parse(request.response).id;
-                // UserUtils.getInstance().saveOwnUser(own);
-            }, (event) => {
-                console.log("登录失败");
-                var request = <egret.HttpRequest>event.currentTarget;
-                console.log("post data : ", request.response);
-            }, this);
-            let own: User = new User();
-            own.uId = phone;//JSON.parse(request.response).id;
-            UserUtils.getInstance().saveOwnUser(own);
-            this.dispatchEventWith(LoadingUI.CREATESENCE);
-        }, this);
-
-        this.load_progress.skinName = "resource/custom_skins/LoadProgressSkin.exml";
     }
 
-    public setProgress(current: number, total: number): void {
-        this.load_progress.value = Math.ceil(current / total * 100);
-        this.lable_progress.text = this.load_progress.value + "%";
-        this.lable_progress.x = this.currentX + Math.ceil(this.load_progress.width * (current / total));
-    }
-    public showEnterButton() {
-        this.group_login.visible = true;
-        this.btnShow.play(0);
-        this.load_progress.visible = false;
-        this.lable_progress.visible = false;
-    }
 }
