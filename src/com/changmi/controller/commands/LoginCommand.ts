@@ -11,6 +11,11 @@ module game {
         }
         public static NAME: string = "LoginCommand";
 
+
+        /**
+         * 进入Lobby界面
+         */
+        public static ENTER_LOBBY: string = "enter_lobby";
         /**
          * 登录
          */
@@ -23,12 +28,17 @@ module game {
          */
         public register(): void {
             this.facade.registerCommand(LoginCommand.LOGIN, LoginCommand);
+            this.facade.registerCommand(LoginCommand.ENTER_LOBBY, LoginCommand);
         }
 
         public execute(notification: puremvc.INotification): void {
             var loginProxy: LoginProxy = <LoginProxy><any>(this.facade.retrieveProxy(LoginProxy.NAME));
             var data: any = notification.getBody();
             switch (notification.getName()) {
+                case LoginCommand.ENTER_LOBBY: {
+                   this.sendNotification(ApplicationMediator.ENTER_LOBBY);
+                    break;
+                }
                 case LoginCommand.LOGIN: {
                     loginProxy.Login(data);
                     break;

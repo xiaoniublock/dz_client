@@ -102,7 +102,7 @@ class Main extends egret.DisplayObjectContainer {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
             let applicationFacade: game.ApplicationFacade = game.ApplicationFacade.getInstance();
             applicationFacade.startUp(this.appContainer);
-            applicationFacade.sendNotification(game.LobbyCommand.CHANGE, 4);
+            applicationFacade.sendNotification(game.ApplicationMediator.ENTER_LOADANDLOGIN);
             egret.ImageLoader.crossOrigin = "anonymous";
             //请求获取唯一标示
             egret.ExternalInterface.call("requestUnique", "message from js");

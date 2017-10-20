@@ -23,7 +23,7 @@ module game {
             NetController.getInstance().connectMatch();
             // NetController.getInstance().connectGame();
             // 打开加载中界面
-            this.sendNotification(LobbyCommand.CHANGE, 2);
+            this.sendNotification(LobbyCommand.CHANGE);
             this.sendNotification(LoadMediator.BEGIN_ROTATE);
             // this.start.enabled = false;
             // this.tipTween();
@@ -57,7 +57,7 @@ module game {
                     if (this.clientDisconnect) {
                         this.clientDisconnect = false;
                     } else {
-                        this.sendNotification(LobbyCommand.CHANGE, 1);
+                        this.sendNotification(ApplicationMediator.ENTER_LOBBY);
                     }
                     break;
                 }
@@ -70,7 +70,7 @@ module game {
             switch (evt.data) {
                 //匹配服务连接成功发送用户id
                 case "match":{
-                    this.sendNotification(LobbyCommand.CHANGE, 1);
+                    this.sendNotification(ApplicationMediator.ENTER_LOBBY);
                     game.TextUtils.showTextTip("系统出错，嗷了个嗷！！！");
                 }
             }
@@ -89,7 +89,7 @@ module game {
                     } else {
                         game.TextUtils.showTextTip("匹配失败，嗷了个嗷！！！");
                         this.sendNotification(LoadMediator.STOP_ROTATE);
-                        this.sendNotification(LobbyCommand.CHANGE, 1);
+                        this.sendNotification(ApplicationMediator.ENTER_LOBBY);
                     }
                     this.clientDisconnect = true;
                     NetController.getInstance().close(NetController.MATCHSOCKET);

@@ -80,7 +80,7 @@ module game {
 
         public backButtonClick(event: egret.TouchEvent) {
             console.warn("点击返回");
-            this.sendNotification(LobbyCommand.CHANGE, 1);
+            this.sendNotification(ApplicationMediator.ENTER_LOBBY);
 
             // var data = new BaseMsg();
             // data.command = Commands.EXIT_TABLE;

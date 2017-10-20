@@ -53,7 +53,7 @@ module game {
 		public backAction(){
 			this.timer.reset();
 			this.loadScreen.stoprotate();
-			this.sendNotification(LobbyCommand.CHANGE, 1);
+			this.sendNotification(ApplicationMediator.ENTER_LOBBY);
 			if (NetController.getInstance().isConnected(NetController.MATCHSOCKET)){
 				NetController.getInstance().close(NetController.MATCHSOCKET);
 			}

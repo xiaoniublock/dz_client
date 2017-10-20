@@ -41,14 +41,7 @@ module game {
                 <ApplicationMediator><any>this.facade.retrieveMediator(ApplicationMediator.NAME);
             switch (notification.getName()) {
                 case LobbyCommand.CHANGE: {
-                    if (data == 1)
-                        this.sendNotification(ApplicationMediator.ENTER_LOBBY);
-                    else if (data == 2)
                     this.sendNotification(ApplicationMediator.ENTER_LOADING);
-                    else if(data == 3)
-                    this.sendNotification(ApplicationMediator.ENTER_GAME);
-                    else
-                    this.sendNotification(ApplicationMediator.ENTER_LOADANDLOGIN);
                     break;
                 }
                 case LobbyCommand.SHOW_SETTING: {

@@ -26,7 +26,7 @@ module game {
             let own: User = new User();
             own.uId = loginModel.account;//JSON.parse(request.response).id;
             UserUtils.getInstance().saveOwnUser(own);
-            this.sendNotification(LobbyCommand.CHANGE, 1);
+            this.sendNotification(LoginCommand.ENTER_LOBBY);
         }
     }
 }

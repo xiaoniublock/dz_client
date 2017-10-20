@@ -8,6 +8,11 @@ module game {
         }
         public static NAME: string = "GameCommand";
 
+         /**
+         * 进入游戏界面
+         */
+        public static ENTER_GAME: string = "enter_game";
+
         /**
          * 匹配对手
          */
@@ -55,7 +60,7 @@ module game {
                     break;
                 }
                 case GameCommand.START_GAME: {
-                    this.sendNotification(LobbyCommand.CHANGE, 3);
+                    this.sendNotification(ApplicationMediator.ENTER_GAME);
                     gameProxy.sendReady();
                     //gameProxy.reset();
                     //gridProxy.reset();
@@ -79,7 +84,7 @@ module game {
                     else {
                         //gameProxy.quit();
                         //gridProxy.reset();
-                        this.sendNotification(LobbyCommand.CHANGE, 1);
+                        this.sendNotification(ApplicationMediator.ENTER_LOBBY);
                     }
                     break;
                 }
