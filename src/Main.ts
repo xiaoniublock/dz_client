@@ -122,7 +122,7 @@ class Main extends egret.DisplayObjectContainer {
             //接收到唯一标示
             egret.ExternalInterface.addCallback("requireUnique", function (message: string) {
                 console.log("message form native : " + message);//message form native : message from native
-                
+                 game.CachePool.addObj("uniqueID", message);
             }.bind(this));
 
         }

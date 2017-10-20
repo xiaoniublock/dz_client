@@ -7,7 +7,7 @@
 	<e:Label id="cardTypeLabel" text="Label" size="25" horizontalCenter="0" y="4"/>
 	<e:Label id="goldNumLabel" text="Label" size="27" textColor="0xc5b259" bottom="3" horizontalCenter="0.5"/>
 
-	<e:Image id="headImg" width="115" height="113" x="6" y="33" anchorOffsetX="0" anchorOffsetY="0" source=""/>
+	<e:Image id="headImg" width="115" height="113" x="6" y="33" anchorOffsetX="0" anchorOffsetY="0" source="undefineHeadIcon_jpg"/>
 	<e:Group id="playerCardGroup" width="112" height="113" x="6" y="32" anchorOffsetX="0" anchorOffsetY="0" visible="false">
 		<ns1:Card width="78" height="113" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="poker_bg_png" scaleX="1" scaleY="1"/>
 		<ns1:Card width="78" height="113" x="36" y="0" anchorOffsetX="0" anchorOffsetY="0" source="poker_bg_png" scaleX="1" scaleY="1"/>

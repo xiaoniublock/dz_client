@@ -291,11 +291,10 @@ module game {
 
             var ownBet = CachePool.getObj("ownBet") ? CachePool.getObj("ownBet") : 0;
             var minimun = stake - ownBet;
-            var maximum = this.gameScreen.users[3].money;
+            var maximum = this.gameScreen.users[3].money > 5000 ? 5000 : this.gameScreen.users[3].money;
             this.gameScreen.RangeMoneySlider.minimum = minimun;
             this.gameScreen.RangeMoneySlider.snapInterval = 100;
             this.gameScreen.RangeMoneySlider.maximum = maximum;
-            // this.gameScreen.RangeMoneySlider.pendingValue = minimun;
             this.gameScreen.RangeMoneySlider.value = minimun;
             this.gameScreen.RangeMoneySlider["change"].mask = new egret.Rectangle(0, 30 + this.gameScreen.RangeMoneySlider.height * 0.82, 26, 0);
             this.gameScreen.RangeMoneyBtn.label = "" + minimun;
