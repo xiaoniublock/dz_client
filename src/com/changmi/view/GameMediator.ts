@@ -3,6 +3,7 @@ module game {
     export class GameMediator extends puremvc.Mediator implements puremvc.IMediator {
         public static NAME: string = "GameScreenMediator";
         public num = 0;
+        public timer_3: egret.Timer;
         public constructor(viewComponent: any) {
             super(GameMediator.NAME, viewComponent);
             this.gameScreen.backBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.backButtonClick, this);
@@ -81,6 +82,8 @@ module game {
         public backButtonClick(event: egret.TouchEvent) {
             console.warn("点击返回");
             this.sendNotification(ApplicationMediator.ENTER_LOBBY);
+
+            this.timer_3.reset();
 
             // var data = new BaseMsg();
             // data.command = Commands.EXIT_TABLE;
@@ -186,14 +189,14 @@ module game {
                             //改牌型文本
                             this.gameScreen.changeUserNameLabelToCardShape(CardResult[userArray[i].pokerType - 1], user.seat);
 
-                            timer_3.start();
+                            this.timer_3.start();
                         }
                         //显示高亮牌
                         this.gameScreen.showHeightLightPublicCard(data.bestGroup, data.user);
                     }, this);
 
-                    var timer_3: egret.Timer = new egret.Timer(1000, 20);
-                    timer_3.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
+                    this.timer_3 = new egret.Timer(1000, 20);
+                    this.timer_3.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
                         this.sendNotification(ApplicationMediator.ENTER_LOBBY);
                         NetController.getInstance().close(NetController.GAMESOCKET);
                     }, this);
