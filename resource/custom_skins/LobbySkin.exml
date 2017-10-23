@@ -27,7 +27,7 @@
 		</e:skinName>
 	</e:Button>
 	<e:Image width="1011" height="110" left="161" right="161" source="lobbyscreen.bottom_background" bottom="0" />
-	<e:Image id="image_icon" width="134" height="134" left="210" bottom="24" />
+	<e:Image id="image_icon" width="130" height="130" left="210" bottom="24"  source="undefineHeadIcon_jpg"/>
 	<e:Label id="text_username" text="萧新一" width="120" bottom="60" left="370" size="20" bold="true" textAlign="center"
 	         verticalAlign="middle" height="29" />
 	<e:Image id="image_gold" width="42" height="42" left="333" bottom="8" source="lobbyscreen.Gold" />
