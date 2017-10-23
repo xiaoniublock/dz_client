@@ -185,9 +185,17 @@ module game {
                             this.gameScreen.showUserCards(userArray[i].holeCards, user.seat);
                             //改牌型文本
                             this.gameScreen.changeUserNameLabelToCardShape(CardResult[userArray[i].pokerType - 1], user.seat);
+
+                            timer_3.start();
                         }
                         //显示高亮牌
                         this.gameScreen.showHeightLightPublicCard(data.bestGroup, data.user);
+                    }, this);
+
+                    var timer_3: egret.Timer = new egret.Timer(1000, 20);
+                    timer_3.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
+                        this.sendNotification(ApplicationMediator.ENTER_LOBBY);
+                        NetController.getInstance().close(NetController.GAMESOCKET);
                     }, this);
 
                     timer.start();
