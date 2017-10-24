@@ -36,6 +36,7 @@ module game {
         public createCompleteEvent() {
             this.skinName = "LoadUISkin";
             ApplicationFacade.getInstance().registerMediator(new LoadAndLoginMediator(this));
+            NetController.getInstance().connectLogin();
         }
         private createView(): void {
             egret.ExternalInterface.call("closeImgAndTxt", "message from js");

@@ -2,7 +2,11 @@ module game {
 
     export class LoadAndLoginMediator extends puremvc.Mediator implements puremvc.IMediator {
         public static NAME: string = "LoadAndLoginMediator";
-        private loginModel:Login=new Login();
+
+        /**游客登录 */
+        public static TOURIST_LOGIN: string = "tourist_login";
+
+        private loginModel: Login = new Login();
 
         public constructor(viewComponent: any) {
             super(LoadAndLoginMediator.NAME, viewComponent);
@@ -28,6 +32,23 @@ module game {
 
         }
 
+        public listNotificationInterests(): Array<any> {
+            return [
+                LoadAndLoginMediator.TOURIST_LOGIN
+            ];
+        }
+
+        public handleNotification(notification: puremvc.INotification): void {
+            var data: any = notification.getBody();
+            switch (notification.getName()) {
+                case LoadAndLoginMediator.TOURIST_LOGIN: {
+                    this.LoadAndLoginScreen.dismissProgress();
+                    this.sendNotification(LoginCommand.ENTER_LOBBY);
+                    break;
+                }
+            }
+        }
+
         public login(event: egret.TouchEvent) {
             let account = this.LoadAndLoginScreen.et_phone.text;
             let password = this.LoadAndLoginScreen.et_password.text;
@@ -35,19 +56,21 @@ module game {
                 game.TextUtils.showTextTip("账户密码不能为空！！！");
                 return;
             }
-            this.loginModel.account=account;
-            this.loginModel.password=password;
+            this.loginModel.account = account;
+            this.loginModel.password = password;
             this.sendNotification(LoginCommand.LOGIN, this.loginModel);
         }
         public touristLogin(event: egret.TouchEvent) {
             this.LoadAndLoginScreen.showProgress();
+            //发送登录
+            this.sendNotification(LoginCommand.TOURIST_LOGIN);
             // SoundManager.getIns().playSound("button_mp3");
         }
         public accountLogin(event: egret.TouchEvent) {
             this.LoadAndLoginScreen.skin.currentState = "login";
         }
         public close(event: egret.TouchEvent) {
-              this.LoadAndLoginScreen.skin.currentState = "closeGroup";
+            this.LoadAndLoginScreen.skin.currentState = "closeGroup";
         }
         public register(event: egret.TouchEvent) {
             this.LoadAndLoginScreen.skin.currentState = "register";
@@ -60,18 +83,18 @@ module game {
             }
         }
         public complete(event: egret.TouchEvent) {
-             this.LoadAndLoginScreen.skin.currentState = "login";
-            this.LoadAndLoginScreen.et_sms.text="";
+            this.LoadAndLoginScreen.skin.currentState = "login";
+            this.LoadAndLoginScreen.et_sms.text = "";
         }
         public forget(event: egret.TouchEvent) {
-             this.LoadAndLoginScreen.skin.currentState = "resetPassword";
+            this.LoadAndLoginScreen.skin.currentState = "resetPassword";
         }
 
         private onResourceLoadComplete(event: RES.ResourceEvent): void {
             if (event.groupName == "preload") {
-            //      RES.loadGroup("sound");
-            // }
-            // if (event.groupName == "sound") {
+                //      RES.loadGroup("sound");
+                // }
+                // if (event.groupName == "sound") {
                 RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
                 RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
                 RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);

@@ -20,6 +20,10 @@ module game {
          * 登录
          */
         public static LOGIN: string = "login";
+        /**
+         * 游客登录
+         */
+        public static TOURIST_LOGIN: string = "tourist_login_send";
 
        
 
@@ -29,6 +33,7 @@ module game {
         public register(): void {
             this.facade.registerCommand(LoginCommand.LOGIN, LoginCommand);
             this.facade.registerCommand(LoginCommand.ENTER_LOBBY, LoginCommand);
+            this.facade.registerCommand(LoginCommand.TOURIST_LOGIN, LoginCommand);
         }
 
         public execute(notification: puremvc.INotification): void {
@@ -43,7 +48,10 @@ module game {
                     loginProxy.Login(data);
                     break;
                 }
-                
+                case LoginCommand.TOURIST_LOGIN: {
+                    loginProxy.touristLogin();
+                    break;
+                }
             }
         }
     }

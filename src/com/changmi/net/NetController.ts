@@ -33,10 +33,10 @@ class NetController {
         if (!this.wsLogin) {
             this.wsLogin = new WS();
         }
-        this.wsLogin.connect("118.31.69.15", 9003, "match"); //阿里云ip
-        // this.wsLogin.connect("echo.websocket.org", 80,"match");
-        // this.wsLogin.connect("192.168.1.154", 9000,"match");    //陈飞的ip
-        // this.wsLogin.connect("192.168.1.79", 9000,"match");    //陈飞的ip
+        this.wsLogin.connect("118.31.69.15", 9003, "login"); //阿里云ip
+        // this.wsLogin.connect("echo.websocket.org", 80,"login");
+        // this.wsLogin.connect("192.168.1.154", 9000,"login");    //陈飞的ip
+        // this.wsLogin.connect("192.168.1.79", 9000,"login");    //陈飞的ip
     }
     /**匹配服务器 */
     public connectMatch(): void {
@@ -182,4 +182,5 @@ class Commands {
     public static BANKER_PLAYER = 9;
     public static REQUIRE_TABLEID = 10;
     public static EXIT_TABLE = 11;
+    public static TOURIST_LOGIN = 12;
 }

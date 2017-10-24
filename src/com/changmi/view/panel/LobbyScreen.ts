@@ -21,14 +21,21 @@ module game {
         public constructor() {
             super();
             this.once(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
+            this.addEventListener(egret.Event.ADDED_TO_STAGE, this.resetUser, this);
             this.once(eui.UIEvent.COMPLETE, this.createView, this);
         }
 
         public createCompleteEvent() {
             this.skinName = "skins.LobbySkin";
             ApplicationFacade.getInstance().registerMediator(new LobbyMediator(this));
-
+            
         }
+
+        public resetUser(){
+            this.text_username.text = UserUtils.getInstance().getOwnUser().name;
+            this.text_count.text = "" + UserUtils.getInstance().getOwnUser().money;
+        }
+
         private createView(): void {
             var distance: number = 2;           /// 阴影的偏移距离，以像素为单位
             var angle: number = 45;              /// 阴影的角度，0 到 360 度
