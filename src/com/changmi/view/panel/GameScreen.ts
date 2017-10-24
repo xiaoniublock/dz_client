@@ -267,7 +267,9 @@ module game {
             if (state == "count_choose") {
                 this.hide_count.play(0);
             }
-            this.skin.currentState = "nogroup";
+        }
+        public changeToNoBottom(){
+            this.skin.currentState = "no_bottom";
         }
 
         private onVSLiderChange(e: egret.Event) {

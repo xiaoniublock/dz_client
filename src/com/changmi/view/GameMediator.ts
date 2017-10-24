@@ -88,7 +88,7 @@ module game {
             console.warn("点击返回");
             this.sendNotification(ApplicationMediator.ENTER_LOBBY);
 
-            this.timer_3.reset();
+            this.timer_3.stop();
 
             // var data = new BaseMsg();
             // data.command = Commands.EXIT_TABLE;
@@ -175,6 +175,7 @@ module game {
                     break;
                 }
                 case GameProxy.RESULT: {
+                    this.gameScreen.changeToNoBottom();
                     var timer: egret.Timer = new egret.Timer(1000, 1);
                     timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
                         this.gameScreen.sendMoneyAnimation();
@@ -200,12 +201,12 @@ module game {
                     }, this);
 
                     timer.start();
-                    // this.timer_3.reset();
+                    this.timer_3.reset();
                     this.timer_3.start();
                     break;
                 }
                 case GameProxy.GAME_RESET: {
-                    this.gameScreen.hideBottom();
+                    this.timer_3.stop();
                     UserUtils.getInstance().getOwnUser().clearcards();
                     UserUtils.getInstance().clearAllUser();
                     this.gameScreen.hideOwnCards();
@@ -236,7 +237,6 @@ module game {
 
         public addChipAction(event: egret.TouchEvent) {
             this.sendNotification(GameProxy.CHANGE_STATE, "count_choose");
-            this.gameScreen.hideBottom();
         }
 
         public countBetNum(event: egret.TouchEvent) {
