@@ -47,6 +47,18 @@ class SoundManager {
         egret.Tween.get(this._bgC).to({ volume: 0.5 }, 3000);
     }
 
+    public stopBg(){
+         if (this._bgC) {
+            egret.Tween.removeTweens(this._bgC);
+            this._nowBg="";
+            try {
+                this._bgC.stop();
+            } catch (e) {
+
+            }
+        }
+    }
+
     /**
     * 循环播放音效
     * @param {string} mp3 xxx_mp3

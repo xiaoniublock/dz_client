@@ -40,6 +40,7 @@ module game {
         }
         ///处理复选框的change事件回调
         private onChange(event: egret.TouchEvent) {
+            SoundManager.getIns().playSound("all_buttons_mp3");
             ///获得当前复选框
             let checkBox: eui.CheckBox = <eui.CheckBox>event.target;
             let preAction: number;
@@ -85,6 +86,7 @@ module game {
         }
 
         public backButtonClick(event: egret.TouchEvent) {
+            SoundManager.getIns().playSound("all_buttons_mp3");
             console.warn("点击返回");
             this.sendNotification(ApplicationMediator.ENTER_LOBBY);
 
@@ -107,6 +109,7 @@ module game {
                 GameProxy.POP_CARD,
                 GameProxy.FOLD,
                 GameProxy.CHECK,
+                GameProxy.CALL,
                 GameProxy.AllIN,
                 GameProxy.POP_PUBLICCARD,
                 GameProxy.RESULT,
@@ -116,6 +119,7 @@ module game {
 
         public handleNotification(notification: puremvc.INotification): void {
             var data: any = notification.getBody();
+            this.playMp3(notification.getName());
             switch (notification.getName()) {
                 case GameProxy.CHANGE_STATE: {
                     this.gameScreen.switchBottomState(<String><any>data);
@@ -132,6 +136,7 @@ module game {
                 case GameProxy.FOLD:
                     this.gameScreen.playerFold(data.uid, data.raiseStack);
                 case GameProxy.ADD_CHIP:
+                case GameProxy.CALL:
                 case GameProxy.AllIN:
                     this.userAddChip(data.uid, data.raiseStack);
                 case GameProxy.CHECK:
@@ -141,6 +146,7 @@ module game {
                             CachePool.addObj("ownBet", data.stake);
                         }
                         if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
+                            SoundManager.getIns().playSound("remind_me_mp3");
                             let ownBet = CachePool.getObj("ownBet");
                             if (!ownBet)
                                 ownBet = 0;
@@ -151,8 +157,8 @@ module game {
                         } else if (data.nextplayer != "") {
                             this.gameScreen.switchBottomState("three_choose");
                         }
-                        break;
                     }
+                    break;
                 case GameProxy.POP_CARD: {
                     this.userGetCards(data.holeCards);
                     break;
@@ -225,13 +231,36 @@ module game {
             return <GameScreen><any>(this.viewComponent);
         }
 
+        public playMp3(action: string) {
+            switch (action) {
+                case GameProxy.FOLD:
+                    SoundManager.getIns().playSound("male_discard_mp3");
+                    break;
+                case GameProxy.ADD_CHIP:
+                    SoundManager.getIns().playSound("male_plus_mp3");
+                    break;
+                case GameProxy.AllIN:
+                    SoundManager.getIns().playSound("male_allin_mp3");
+                    break;
+                case GameProxy.CALL:
+                    SoundManager.getIns().playSound("male_with_mp3");
+                    break;
+                case GameProxy.CHECK:
+                    //暂无让牌语音
+                    // SoundManager.getIns().playSound("male_with_mp3");
+                    break;
+            }
+        }
+
         public giveupAction(event?: egret.TouchEvent) {
+            SoundManager.getIns().playSound("all_buttons_mp3");
             // this.gameScreen.giveChipAction(parseInt(this.gameScreen["baseChipNum"].text), 4);
             this.sendNotification(GameCommand.ACTION, { "action": Actions.giveup, "raiseStack": 0 });
             this.gameScreen.changeToNoBottom();
         }
 
         public passAction(event?: egret.TouchEvent) {
+            SoundManager.getIns().playSound("all_buttons_mp3");
             console.log(CachePool.getObj("canBet"));
 
             this.sendNotification(GameCommand.ACTION, { "action": CachePool.getObj("action"), "raiseStack": CachePool.getObj("canBet") });
@@ -239,10 +268,12 @@ module game {
         }
 
         public addChipAction(event: egret.TouchEvent) {
+            SoundManager.getIns().playSound("all_buttons_mp3");
             this.sendNotification(GameProxy.CHANGE_STATE, "count_choose");
         }
 
         public countBetNum(event: egret.TouchEvent) {
+            SoundManager.getIns().playSound("all_buttons_mp3");
             // var data: BaseMsg = new BaseMsg();
             // data.command = Commands.PLAYERBET;
             // data.content = { "action": 1, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": "1", "raiseStack": parseInt(event.currentTarget.label) };
@@ -273,7 +304,7 @@ module game {
             switch (operator) {
                 case StateCode.FOLLOWBET:
                     this.gameScreen.passBtn.label = "跟    注";
-                    CachePool.addObj("action", Actions.bet);
+                    CachePool.addObj("action", Actions.call);
                     if (preAction && (preAction == Actions.followAny)) {
                         this.passAction();
                         preActionIsExecute = true;

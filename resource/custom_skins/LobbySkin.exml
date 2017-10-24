@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="skins.LobbySkin" width="1334" height="750" xmlns:e="http://ns.egret.com/eui">
+<e:Skin class="skins.LobbySkin" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image width="1334" height="750" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="bg_lobby" />
-	<e:Button id="btn_start" width="471" height="206" top="10" right="43" anchorOffsetX="0" anchorOffsetY="0">
+	<e:Button id="btn_start" width="471" height="206" top="10" right="43" anchorOffsetX="0" anchorOffsetY="0" name="quickStart">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="lobby_json.start_png" source.down="lobbyBtnDown.ic_start_down" />
@@ -9,7 +9,7 @@
 			</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Button width="471" height="206" top="216" right="43" anchorOffsetX="0" anchorOffsetY="0">
+	<e:Button id="btn_game" width="471" height="206" top="216" right="43" anchorOffsetX="0" anchorOffsetY="0" name="game">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="lobby_json.game_png" source.down="lobbyBtnDown.ic_game_down" />
@@ -17,7 +17,7 @@
 			</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Button width="471" height="206" top="432" right="43" anchorOffsetX="0" anchorOffsetY="0">
+	<e:Button id="btn_match" width="471" height="206" top="432" right="43" anchorOffsetX="0" anchorOffsetY="0">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="lobby_json.match_png" />

@@ -21,6 +21,10 @@ module game {
          */
         public static ADD_CHIP: string = "add_chip";
         /**
+         * 跟注操作
+         */
+        public static CALL: string = "call";
+        /**
          * 让牌
          */
         public static CHECK: string = "check";
@@ -72,6 +76,9 @@ module game {
             switch (data.action) {
                 case Actions.bet:
                 msg.content = { "action": Actions.bet, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": UserUtils.getInstance().getOwnUser().tId , "raiseStack":data.raiseStack};
+                    break;
+                case Actions.call:
+                msg.content = { "action": Actions.call, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": UserUtils.getInstance().getOwnUser().tId , "raiseStack":data.raiseStack};
                     break;
                 case Actions.allin:
                  msg.content = { "action": Actions.allin, "uId": UserUtils.getInstance().getOwnUser().uId, "tId": UserUtils.getInstance().getOwnUser().tId , "raiseStack":UserUtils.getInstance().getOwnUser().money};
@@ -156,6 +163,11 @@ module game {
                     // this.my_cards = content.cards.sort(function(a,b){return b-a});
                     // this.refreshMyCard(this.my_cards);
                     break;
+                case Actions.call:
+                    this.sendNotification(GameProxy.CALL, content);
+                    // this.my_cards = content.cards.sort(function(a,b){return b-a});
+                    // this.refreshMyCard(this.my_cards);
+                    break;
                 case Actions.pass:
                     this.sendNotification(GameProxy.CHECK, content);
                     //this.onGamePlay(content);
@@ -185,9 +197,10 @@ class Actions {
     public static pass = 2;
     public static allin = 3;
     public static giveup = 4;
-    public static giveUpOrPass=5;
-    public static autoPass=6;
-    public static followAny=7;
+    public static call = 5;
+    public static giveUpOrPass=6;
+    public static autoPass=7;
+    public static followAny=8;
 
 }
 

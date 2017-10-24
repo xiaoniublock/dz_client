@@ -32,12 +32,15 @@ module game {
                 } break;
                 case ApplicationMediator.ENTER_LOBBY: {
                     this.main.enterLobbyScreen();
+                    SoundManager.getIns().playBg("bg_lobby_mp3");
                 } break;
                 case ApplicationMediator.ENTER_LOADING: {
                     this.main.enterLoadingScreen();
+                    SoundManager.getIns().stopBg();
                 } break;
                 case ApplicationMediator.ENTER_GAME: {
                     this.main.enterGameScreen();
+                    SoundManager.getIns().stopBg();
                 } break;
             }
         }

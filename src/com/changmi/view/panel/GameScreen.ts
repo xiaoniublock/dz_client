@@ -60,6 +60,7 @@ module game {
             this.sendCardToUserTimer.start();
 
             function sendCardToUserTimer() {
+                SoundManager.getIns().playSound("Licensing_mp3");
                 index++;
                 if (index == this.sendCardToUserTimer.repeatCount) {
                     return;
@@ -123,6 +124,7 @@ module game {
         }
 
         public sendCard(card: Card, card1: eui.Image) {
+            SoundManager.getIns().playSound("card_rotation_mp3");
             this.removeChild(card1);
             card.visible = true;
             card.startrotateAndChangeSource();
@@ -319,6 +321,7 @@ module game {
             if (chip == 0) {
                 return;
             }
+            SoundManager.getIns().playSound("wager_sound_mp3");
             var chipImg: eui.Image = new eui.Image();
             chipImg.x = this.users[userPosition].x + 50;
             chipImg.y = this.users[userPosition].y + 140;
