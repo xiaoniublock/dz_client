@@ -23,6 +23,7 @@ module game {
             this.LoadAndLoginScreen.btn_complete.addEventListener(egret.TouchEvent.TOUCH_TAP, this.complete, this);
             this.LoadAndLoginScreen.btn_forget.addEventListener(egret.TouchEvent.TOUCH_TAP, this.forget, this);
             this.LoadAndLoginScreen.btn_login.addEventListener(egret.TouchEvent.TOUCH_TAP, this.login, this);
+            this.LoadAndLoginScreen.btn_touristLogin.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touristLogin, this);
 
 
         }
@@ -37,6 +38,10 @@ module game {
             this.loginModel.account=account;
             this.loginModel.password=password;
             this.sendNotification(LoginCommand.LOGIN, this.loginModel);
+        }
+        public touristLogin(event: egret.TouchEvent) {
+            this.LoadAndLoginScreen.showProgress();
+            // SoundManager.getIns().playSound("button_mp3");
         }
         public accountLogin(event: egret.TouchEvent) {
             this.LoadAndLoginScreen.skin.currentState = "login";
@@ -64,10 +69,14 @@ module game {
 
         private onResourceLoadComplete(event: RES.ResourceEvent): void {
             if (event.groupName == "preload") {
+                 RES.loadGroup("sound");
+            }
+            if (event.groupName == "sound") {
                 RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
                 RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
                 RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
                 RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
+                // SoundManager.getIns().playBg("main_bgm_mp3");
                 this.LoadAndLoginScreen.showEnterButton();
             }
         }

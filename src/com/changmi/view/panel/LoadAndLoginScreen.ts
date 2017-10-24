@@ -13,6 +13,7 @@ module game {
         public btn_next: eui.Button;
         public btn_complete: eui.Button;
         public btn_login: eui.Button;
+        public btn_touristLogin: eui.Button;
 
         public et_phone: eui.EditableText;
         public et_password: eui.EditableText;
@@ -24,16 +25,21 @@ module game {
 
         public btnShow: egret.tween.TweenGroup;
         public currentX: number;
+        private loadingView: TrueLoadingUI;
 
         public constructor() {
             super();
             this.once(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
+            this.once(eui.UIEvent.COMPLETE, this.createView, this);
         }
 
         public createCompleteEvent() {
             this.skinName = "LoadUISkin";
             ApplicationFacade.getInstance().registerMediator(new LoadAndLoginMediator(this));
+        }
+        private createView(): void {
             egret.ExternalInterface.call("closeImgAndTxt", "message from js");
+
         }
         public setProgress(current: number, total: number): void {
             this.load_progress.value = Math.ceil(current / total * 100);
@@ -45,6 +51,18 @@ module game {
             this.btnShow.play(0);
             this.load_progress.visible = false;
             this.lable_progress.visible = false;
+        }
+        public showProgress() {
+            if (!this.loadingView) {
+                this.loadingView = new TrueLoadingUI();
+                this.addChild(this.loadingView);
+            }
+        }
+        public dismissProgress() {
+            if (this.loadingView) {
+                this.loadingView.parent.removeChild(this.loadingView);
+                this.loadingView = null;
+            }
         }
 
     }

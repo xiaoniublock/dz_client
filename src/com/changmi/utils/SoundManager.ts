@@ -8,7 +8,6 @@ class SoundManager {
     private static _ins: SoundManager;
     private _nowBg: string = "";
     private _bgC: egret.SoundChannel;
-    public enable: boolean = false;
     private _durTDic: CustomMap = new CustomMap();
     private _soundDic: CustomMap = new CustomMap();
 
@@ -27,7 +26,7 @@ class SoundManager {
     * @param {number=0} times 播放次数,默认循环
     */
     public playBg(mp3: string, times: number = 0): void {
-        if (this._nowBg == mp3 || !this.enable)
+        if (this._nowBg == mp3)
             return;
         this._nowBg = mp3;
         if (this._bgC) {
@@ -54,8 +53,6 @@ class SoundManager {
     * @param {number=1} toV
     */
     public playSoundLoop(mp3: string, toV: number = 1): void {
-        if (!this.enable)
-            return;
         if (this._soundDic.get(mp3) != null)
             return;
         var sd: egret.Sound = RES.getRes(mp3);
@@ -87,8 +84,6 @@ class SoundManager {
     * @param {number=0} durT 多长时间以内不能再次播放次音效
     */
     public playSound(mp3: string, toV: number = 1, durT: number = 0): void {
-        if (!this.enable)
-            return;
         if (durT > 0) {
             if (this._durTDic.get(mp3) == null)
                 this._durTDic.add(mp3, 0);
@@ -105,4 +100,24 @@ class SoundManager {
             return;
         cc.volume = toV;
     }
+
+    /**
+    * 设置背景音乐音量
+    */
+    public setBGMValume(volume: number): void {
+        if (this._bgC) {
+            try {
+                this._bgC.volume = volume;
+            } catch (e) {
+                egret.log(`背景音乐音量设置失败`)
+            }
+        }
+    }
+    /**
+     * 得到背景音乐音量
+     */
+    public getBGMValue(): number {
+        return this._bgC.volume;
+    }
+    
 }
