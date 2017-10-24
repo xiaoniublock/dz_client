@@ -1,7 +1,9 @@
 class NetController {
     private static _instance: NetController;
-    public static MATCHSOCKET: number = 1;
-    public static GAMESOCKET: number = 2;
+    public static LOGINSOCKET: number = 1;
+    public static MATCHSOCKET: number = 2;
+    public static GAMESOCKET: number = 3;
+    private wsLogin: WS;
     private wsMatch: WS;
     private wsGame: WS;
     private sequence: number = 1;
@@ -26,6 +28,16 @@ class NetController {
         }
         return this._instance;
     }
+    /**登录服务器 */
+    public connectLogin(): void {
+        if (!this.wsLogin) {
+            this.wsLogin = new WS();
+        }
+        this.wsLogin.connect("118.31.69.15", 9003, "match"); //阿里云ip
+        // this.wsLogin.connect("echo.websocket.org", 80,"match");
+        // this.wsLogin.connect("192.168.1.154", 9000,"match");    //陈飞的ip
+        // this.wsLogin.connect("192.168.1.79", 9000,"match");    //陈飞的ip
+    }
     /**匹配服务器 */
     public connectMatch(): void {
         if (!this.wsMatch) {
@@ -48,6 +60,9 @@ class NetController {
     }
     public close(type: number): void {
         switch (type) {
+            case NetController.LOGINSOCKET:
+                this.wsLogin.close();
+                break;
             case NetController.MATCHSOCKET:
                 this.wsMatch.close();
                 break;
@@ -59,6 +74,11 @@ class NetController {
 
     public isConnected(type: number): boolean {
         switch (type) {
+            case NetController.LOGINSOCKET:
+                if (!this.wsLogin){
+                    return false;
+                }
+                return this.wsLogin.connected();
             case NetController.MATCHSOCKET:
                 if (!this.wsMatch){
                     return false;
@@ -101,6 +121,9 @@ class NetController {
             data.seq = this.sequence++;
         }
         switch (type) {
+            case NetController.LOGINSOCKET:
+                this.wsLogin.sendData(JSON.stringify(data));
+                break;
             case NetController.MATCHSOCKET:
                 this.wsMatch.sendData(JSON.stringify(data));
                 break;

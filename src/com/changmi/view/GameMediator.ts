@@ -188,13 +188,14 @@ module game {
                         //给钱动画和显示手牌
                         for (var i = 0; i < userArray.length; i++) {
                             var user: User = UserUtils.getInstance().getUserFromUid(userArray[i].uid);
-                            //给钱
-                            this.gameScreen.giveChipAction(userArray[i].winStake, user.seat);
-                            //显示手牌
-                            this.gameScreen.showUserCards(userArray[i].holeCards, user.seat);
-                            //改牌型文本
-                            this.gameScreen.changeUserNameLabelToCardShape(CardResult[userArray[i].pokerType - 1], user.seat);
-
+                            if (user){
+                                //给钱
+                                this.gameScreen.giveChipAction(userArray[i].winStake, user.seat);
+                                //显示手牌
+                                this.gameScreen.showUserCards(userArray[i].holeCards, user.seat);
+                                //改牌型文本
+                                this.gameScreen.changeUserNameLabelToCardShape(CardResult[userArray[i].pokerType - 1], user.seat);
+                            }
                         }
                         //显示高亮牌
                         this.gameScreen.showHeightLightPublicCard(data.bestGroup, data.user);
@@ -207,6 +208,7 @@ module game {
                 }
                 case GameProxy.GAME_RESET: {
                     this.timer_3.stop();
+                    this.gameScreen.hideBottom();
                     UserUtils.getInstance().getOwnUser().clearcards();
                     UserUtils.getInstance().clearAllUser();
                     this.gameScreen.hideOwnCards();
@@ -237,6 +239,7 @@ module game {
 
         public addChipAction(event: egret.TouchEvent) {
             this.sendNotification(GameProxy.CHANGE_STATE, "count_choose");
+            this.gameScreen.hideBottom();
         }
 
         public countBetNum(event: egret.TouchEvent) {

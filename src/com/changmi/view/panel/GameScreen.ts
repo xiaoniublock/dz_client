@@ -370,7 +370,11 @@ module game {
                 }
             }
             for (let i = 0; i < users.length; i++) {
-                let user: User = <User>this.users[UserUtils.getInstance().getUserFromUid(users[i].uid).seat];
+                let userOfUserUtils: User = UserUtils.getInstance().getUserFromUid(users[i].uid);
+                if (!userOfUserUtils) {
+                    continue;
+                }
+                let user: User = <User>this.users[userOfUserUtils.seat];
                 for (let j = 0; j < 2; j++) {
                     let userOwnCard: Card;
                     if (users[i].uid == UserUtils.getInstance().getOwnUser().uId){
