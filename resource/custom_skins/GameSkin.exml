@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="skins.GameSkin" width="1334" height="750" currentState="first_Bet" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*" xmlns:ns1="*" states="first_Bet,count_choose,three_choose" >
+<e:Skin class="skins.GameSkin" width="1334" height="750" currentState="first_Bet" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*" xmlns:ns1="*" states="first_Bet,count_choose,three_choose,nogroup" >
 	<w:Declarations>
 		<tween:TweenGroup id="first_Bet">
 			<tween:TweenItem target="{group_1}">
@@ -43,6 +43,30 @@
 				</tween:To>
 			</tween:TweenItem>
 		</tween:TweenGroup>
+		<tween:TweenGroup id="hide_first">
+			<tween:TweenItem target="{group_1}">
+				<tween:Set>
+					<tween:props>
+						<e:Object y="{668}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:To duration="500">
+					<tween:props>
+						<e:Object y="{750}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+		<tween:TweenGroup id="hide_count">
+			<tween:TweenItem target="{count_group}">
+				<tween:Set/>
+				<tween:To duration="500">
+					<tween:props>
+						<e:Object y="{750}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+		</tween:TweenGroup>
 	</w:Declarations>
 	<e:Image id="image" width="100%" height="100%"  source="game_background_png"/>
 	<e:Group id="UserGroup" width="1133" height="594" x="102" y="47">
@@ -77,7 +101,7 @@
 		<ns1:Card width="78" height="117" x="273" source="poker_bg_png" visible="false"/>
 		<ns1:Card width="78" height="117" x="364" source="poker_bg_png" visible="false"/>
 	</e:Group>
-	<e:Group id="group_1" width="100%" height="82" y="668" visible.count_choose="false" visible.three_choose="false">
+	<e:Group id="group_1" width="100%" height="82" y="668" visible.count_choose="false" visible.three_choose="false" visible.nogroup="false">
 		<e:Button id="multipleBtn1" label="3X 大盲" top="0" left="15" skinName="skins.PurpleBigButtonSkin" visible.first_Bet="false"/>
 		<e:Button id="multipleBtn2" label="1X 底池" top="0" left="176" skinName="skins.PurpleBigButtonSkin" visible.first_Bet="false"/>
 		<e:Button id="multipleBtn3" label="4X 大盲" left="333" top="0" skinName="skins.PurpleBigButtonSkin" visible.first_Bet="false"/>
@@ -85,12 +109,12 @@
 		<e:Button id="passBtn" label="让    牌" top="0" left="774" skinName="skins.GreenButtonSkin"/>
 		<e:Button id="addChipBtn" label="加    注" top="0" left="1049" skinName="skins.OrangeButtonSkin"/>
 	</e:Group>
-	<e:Group id="group_2" width="100%" height="82" y="668" visible.count_choose="false" visible.first_Bet="false">
+	<e:Group id="group_2" width="100%" height="82" y="668" visible.count_choose="false" visible.first_Bet="false" visible.nogroup="false">
 		<e:CheckBox id="checkBox_giveUp" label="让 或 弃" includeIn="three_choose" left="514" skinName="skins.PurpleCheckBoxSkin" y="8" name="giveUpOrPass"/>
 		<e:CheckBox id="checkBox_followAny" label="跟任何注" includeIn="three_choose" left="1048" skinName="skins.PurpleCheckBoxSkin" verticalCenter="0" name="followAny"/>
 		<e:CheckBox id="checkBox_autoPass" label="自动让牌" includeIn="three_choose" left="781" skinName="skins.PurpleCheckBoxSkin" verticalCenter="0" name="autoPass"/>
 	</e:Group>
-	<e:Group id="count_group" width="100%" height="82" y="668" visible.three_choose="false" visible.first_Bet="false">
+	<e:Group id="count_group" width="100%" height="82" y="668" visible.three_choose="false" visible.first_Bet="false" visible.nogroup="false">
 		<e:Button id="MoneyBtnSmallest" label="500"  left="23" y="8" skinName="skins.PurpleNormalButtonSkin"/>
 		<e:Button id="MoneyBtnSmall" label="1000"  left="225" y="8" skinName="skins.PurpleNormalButtonSkin"/>
 		<e:Button id="MoneyBtnNormal" label="2500"  left="425" y="8" skinName="skins.PurpleNormalButtonSkin"/>

@@ -31,11 +31,12 @@ module game {
             var data: any = notification.getBody();
             switch (notification.getName()) {
                 case LoadMediator.BEGIN_ROTATE: {
+					this.timer.reset();
                     this.timer.start();
                     break;
                 }
 				case LoadMediator.STOP_ROTATE: {
-                    this.timer.reset();
+					this.timer.reset();
 					this.loadScreen.stoprotate();
                     break;
                 }

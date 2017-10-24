@@ -4,14 +4,18 @@ module game {
     export class GameScreen extends eui.Component {
 
         public backBtn: eui.Button;
-        public first_Bet: egret.tween.TweenGroup;
 
         public giveUpBtn: eui.Button;
         public passBtn: eui.Button;
         public addChipBtn: eui.Button;
 
+        public first_Bet: egret.tween.TweenGroup;
         public count_choose: egret.tween.TweenGroup;
         public three_choose: egret.tween.TweenGroup;
+        public hide_first: egret.tween.TweenGroup;
+        public hide_count: egret.tween.TweenGroup;
+
+
         public checkBox_giveUp: eui.CheckBox;
         public checkBox_autoPass: eui.CheckBox;
         public checkBox_followAny: eui.CheckBox;
@@ -253,6 +257,17 @@ module game {
                 this.three_choose.play(0);
             }
             this.skin.currentState = state + "";
+        }
+
+        public hideBottom(){
+            let state:string=this.skin.currentState;
+            if (state == "first_Bet") {
+                this.hide_first.play(0);
+            }
+            if (state == "count_choose") {
+                this.hide_count.play(0);
+            }
+            this.skin.currentState = "nogroup";
         }
 
         private onVSLiderChange(e: egret.Event) {

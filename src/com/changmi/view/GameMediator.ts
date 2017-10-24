@@ -31,30 +31,35 @@ module game {
 
             }, this);
 
+            this.timer_3 = new egret.Timer(1000, 20);
+            this.timer_3.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
+                this.sendNotification(ApplicationMediator.ENTER_LOBBY);
+                NetController.getInstance().close(NetController.GAMESOCKET);
+            }, this);
 
         }
         ///处理复选框的change事件回调
         private onChange(event: egret.TouchEvent) {
             ///获得当前复选框
             let checkBox: eui.CheckBox = <eui.CheckBox>event.target;
-            let preAction:number;
+            let preAction: number;
             switch (checkBox.name) { //强行单选化
                 case "giveUpOrPass": {
                     this.gameScreen.checkBox_autoPass.selected = false;
                     this.gameScreen.checkBox_followAny.selected = false;
-                    preAction=Actions.giveUpOrPass;
+                    preAction = Actions.giveUpOrPass;
                     break;
                 }
                 case "autoPass": {
                     this.gameScreen.checkBox_giveUp.selected = false;
                     this.gameScreen.checkBox_followAny.selected = false;
-                    preAction=Actions.autoPass;
+                    preAction = Actions.autoPass;
                     break;
                 }
                 case "followAny": {
                     this.gameScreen.checkBox_giveUp.selected = false;
                     this.gameScreen.checkBox_autoPass.selected = false;
-                    preAction=Actions.followAny;
+                    preAction = Actions.followAny;
                     break;
                 }
             }
@@ -68,10 +73,10 @@ module game {
             } else {
                 ///获得当前复选框的标签并显示出来
                 console.log(checkBox.selected);
-                if(checkBox.selected){
-                     CachePool.addObj("preAction", preAction);
-                }else{
-                     CachePool.clear("preAction");
+                if (checkBox.selected) {
+                    CachePool.addObj("preAction", preAction);
+                } else {
+                    CachePool.clear("preAction");
                 }
                 ///取消显示设置复选框的状态，由内部的 getCurrentState() 决定。
                 // checkBox.currentState = null;
@@ -92,7 +97,7 @@ module game {
 
             NetController.getInstance().close(NetController.GAMESOCKET);
         }
-        
+
         public listNotificationInterests(): Array<any> {
             return [
                 GameProxy.CHANGE_STATE,
@@ -132,7 +137,7 @@ module game {
                 case GameProxy.CHECK:
                     {
                         this.gameScreen.changePlayer(data.uid, data.nextplayer);
-                        if (data.uid == UserUtils.getInstance().getOwnUser().uId){
+                        if (data.uid == UserUtils.getInstance().getOwnUser().uId) {
                             CachePool.addObj("ownBet", data.stake);
                         }
                         if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
@@ -189,22 +194,18 @@ module game {
                             //改牌型文本
                             this.gameScreen.changeUserNameLabelToCardShape(CardResult[userArray[i].pokerType - 1], user.seat);
 
-                            this.timer_3.start();
                         }
                         //显示高亮牌
                         this.gameScreen.showHeightLightPublicCard(data.bestGroup, data.user);
                     }, this);
 
-                    this.timer_3 = new egret.Timer(1000, 20);
-                    this.timer_3.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
-                        this.sendNotification(ApplicationMediator.ENTER_LOBBY);
-                        NetController.getInstance().close(NetController.GAMESOCKET);
-                    }, this);
-
                     timer.start();
+                    // this.timer_3.reset();
+                    this.timer_3.start();
                     break;
                 }
                 case GameProxy.GAME_RESET: {
+                    this.gameScreen.hideBottom();
                     UserUtils.getInstance().getOwnUser().clearcards();
                     UserUtils.getInstance().clearAllUser();
                     this.gameScreen.hideOwnCards();
@@ -223,16 +224,19 @@ module game {
         public giveupAction(event?: egret.TouchEvent) {
             // this.gameScreen.giveChipAction(parseInt(this.gameScreen["baseChipNum"].text), 4);
             this.sendNotification(GameCommand.ACTION, { "action": Actions.giveup, "raiseStack": 0 });
-        }
+            this.gameScreen.hideBottom();
+    }
 
         public passAction(event?: egret.TouchEvent) {
             console.log(CachePool.getObj("canBet"));
 
             this.sendNotification(GameCommand.ACTION, { "action": CachePool.getObj("action"), "raiseStack": CachePool.getObj("canBet") });
-        }
+            this.gameScreen.hideBottom();
+    }
 
         public addChipAction(event: egret.TouchEvent) {
             this.sendNotification(GameProxy.CHANGE_STATE, "count_choose");
+            this.gameScreen.hideBottom();
         }
 
         public countBetNum(event: egret.TouchEvent) {
@@ -243,7 +247,8 @@ module game {
 
             // this.gameScreen.addChipAnimation(parseInt(event.currentTarget.label), 4);
             this.sendNotification(GameCommand.ACTION, { "action": Actions.bet, "raiseStack": parseInt(event.currentTarget.label) });
-
+            // this.sendNotification(GameProxy.CHANGE_STATE, "count_choose");
+            this.gameScreen.hideBottom();
         }
 
         public countBetMul(event: egret.TouchEvent) {
@@ -312,7 +317,7 @@ module game {
 
             for (let i = 0; i < this.gameScreen.count_group.numChildren - 2; i++) {
                 let money: eui.Button = <eui.Button>this.gameScreen.count_group.getChildAt(i);
-                (parseInt(money.label) >= minimun && parseInt(money.label) <= maximum)? (money.alpha = 1, money.touchEnabled = true) : (money.alpha = 0.5, money.touchEnabled = false);
+                (parseInt(money.label) >= minimun && parseInt(money.label) <= maximum) ? (money.alpha = 1, money.touchEnabled = true) : (money.alpha = 0.5, money.touchEnabled = false);
             }
         }
     }
