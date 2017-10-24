@@ -69,9 +69,9 @@ module game {
 
         private onResourceLoadComplete(event: RES.ResourceEvent): void {
             if (event.groupName == "preload") {
-                 RES.loadGroup("sound");
-            }
-            if (event.groupName == "sound") {
+            //      RES.loadGroup("sound");
+            // }
+            // if (event.groupName == "sound") {
                 RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
                 RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
                 RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
