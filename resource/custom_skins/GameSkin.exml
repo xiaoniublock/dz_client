@@ -43,30 +43,8 @@
 				</tween:To>
 			</tween:TweenItem>
 		</tween:TweenGroup>
-		<tween:TweenGroup id="hide_first">
-			<tween:TweenItem target="{group_1}">
-				<tween:Set>
-					<tween:props>
-						<e:Object y="{668}"/>
-					</tween:props>
-				</tween:Set>
-				<tween:To duration="500">
-					<tween:props>
-						<e:Object y="{750}"/>
-					</tween:props>
-				</tween:To>
-			</tween:TweenItem>
-		</tween:TweenGroup>
-		<tween:TweenGroup id="hide_count">
-			<tween:TweenItem target="{count_group}">
-				<tween:Set/>
-				<tween:To duration="500">
-					<tween:props>
-						<e:Object y="{750}"/>
-					</tween:props>
-				</tween:To>
-			</tween:TweenItem>
-		</tween:TweenGroup>
+
+
 	</w:Declarations>
 	<e:Image id="image" width="100%" height="100%"  source="game_background_png"/>
 	<e:Group id="UserGroup" width="1133" height="594" x="102" y="47">

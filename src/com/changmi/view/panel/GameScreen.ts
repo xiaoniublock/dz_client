@@ -12,8 +12,6 @@ module game {
         public first_Bet: egret.tween.TweenGroup;
         public count_choose: egret.tween.TweenGroup;
         public three_choose: egret.tween.TweenGroup;
-        public hide_first: egret.tween.TweenGroup;
-        public hide_count: egret.tween.TweenGroup;
 
 
         public checkBox_giveUp: eui.CheckBox;
@@ -259,15 +257,6 @@ module game {
             this.skin.currentState = state + "";
         }
 
-        public hideBottom(){
-            let state:string=this.skin.currentState;
-            if (state == "first_Bet") {
-                this.hide_first.play(0);
-            }
-            if (state == "count_choose") {
-                this.hide_count.play(0);
-            }
-        }
         public changeToNoBottom(){
             this.skin.currentState = "no_bottom";
         }

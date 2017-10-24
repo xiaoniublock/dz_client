@@ -141,12 +141,13 @@ module game {
                             CachePool.addObj("ownBet", data.stake);
                         }
                         if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
-                            this.gameScreen.switchBottomState("first_Bet");
                             let ownBet = CachePool.getObj("ownBet");
                             if (!ownBet)
                                 ownBet = 0;
                             CachePool.addObj("canBet", data.stake - ownBet);
-                            this.changeBtnState(data.operator, data.stake);
+                            if (!this.changeBtnState(data.operator, data.stake)) {
+                                this.gameScreen.switchBottomState("first_Bet");
+                            }
                         } else if (data.nextplayer != "") {
                             this.gameScreen.switchBottomState("three_choose");
                         }
@@ -165,8 +166,9 @@ module game {
 
                         CachePool.clear("ownBet");
                         if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
-                            this.gameScreen.switchBottomState("first_Bet");
-                            this.changeBtnState(data.operator, 0);
+                            if (!this.changeBtnState(data.operator, 0)) {
+                                this.gameScreen.switchBottomState("first_Bet");
+                            }
                         } else {
                             this.gameScreen.switchBottomState("three_choose");
                         }
@@ -188,7 +190,7 @@ module game {
                         //给钱动画和显示手牌
                         for (var i = 0; i < userArray.length; i++) {
                             var user: User = UserUtils.getInstance().getUserFromUid(userArray[i].uid);
-                            if (user){
+                            if (user) {
                                 //给钱
                                 this.gameScreen.giveChipAction(userArray[i].winStake, user.seat);
                                 //显示手牌
@@ -208,7 +210,6 @@ module game {
                 }
                 case GameProxy.GAME_RESET: {
                     this.timer_3.stop();
-                    this.gameScreen.hideBottom();
                     UserUtils.getInstance().getOwnUser().clearcards();
                     UserUtils.getInstance().clearAllUser();
                     this.gameScreen.hideOwnCards();
@@ -227,19 +228,18 @@ module game {
         public giveupAction(event?: egret.TouchEvent) {
             // this.gameScreen.giveChipAction(parseInt(this.gameScreen["baseChipNum"].text), 4);
             this.sendNotification(GameCommand.ACTION, { "action": Actions.giveup, "raiseStack": 0 });
-            this.gameScreen.hideBottom();
-    }
+            this.gameScreen.changeToNoBottom();
+        }
 
         public passAction(event?: egret.TouchEvent) {
             console.log(CachePool.getObj("canBet"));
 
             this.sendNotification(GameCommand.ACTION, { "action": CachePool.getObj("action"), "raiseStack": CachePool.getObj("canBet") });
-            this.gameScreen.hideBottom();
-    }
+            this.gameScreen.changeToNoBottom();
+        }
 
         public addChipAction(event: egret.TouchEvent) {
             this.sendNotification(GameProxy.CHANGE_STATE, "count_choose");
-            this.gameScreen.hideBottom();
         }
 
         public countBetNum(event: egret.TouchEvent) {
@@ -251,7 +251,7 @@ module game {
             // this.gameScreen.addChipAnimation(parseInt(event.currentTarget.label), 4);
             this.sendNotification(GameCommand.ACTION, { "action": Actions.bet, "raiseStack": parseInt(event.currentTarget.label) });
             // this.sendNotification(GameProxy.CHANGE_STATE, "count_choose");
-            this.gameScreen.hideBottom();
+            this.gameScreen.changeToNoBottom();
         }
 
         public countBetMul(event: egret.TouchEvent) {
@@ -267,16 +267,19 @@ module game {
             this.gameScreen.beginAnimation();
         }
 
-        public changeBtnState(operator: number, stake: number) {
+        public changeBtnState(operator: number, stake: number): boolean {
             let preAction = CachePool.getObj("preAction");
+            let preActionIsExecute: boolean = false;
             switch (operator) {
                 case StateCode.FOLLOWBET:
                     this.gameScreen.passBtn.label = "跟    注";
                     CachePool.addObj("action", Actions.bet);
                     if (preAction && (preAction == Actions.followAny)) {
                         this.passAction();
+                        preActionIsExecute = true;
                     } else if (preAction == Actions.giveUpOrPass) {
                         this.giveupAction();
+                        preActionIsExecute = true;
                     }
                     break;
                 case StateCode.PASSBET:
@@ -284,6 +287,7 @@ module game {
                     CachePool.addObj("action", Actions.pass);
                     if (preAction && (preAction == Actions.autoPass || preAction == Actions.giveUpOrPass)) {
                         this.passAction();
+                        preActionIsExecute = true;
                     }
                     break;
                 case StateCode.JUSTALLIN:
@@ -293,6 +297,7 @@ module game {
                     this.gameScreen.addChipBtn.touchEnabled = false;
                     if (preAction && (preAction == Actions.giveUpOrPass)) {
                         this.giveupAction();
+                        preActionIsExecute = true;
                     }
                     break;
             }
@@ -305,7 +310,7 @@ module game {
                 this.gameScreen.addChipBtn.alpha = 1;
                 this.gameScreen.addChipBtn.touchEnabled = true;
             } else {
-                return;
+                return preActionIsExecute;
             }
 
             var ownBet = CachePool.getObj("ownBet") ? CachePool.getObj("ownBet") : 0;
@@ -322,6 +327,7 @@ module game {
                 let money: eui.Button = <eui.Button>this.gameScreen.count_group.getChildAt(i);
                 (parseInt(money.label) >= minimun && parseInt(money.label) <= maximum) ? (money.alpha = 1, money.touchEnabled = true) : (money.alpha = 0.5, money.touchEnabled = false);
             }
+            return preActionIsExecute;
         }
     }
 }
