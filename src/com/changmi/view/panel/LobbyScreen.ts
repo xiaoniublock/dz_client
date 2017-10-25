@@ -60,7 +60,7 @@ module game {
 
             var circle: egret.Shape = new egret.Shape();
             circle.graphics.beginFill(0x00ff00);
-            circle.graphics.drawCircle(275, 661, 65);
+            circle.graphics.drawCircle(this.image_icon.left+65,this.stage.stageHeight-this.image_icon.bottom-65, 65);
             circle.graphics.endFill();
             // this.addChild(circle);
             this.image_icon.mask = circle;

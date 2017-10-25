@@ -89,7 +89,7 @@ module game {
             SoundManager.getIns().playSound("all_buttons_mp3");
             console.warn("点击返回");
             this.sendNotification(ApplicationMediator.ENTER_LOBBY);
-
+            this.gameScreen.stopMyRotate();
             this.timer_3.stop();
 
             // var data = new BaseMsg();
@@ -184,6 +184,7 @@ module game {
                 }
                 case GameProxy.RESULT: {
                     this.gameScreen.changeToNoBottom();
+                    this.gameScreen.stopMyRotate();
                     var timer: egret.Timer = new egret.Timer(1000, 1);
                     timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
                         this.gameScreen.sendMoneyAnimation();

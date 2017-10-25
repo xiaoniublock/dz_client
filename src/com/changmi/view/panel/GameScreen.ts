@@ -315,6 +315,9 @@ module game {
                 this.users[nextUser.seat].startrotate(30);
             }
         }
+        public stopMyRotate(){
+             this.users[3].stoprotate();
+        }
         /**
          * 用户弃牌
          */
