@@ -11,6 +11,7 @@ module game {
             this.facade.registerProxy(new GameProxy());
             this.facade.registerProxy(new MatchProxy());
             this.facade.registerProxy(new LoginProxy());
+            this.facade.registerProxy(new LobbyProxy());
         }
     }
 }

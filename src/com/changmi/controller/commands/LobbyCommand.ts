@@ -27,15 +27,22 @@ module game {
         public static SHOW_END: string = "scene_end";
 
         /**
+         * 刷新用户信息
+         */
+        public static REFRESH_DATA: string = "refresh_data";
+
+        /**
          * 注册消息
          */
         public register(): void {
             this.facade.registerCommand(LobbyCommand.CHANGE, LobbyCommand);
             this.facade.registerCommand(LobbyCommand.SHOW_SETTING, LobbyCommand);
             this.facade.registerCommand(LobbyCommand.SHOW_END, LobbyCommand);
+            this.facade.registerCommand(LobbyCommand.REFRESH_DATA, LobbyCommand);
         }
 
         public execute(notification: puremvc.INotification): void {
+            var lobbyProxy: LobbyProxy = <LobbyProxy><any>(this.facade.retrieveProxy(LobbyProxy.NAME));
             var data: any = notification.getBody();
             var appMediator: ApplicationMediator =
                 <ApplicationMediator><any>this.facade.retrieveMediator(ApplicationMediator.NAME);
@@ -52,6 +59,10 @@ module game {
                     egret.setTimeout(function (): void {
                         appMediator.main.showEndWindow();
                     }, this, 300);
+                    break;
+                }
+                case LobbyCommand.REFRESH_DATA: {
+                    lobbyProxy.refreshUserData();
                     break;
                 }
             }

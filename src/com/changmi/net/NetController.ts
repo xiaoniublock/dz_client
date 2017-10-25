@@ -183,4 +183,5 @@ class Commands {
     public static REQUIRE_TABLEID = 10;
     public static EXIT_TABLE = 11;
     public static TOURIST_LOGIN = 12;
+    public static REFRESH_DATA = 13;
 }

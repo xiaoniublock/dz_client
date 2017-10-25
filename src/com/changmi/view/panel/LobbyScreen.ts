@@ -21,7 +21,7 @@ module game {
         public constructor() {
             super();
             this.once(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
-            this.addEventListener(egret.Event.ADDED_TO_STAGE, this.resetUser, this);
+            this.once(egret.Event.ADDED_TO_STAGE, this.resetUser, this);
             this.once(eui.UIEvent.COMPLETE, this.createView, this);
         }
          public childrenCreated() {

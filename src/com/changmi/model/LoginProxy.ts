@@ -13,15 +13,19 @@ module game {
         public touristLogin(){
             NetController.getInstance().addSocketStateListener(NetController.CONNECTSUCCEED, this.connectLoginSuccess, this);
             if (NetController.getInstance().isConnected(NetController.LOGINSOCKET)) {
-                var data: BaseMsg = new BaseMsg();
-                data.command = Commands.TOURIST_LOGIN;
-                data.content = { "device_id": CachePool.getObj("uniqueID") };
-                NetController.getInstance().sendData(NetController.LOGINSOCKET, data);
-                NetController.getInstance().removeSocketStateListener(NetController.CONNECTSUCCEED, this.connectLoginSuccess, this);
+                this.sendTouristLoginRequest();
             } else {
                 NetController.getInstance().connectLogin();
             }
         }
+
+        public sendTouristLoginRequest() {
+			var data: BaseMsg = new BaseMsg();
+            data.command = Commands.TOURIST_LOGIN;
+            data.content = { "device_id": "nideID"};//CachePool.getObj("uniqueID") };
+            NetController.getInstance().sendData(NetController.LOGINSOCKET, data);
+            NetController.getInstance().removeSocketStateListener(NetController.CONNECTSUCCEED, this.connectLoginSuccess, this);
+		}
 
         public connectLoginSuccess(evt: egret.Event) {
             switch (evt.data) {
@@ -46,7 +50,6 @@ module game {
                         user.money = data.content.money;
                         UserUtils.getInstance().saveOwnUser(user);
                         this.sendNotification(LoadAndLoginMediator.TOURIST_LOGIN);
-                        NetController.getInstance().close(NetController.LOGINSOCKET);
                     }
                 }
             }
