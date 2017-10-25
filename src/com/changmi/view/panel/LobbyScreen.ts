@@ -24,6 +24,13 @@ module game {
             this.addEventListener(egret.Event.ADDED_TO_STAGE, this.resetUser, this);
             this.once(eui.UIEvent.COMPLETE, this.createView, this);
         }
+         public childrenCreated() {
+            super.childrenCreated();
+            this.left = 0;
+            this.right = 0;
+            this.top = 0;
+            this.bottom = 0;
+        }
 
         public createCompleteEvent() {
             this.skinName = "skins.LobbySkin";

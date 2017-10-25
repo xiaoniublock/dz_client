@@ -1,18 +1,25 @@
 
 module game {
 
-    export class AppContainer extends egret.Sprite {
+    export class AppContainer extends eui.Component {
         public lobbyScreen: LobbyScreen = new LobbyScreen();
         public gameScreen: GameScreen = new GameScreen();
         public loadingScreen: LoadScreen = new LoadScreen();
-        public loadAndLoadScreen:LoadAndLoginScreen=new LoadAndLoginScreen();
+        public loadAndLoadScreen: LoadAndLoginScreen = new LoadAndLoginScreen();
         public currentScreen: string;
 
         public constructor() {
             super();
         }
+        public childrenCreated() {
+            super.childrenCreated();
+            this.left = 0;
+            this.right = 0;
+            this.top = 0;
+            this.bottom = 0;
+        }
 
-         public enterLoadAndLoginScreen() {
+        public enterLoadAndLoginScreen() {
             console.warn("进入加载登录页");
             this.currentScreen = "loadAndLoadScreen";
             this.removeChildren();

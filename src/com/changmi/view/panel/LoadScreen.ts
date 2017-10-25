@@ -12,6 +12,14 @@ module game {
 			ApplicationFacade.getInstance().registerMediator(new LoadMediator(this));
 		}
 
+		 public childrenCreated() {
+            super.childrenCreated();
+            this.left = 0;
+            this.right = 0;
+            this.top = 0;
+            this.bottom = 0;
+        }
+
 		public createCompleteEvent() {
 			this.skinName = "skins.LoadingToDeskSkin";
 			this.startrotateAndChangeSource();

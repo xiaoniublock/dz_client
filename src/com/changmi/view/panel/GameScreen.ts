@@ -46,6 +46,13 @@ module game {
             this.once(egret.Event.ADDED_TO_STAGE, this.initialize, this)
             // this.addEventListener(egret.Event.ADDED_TO_STAGE, this.beginAnimation, this);
         }
+         public childrenCreated() {
+            super.childrenCreated();
+            this.left = 0;
+            this.right = 0;
+            this.top = 0;
+            this.bottom = 0;
+        }
         private initialize() {
             ApplicationFacade.getInstance().registerMediator(new GameMediator(this));
         }
