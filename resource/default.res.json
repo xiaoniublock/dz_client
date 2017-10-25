@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,lobby_json,lobbyScreenBackground_png,lobbyscreen,game_background_png,gamescreen,RangeMoneyGold_png,board_1,board_2,board_3,board_4,poker_bg_png,poker_bg2_png,ic_background loding_png,bg_lobby,lobbyBtnDown,loginResource_json,bg_edittext_png,progressArc_png,undefineHeadIcon_jpg,loading_run,girl_allin_mp3,girl_discard_mp3,girl_plus_mp3,girl_with_mp3,male_allin_mp3,male_discard_mp3,male_plus_mp3,male_with_mp3,bg_lobby_mp3,all_buttons_mp3,card_rotation_mp3,countdown_reminder_mp3,Licensing_mp3,remind_me_mp3,wager_sound_mp3",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,lobby_json,lobbyScreenBackground_png,lobbyscreen,game_background_png,gamescreen,RangeMoneyGold_png,board_1,board_2,board_3,board_4,poker_bg_png,poker_bg2_png,ic_background loding_png,bg_lobby,lobbyBtnDown,loginResource_json,bg_edittext_png,progressArc_png,undefineHeadIcon_jpg,loading_run",
 			"name": "preload"
 		},
 		{
@@ -9,7 +9,7 @@
 			"name": "loading"
 		},
 		{
-			"keys": "bg_lobby_mp3,all_buttons_mp3,wager_sound_mp3,remind_me_mp3,Licensing_mp3,countdown_reminder_mp3,card_rotation_mp3,male_with_mp3,male_plus_mp3,male_discard_mp3,male_allin_mp3,girl_with_mp3,girl_plus_mp3,girl_discard_mp3,girl_allin_mp3",
+			"keys": "bg_lobby_mp3,all_buttons_mp3,wager_sound_mp3,remind_me_mp3,Licensing_mp3,countdown_reminder_mp3,card_rotation_mp3,male_with_mp3,male_plus_mp3,male_discard_mp3,male_allin_mp3,girl_with_mp3,girl_plus_mp3,girl_discard_mp3,girl_allin_mp3,too_mp3,puls_Sound_mp3,Jackpot_long_mp3,Jackpot_short_mp3",
 			"name": "sound"
 		}
 	],
@@ -347,6 +347,26 @@
 			"url": "assets/Sound/prompt_sound/wager_sound.mp3",
 			"type": "sound",
 			"name": "wager_sound_mp3"
+		},
+		{
+			"url": "assets/Sound/Voice/too.mp3",
+			"type": "sound",
+			"name": "too_mp3"
+		},
+		{
+			"url": "assets/Sound/prompt_sound/puls_Sound.mp3",
+			"type": "sound",
+			"name": "puls_Sound_mp3"
+		},
+		{
+			"url": "assets/Sound/prompt_sound/Jackpot_long.mp3",
+			"type": "sound",
+			"name": "Jackpot_long_mp3"
+		},
+		{
+			"url": "assets/Sound/prompt_sound/Jackpot_short.mp3",
+			"type": "sound",
+			"name": "Jackpot_short_mp3"
 		}
 	]
 }

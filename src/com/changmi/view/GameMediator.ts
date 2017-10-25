@@ -246,8 +246,7 @@ module game {
                     SoundManager.getIns().playSound("male_with_mp3");
                     break;
                 case GameProxy.CHECK:
-                    //暂无让牌语音
-                    // SoundManager.getIns().playSound("male_with_mp3");
+                    SoundManager.getIns().playSound("too_mp3");
                     break;
             }
         }

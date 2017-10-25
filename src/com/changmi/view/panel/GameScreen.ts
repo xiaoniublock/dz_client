@@ -264,6 +264,7 @@ module game {
         }
 
         private onVSLiderChange(e: egret.Event) {
+            SoundManager.getIns().playSound("puls_Sound_mp3");
             var scale = (this.RangeMoneySlider.pendingValue - this.RangeMoneySlider.minimum) / (this.RangeMoneySlider.maximum - this.RangeMoneySlider.minimum);
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0,
                 30 + (1 - scale) * this.RangeMoneySlider.height * 0.82,
