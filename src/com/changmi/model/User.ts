@@ -246,7 +246,6 @@ class User extends eui.Component {
 			SoundManager.getIns().playSound("countdown_reminder_mp3");
 		}
 		if (this.angle < 1) {
-			this.angle = 1000;
 			this.removeEventListener(egret.Event.ENTER_FRAME, this.frameFun, this);
 		}
 		this.shape.graphics.clear();
