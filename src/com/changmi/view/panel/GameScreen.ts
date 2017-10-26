@@ -430,6 +430,10 @@ module game {
                 }
             }
 
+            if (chipArray.length == 0) {
+                return;
+            }
+
             var timer = new egret.Timer(100, chipArray.length);
             timer.addEventListener(egret.TimerEvent.TIMER, giveChip, this);
             timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, timerComplete, this);
@@ -441,6 +445,11 @@ module game {
             function giveChip() {
                 if (timer.currentCount == 0) {
                     return;
+                }
+                console.log(timer.currentCount);
+                
+                if (timer.currentCount % 5 == 1) {
+                    SoundManager.getIns().playSound("Jackpot_short_mp3");
                 }
                 this.giveChipAnimation(this.users[userPosition].x, this.users[userPosition].y, chipArray[timer.currentCount - 1]);
             }
