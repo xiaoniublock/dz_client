@@ -143,6 +143,7 @@ module game {
         public addOneUserAction(user: User) {
             var index = user.seat;
             this.users[index].name = user.name;
+            this.users[index].uId = user.uId;
             this.users[index].money = user.money;
             this.users[index].cardNum = 0;
             this.users[index].angle = 1000;

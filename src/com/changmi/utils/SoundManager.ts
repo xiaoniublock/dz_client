@@ -10,6 +10,7 @@ class SoundManager {
     private _bgC: egret.SoundChannel;
     private _durTDic: CustomMap = new CustomMap();
     private _soundDic: CustomMap = new CustomMap();
+    private _soundMap: CustomMap = new CustomMap();
 
     public constructor() {
     }
@@ -47,12 +48,13 @@ class SoundManager {
         egret.Tween.get(this._bgC).to({ volume: 0.5 }, 3000);
     }
 
-    public stopBg(){
-         if (this._bgC) {
+    public stopBg() {
+        if (this._bgC) {
             egret.Tween.removeTweens(this._bgC);
-            this._nowBg="";
+            this._nowBg = "";
             try {
                 this._bgC.stop();
+
             } catch (e) {
 
             }
@@ -104,6 +106,9 @@ class SoundManager {
                 return;
             this._durTDic.add(mp3, t);
         }
+        if(this._soundMap.get(mp3)!=null){
+            (<egret.Sound>this._soundMap.get(mp3)).play(0,1).volume=toV;
+        }else{
         var sd: egret.Sound = RES.getRes(mp3);
         if (!sd)
             return;
@@ -111,6 +116,8 @@ class SoundManager {
         if (cc == null)
             return;
         cc.volume = toV;
+        this._soundMap.add(mp3,sd);
+        }
     }
 
     /**
@@ -131,5 +138,5 @@ class SoundManager {
     public getBGMValue(): number {
         return this._bgC.volume;
     }
-    
+
 }

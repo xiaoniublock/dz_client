@@ -242,6 +242,7 @@ class User extends eui.Component {
 			this.resetProgressCircle();
 		}
 		if (this.angle == 667) {
+			if(this.uId==UserUtils.getInstance().getOwnUser().uId)
 			SoundManager.getIns().playSound("countdown_reminder_mp3");
 		}
 		if (this.angle < 1) {
