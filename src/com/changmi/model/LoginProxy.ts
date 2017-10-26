@@ -50,6 +50,7 @@ module game {
                         user.money = data.content.money;
                         UserUtils.getInstance().saveOwnUser(user);
                         this.sendNotification(LoadAndLoginMediator.TOURIST_LOGIN);
+                        NetController.getInstance().close(NetController.LOGINSOCKET);
                     }
                 }
             }
