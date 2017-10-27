@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,lobby_json,lobbyScreenBackground_png,lobbyscreen,game_background_png,gamescreen,RangeMoneyGold_png,board_1,board_2,board_3,board_4,poker_bg_png,poker_bg2_png,ic_background loding_png,bg_lobby,lobbyBtnDown,loginResource_json,bg_edittext_png,progressArc_png,undefineHeadIcon_jpg,loading_run",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,egret_icon_png,description_json,game_background_png,gamescreen,RangeMoneyGold_png,board_1,board_2,board_3,board_4,poker_bg_png,poker_bg2_png,ic_background loding_png,loginResource_json,bg_edittext_png,progressArc_png,undefineHeadIcon_jpg,loading_run,recharge,lobbyUi",
 			"name": "preload"
 		},
 		{
@@ -9,7 +9,7 @@
 			"name": "loading"
 		},
 		{
-			"keys": "bg_lobby_mp3,all_buttons_mp3,wager_sound_mp3,remind_me_mp3,Licensing_mp3,countdown_reminder_mp3,card_rotation_mp3,male_with_mp3,male_plus_mp3,male_discard_mp3,male_allin_mp3,girl_with_mp3,girl_plus_mp3,girl_discard_mp3,girl_allin_mp3,too_mp3,puls_Sound_mp3,Jackpot_long_mp3,Jackpot_short_mp3",
+			"keys": "bg_lobby_mp3,all_buttons_mp3,wager_sound_mp3,remind_me_mp3,Licensing_mp3,countdown_reminder_mp3,card_rotation_mp3,male_with_mp3,male_plus_mp3,male_discard_mp3,male_allin_mp3,girl_with_mp3,girl_plus_mp3,girl_discard_mp3,girl_allin_mp3,too_mp3,Jackpot_long_mp3,Jackpot_short_mp3,disappear_mp3,appear_mp3,puls_Sound_mp3",
 			"name": "sound"
 		}
 	],
@@ -130,11 +130,6 @@
 			"name": "track_sb_png"
 		},
 		{
-			"url": "assets/bg.jpg",
-			"type": "image",
-			"name": "bg_jpg"
-		},
-		{
 			"url": "assets/egret_icon.png",
 			"type": "image",
 			"name": "egret_icon_png"
@@ -143,23 +138,6 @@
 			"url": "config/description.json",
 			"type": "json",
 			"name": "description_json"
-		},
-		{
-			"url": "assets/dz/lobby.json",
-			"type": "sheet",
-			"name": "lobby_json",
-			"subkeys": "activity_png,add_png,background_png,bottom_background_png,game_png,gold_png,mailbox_png,match_png,ranking_png,setting_png,shopping_png,start_png"
-		},
-		{
-			"url": "assets/lobbyScreenBackground.png",
-			"type": "image",
-			"name": "lobbyScreenBackground_png"
-		},
-		{
-			"url": "assets/lobbyscreen.json",
-			"type": "sheet",
-			"name": "lobbyscreen",
-			"subkeys": "Gold,Ranking,Set_up,Shopping,activity,bottom_background,game,mailbox,match,plus,start"
 		},
 		{
 			"url": "assets/game_background.png",
@@ -235,17 +213,6 @@
 			"url": "assets/ic_background loding.png",
 			"type": "image",
 			"name": "ic_background loding_png"
-		},
-		{
-			"url": "assets/dz/bg_lobby.jpg",
-			"type": "image",
-			"name": "bg_lobby"
-		},
-		{
-			"url": "assets/lobbyBtnDown.json",
-			"type": "sheet",
-			"name": "lobbyBtnDown",
-			"subkeys": "ic_activity_down,ic_game_down,ic_mailbox_down,ic_match_down,ic_plus_down,ic_ranking_down,ic_set_up_down,ic_start_down"
 		},
 		{
 			"url": "assets/LoadUI/loginResource.json",
@@ -354,11 +321,6 @@
 			"name": "too_mp3"
 		},
 		{
-			"url": "assets/Sound/prompt_sound/puls_Sound.mp3",
-			"type": "sound",
-			"name": "puls_Sound_mp3"
-		},
-		{
 			"url": "assets/Sound/prompt_sound/Jackpot_long.mp3",
 			"type": "sound",
 			"name": "Jackpot_long_mp3"
@@ -367,6 +329,33 @@
 			"url": "assets/Sound/prompt_sound/Jackpot_short.mp3",
 			"type": "sound",
 			"name": "Jackpot_short_mp3"
+		},
+		{
+			"url": "assets/LobbyUI/recharge.json",
+			"type": "sheet",
+			"name": "recharge",
+			"subkeys": "bg_frame,bg_recharge,btn_coin_30,btn_coin_30_click,btn_coin_6,btn_coin_64,btn_coin_64_click,btn_coin_6_click,btn_diamond_100,btn_diamond_100_click,btn_diamond_30,btn_diamond_30_click,btn_diamond_360,btn_diamond_360_click,coin_buy,coin_conver,ic_diamond_300.png,ic_diamond_60,ic_diamond_640.png,ic_gold_100000,ic_gold_30000,ic_gold_360000"
+		},
+		{
+			"url": "assets/LobbyUI/lobbyUi.json",
+			"type": "sheet",
+			"name": "lobbyUi",
+			"subkeys": "bg_bottom,bg_diamonds,bg_gold,bg_lobby,ic_Ranking,ic_activity,ic_activity_click,ic_add_to,ic_add_to_click,ic_fd,ic_fd.click,ic_friends,ic_friends_click,ic_game,ic_game_click,ic_mailbox,ic_mailbox_click,ic_match,ic_match_click,ic_ranking_click,ic_set_up,ic_set_up_click,ic_shopping,ic_start,ic_start_click"
+		},
+		{
+			"name": "disappear_mp3",
+			"type": "sound",
+			"url": "assets/Sound/prompt_sound/disappear.mp3"
+		},
+		{
+			"name": "appear_mp3",
+			"type": "sound",
+			"url": "assets/Sound/prompt_sound/appear.mp3"
+		},
+		{
+			"name": "puls_Sound_mp3",
+			"type": "sound",
+			"url": "assets/Sound/prompt_sound/puls_Sound.mp3"
 		}
 	]
 }

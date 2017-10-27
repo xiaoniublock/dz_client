@@ -1,82 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="skins.LobbySkin" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image width="100%" height="100%"  anchorOffsetX="0" anchorOffsetY="0" source="bg_lobby" />
-	<e:Button id="btn_start" width="471" height="206" top="10" right="43" anchorOffsetX="0" anchorOffsetY="0" name="quickStart">
+<e:Skin class="skins.LobbySkin" width="1334" height="750" currentState="normal" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*"  states="normal,diamond_buy,coin_conver" >
+	<w:Declarations>
+		<tween:TweenGroup id="recharge">
+			<tween:TweenItem target="{group}">
+				<tween:Set>
+					<tween:props>
+						<e:Object scaleX="{0.5}" scaleY="{0.5}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:To duration="100">
+					<tween:props>
+						<e:Object scaleX="{1}" scaleY="{1}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+	</w:Declarations>
+	<e:Image width="100%" height="100%"  anchorOffsetX="0" anchorOffsetY="0"  source="lobbyUi.bg_lobby"/>
+	<e:Button id="btn_start" width="386" height="456" anchorOffsetX="0" anchorOffsetY="0" name="quickStart" x="80" y="80" label="">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
-				<e:Image width="100%" height="100%" source="lobby_json.start_png" source.down="lobbyBtnDown.ic_start_down" />
-				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
-			</e:Skin>
-		</e:skinName>
-	</e:Button>
-	<e:Button id="btn_game" width="471" height="206" top="216" right="43" anchorOffsetX="0" anchorOffsetY="0" name="game">
-		<e:skinName>
-			<e:Skin states="up,down,disabled">
-				<e:Image width="100%" height="100%" source="lobby_json.game_png" source.down="lobbyBtnDown.ic_game_down" />
-				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
-			</e:Skin>
-		</e:skinName>
-	</e:Button>
-	<e:Button id="btn_match" width="471" height="206" top="432" right="43" anchorOffsetX="0" anchorOffsetY="0">
-		<e:skinName>
-			<e:Skin states="up,down,disabled">
-				<e:Image width="100%" height="100%" source="lobby_json.match_png" />
-				<e:Image width="100%" height="100%" source="lobbyBtnDown.ic_match_down" includeIn="down" />
-				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
-			</e:Skin>
-		</e:skinName>
-	</e:Button>
-	<e:Image width="1011" height="110" left="161" right="161" source="lobbyscreen.bottom_background" bottom="0" />
-	<e:Image id="image_icon" width="130" height="130" left="210" bottom="24"  source="undefineHeadIcon_jpg"/>
-	<e:Label id="text_username" text="萧新一" width="120" bottom="60" left="370" size="20" bold="true" textAlign="center"
-	         verticalAlign="middle" height="29" />
-	<e:Image id="image_gold" width="42" height="42" left="333" bottom="8" source="lobbyscreen.Gold" />
-	<e:Label id="text_count" text="10000000" left="358" bottom="8" size="20" backgroundColor="0x000000"
-	         verticalAlign="middle" textAlign="center" width="138" height="37" />
-	<e:Button id="image_plus" width="42" height="42" left="480" bottom="8"  >
-		<e:skinName>
-			<e:Skin states="up,down,disabled">
-			<e:Image width="100%" height="100%" source="lobbyscreen.plus" source.down="lobbyBtnDown.ic_plus_down"/>
+			<e:Image width="100%" height="100%" source="lobbyUi.ic_start" source.down="lobbyUi.ic_start_click"/>
 			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
 			</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Button id="btn_activity" width="53" height="53" left="565" bottom="34">
-		<e:skinName>
-			<e:Skin states="up,down,disabled">
-			<e:Image width="100%" height="100%" source="lobbyscreen.activity" source.down="lobbyBtnDown.ic_activity_down"/>
-			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
-			</e:Skin>
-		</e:skinName>
 
-	</e:Button>
-	<e:Label text="活动" size="20" width="53" height="24" left="566" bottom="8" textAlign="center" />
-	<e:Button id="btn_emailBox" width="53" height="53" left="685" bottom="34"  >
+	<e:Button id="btn_game" width="340" height="456" anchorOffsetX="0" anchorOffsetY="0" name="game_match" x="480" y="80">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
-			<e:Image width="100%" height="100%" source="lobbyscreen.mailbox" source.down="lobbyBtnDown.ic_mailbox_down"/>
+			<e:Image width="100%" height="100%" source="lobbyUi.ic_match" source.down="lobbyUi.ic_match_click"/>
 			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
 			</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Label text="邮箱" size="20" width="53" height="24" left="685" bottom="8" textAlign="center" />
-	<e:Button id="btn_rank" width="53" height="53" left="809" bottom="34" >
+
+	<e:Button id="btn_match" width="413" height="220" anchorOffsetX="0" anchorOffsetY="0" x="822" y="80" name="game">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
-			<e:Image width="100%" height="100%" source="lobbyscreen.Ranking" source.down="lobbyBtnDown.ic_ranking_down"/>
+			<e:Image width="100%" height="100%" source="lobbyUi.ic_game" source.down="lobbyUi.ic_game_click"/>
 			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
 			</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Label text="排行" size="20" width="53" height="24" left="809" bottom="8" textAlign="center" />
-	<e:Button id="btn_setting" width="53" height="53" left="925" bottom="35"  >
+
+	
+	<e:Button id="btn_friendsGame" width="413" height="220" anchorOffsetX="0" anchorOffsetY="0" x="822" y="312" name="friends_game">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
-			<e:Image width="100%" height="100%" source="lobbyscreen.Set_up" source.down="lobbyBtnDown.ic_set_up_down"/>
+			<e:Image width="100%" height="100%" source="lobbyUi.ic_friends" source.down="lobbyUi.ic_friends_click"/>
 			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
 			</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Label text="设置" size="20" width="53" height="24" left="926" bottom="8" textAlign="center" />
-	<e:Image id="btn_shop" width="240" height="111" source="lobbyscreen.Shopping" bottom="0" right="96" />
+
+	<e:Image width="100%" height="110"  bottom="0"  source="lobbyUi.bg_bottom"/>
+	<e:Image id="image_icon" width="150" height="150" left="54" bottom="46"  source="undefineHeadIcon_jpg"/>
+	<e:Label id="text_username" text="萧新一" width="150" bottom="8" left="54" size="20" bold="true" textAlign="center"            verticalAlign="middle" height="29"  fontFamily="SimHei"/>
+	<e:Image id="image_diamonds" width="214" height="45" left="204" bottom="52" source="lobbyUi.bg_diamonds" />
+	<e:Label id="text_diamonds_count" text="10000000" left="237" bottom="56" size="20" backgroundColor="0x000000"
+	         verticalAlign="middle" textAlign="center" width="138" height="37"  text.normal="0"/>
+	<e:Button id="btn_diamonds_plus" width="43" height="33" left="366" bottom="58"   anchorOffsetY="0" anchorOffsetX="0" name.normal="btn_diamonds_plus">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="lobbyUi.ic_add_to" source.down="lobbyUi.ic_add_to_click"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+
+
+	<e:Image id="image_gold" width="214" height="45" left="204" bottom="8" source="lobbyUi.bg_gold" />
+	<e:Label id="text_gold_count" text="10000000" left="237" bottom="12" size="20" backgroundColor="0x000000"
+	         verticalAlign="middle" textAlign="center" width="138" height="37" />
+	<e:Button id="btn_gold_plus" width="43" height="33" left="364" bottom="14"   anchorOffsetY="0" anchorOffsetX="0" name.normal="btn_gold_plus">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="lobbyUi.ic_add_to" source.down="lobbyUi.ic_add_to_click"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+
+	<e:Button id="btn_activity" width="56" height="56" left="478" bottom="38">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="lobbyUi.ic_activity" source.down="lobbyUi.ic_activity_click"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Label text="活动" size="20" width="56" height="24" left="478" bottom="8" textAlign="center"  fontFamily="SimHei"/>
+
+	<e:Button id="btn_emailBox" width="56" height="56" left="600" bottom="38"  >
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="lobbyUi.ic_mailbox" source.down="lobbyUi.ic_mailbox_click"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Label text="邮箱" size="20" width="56" height="24" left="600" bottom="8" textAlign="center"  fontFamily="SimHei"/>
+
+	<e:Button id="btn_rank" width="56" height="56" left="725" bottom="38" >
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="lobbyUi.ic_Ranking" source.down="lobbyUi.ic_ranking_click"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Label text="排行" size="20" width="56" height="24" left="725" bottom="8" textAlign="center"  fontFamily="SimHei"/>
+
+	<e:Button id="btn_friends" width="56" height="56" left="846" bottom="38" >
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="lobbyUi.ic_fd" source.down="lobbyUi.ic_fd.click"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Label text="好友" size="20" width="56" height="24" left="846" bottom="8" textAlign="center"  fontFamily="SimHei"/>
+
+	<e:Button id="btn_setting" width="56" height="56" left="972" bottom="38"  >
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="lobbyUi.ic_set_up" source.down="lobbyUi.ic_set_up_click"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Label text="设置" size="20" width="56" height="24" left="972" bottom="8" textAlign="center"  fontFamily="SimHei"/>
+
+	<e:Image id="btn_shop" width="267" height="130" source="lobbyUi.ic_shopping" bottom="20" right="30" />
+	<e:Label text="12345678" x="213" y="449" anchorOffsetX="0" width="146" anchorOffsetY="0" height="39" verticalAlign="middle" textAlign="center" fontFamily="Tahoma"/>
+	<e:Label text="23456123" x="589" y="453.5" verticalAlign="middle" textAlign="center" fontFamily="Tahoma"/>
+	<e:Label text="12345511" x="1053.5" y="453.5" textAlign="center" verticalAlign="middle" fontFamily="Tahoma"/>
+	<e:Label text="1255456" x="1053.5" y="229" verticalAlign="middle" textAlign="center" fontFamily="Tahoma"/>
+	<e:Image width="100%" height="100%" includeIn="diamond_buy,coin_conver" x="0" y="0" source="recharge.bg_recharge"/>
+	<e:Group id="group" width="990" height="550" includeIn="diamond_buy,coin_conver" y="94" horizontalCenter="0" verticalCenter="0">
+		<e:Image id="image" width="100%" height="100%"  source="recharge.bg_frame" horizontalCenter="0" y="0" x="0" scaleX="1" scaleY="1"/>
+		<e:Image width="242" height="60"  y="22" source="recharge.coin_buy" horizontalCenter="0" source.coin_conver="recharge.coin_conver"/>
+		<e:Image width="272" height="417"  x="42" y="120" source="recharge.ic_diamond_60" source.coin_conver="recharge.ic_gold_30000"/>
+		<e:Image width="272" height="417" x="356" y="120" source="recharge.ic_diamond_300.png" source.coin_conver="recharge.ic_gold_100000"/>
+		<e:Image width="272" height="417" x="666" y="120" source="recharge.ic_diamond_640.png" source.coin_conver="recharge.ic_gold_360000"/>
+		<e:Button label="" includeIn="coin_conver" x="80" y="430" bottom="40">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="recharge.btn_diamond_30" source.down="recharge.btn_diamond_30_click"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button label="" includeIn="coin_conver" x="394" y="432" bottom="40">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="recharge.btn_diamond_100" source.down="recharge.btn_diamond_100_click"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button label="" includeIn="coin_conver" x="707" y="431" bottom="40">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="recharge.btn_diamond_360" source.down="recharge.btn_diamond_360_click"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button label="" x="76" y="435" bottom="40" includeIn="diamond_buy">
+			<e:skinName>
+				<e:Skin states="up,down,disabled" xmlns:w="http://ns.egret.com/wing">
+				<e:Image width="100%" height="100%" source="recharge.btn_coin_6" source.down="recharge.btn_coin_6_click"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button label="" x="397" y="446" bottom="40" includeIn="diamond_buy">
+			<e:skinName>
+				<e:Skin states="up,down,disabled" xmlns:w="http://ns.egret.com/wing">
+				<e:Image width="100%" height="100%" source="recharge.btn_coin_30" source.down="recharge.btn_coin_30_click"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button label="" x="707" y="456" bottom="40" includeIn="diamond_buy">
+			<e:skinName>
+				<e:Skin states="up,down,disabled" xmlns:w="http://ns.egret.com/wing">
+				<e:Image width="100%" height="100%" source="recharge.btn_coin_64" source.down="recharge.btn_coin_64_click"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Image id="btn_close" width="64" height="64" x="1119.5" y="62" source="loginResource_json.ic_close" includeIn="diamond_buy,coin_conver" name.diamond_buy="btn_close" name.coin_conver="btn_close" x.diamond_buy="915.5" y.diamond_buy="4" scaleX.diamond_buy="1" scaleY.diamond_buy="1" x.coin_conver="915.5" y.coin_conver="4"/>
+	</e:Group>
+
+	
 </e:Skin>

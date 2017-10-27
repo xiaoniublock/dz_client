@@ -1,9 +1,0 @@
-{"file":"lobbyBtnDown.png","frames":{
-"ic_start_down":{"x":474,"y":1,"w":471,"h":206,"offX":0,"offY":0,"sourceW":471,"sourceH":206},
-"ic_game_down":{"x":1,"y":209,"w":471,"h":204,"offX":0,"offY":2,"sourceW":471,"sourceH":206},
-"ic_match_down":{"x":1,"y":1,"w":471,"h":206,"offX":0,"offY":0,"sourceW":471,"sourceH":206},
-"ic_activity_down":{"x":947,"y":1,"w":51,"h":51,"offX":1,"offY":0,"sourceW":53,"sourceH":53},
-"ic_mailbox_down":{"x":947,"y":155,"w":51,"h":38,"offX":1,"offY":10,"sourceW":53,"sourceH":53},
-"ic_ranking_down":{"x":947,"y":103,"w":43,"h":50,"offX":5,"offY":1,"sourceW":53,"sourceH":53},
-"ic_set_up_down":{"x":947,"y":54,"w":47,"h":47,"offX":3,"offY":2,"sourceW":53,"sourceH":53},
-"ic_plus_down":{"x":947,"y":195,"w":40,"h":40,"offX":1,"offY":2,"sourceW":42,"sourceH":42}}}

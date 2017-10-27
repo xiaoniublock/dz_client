@@ -5,26 +5,37 @@ module game {
         public btn_start: eui.Button;
         public btn_match: eui.Button;
         public btn_game: eui.Button;
+        public btn_friendsGame: eui.Button;
 
         public image_icon: eui.Image;
         public text_username: eui.Label;
-        public image_gold: eui.Image;
-        public text_count: eui.Label;
-        public image_plus: eui.Image;
+
+
+        public text_diamonds_count: eui.Label;
+        public text_gold_count: eui.Label;
+
+        public btn_diamonds_plus: eui.Button;
+        public btn_gold_plus: eui.Button;
+
+        public btn_close: eui.Button;
 
         public btn_activity: eui.Button;
         public btn_emailBox: eui.Button;
         public btn_rank: eui.Button;
+        public btn_friends: eui.Button;
         public btn_setting: eui.Button;
 
         public btn_shop: eui.Image;
+
+        public recharge: egret.tween.TweenGroup;
+
         public constructor() {
             super();
             this.once(egret.Event.ADDED_TO_STAGE, this.createCompleteEvent, this);
             this.once(egret.Event.ADDED_TO_STAGE, this.resetUser, this);
             this.once(eui.UIEvent.COMPLETE, this.createView, this);
         }
-         public childrenCreated() {
+        public childrenCreated() {
             super.childrenCreated();
             this.left = 0;
             this.right = 0;
@@ -35,12 +46,12 @@ module game {
         public createCompleteEvent() {
             this.skinName = "skins.LobbySkin";
             ApplicationFacade.getInstance().registerMediator(new LobbyMediator(this));
-            
+
         }
 
-        public resetUser(){
+        public resetUser() {
             this.text_username.text = UserUtils.getInstance().getOwnUser().name;
-            this.text_count.text = "" + UserUtils.getInstance().getOwnUser().money;
+            this.text_gold_count.text = "" + UserUtils.getInstance().getOwnUser().money;
         }
 
         private createView(): void {
@@ -56,11 +67,11 @@ module game {
             var knockout: boolean = false;            /// 指定对象是否具有挖空效果
             var dropShadowFilter: egret.DropShadowFilter = new egret.DropShadowFilter(distance, angle, color, alpha, blurX, blurY,
                 strength, quality, inner, knockout);
-            this.image_icon.filters=[ dropShadowFilter ];
+            this.image_icon.filters = [dropShadowFilter];
 
             var circle: egret.Shape = new egret.Shape();
             circle.graphics.beginFill(0x00ff00);
-            circle.graphics.drawCircle(this.image_icon.left+65,this.stage.stageHeight-this.image_icon.bottom-65, 65);
+            circle.graphics.drawCircle(this.image_icon.left + 75, this.stage.stageHeight - this.image_icon.bottom - 75, 75);
             circle.graphics.endFill();
             // this.addChild(circle);
             this.image_icon.mask = circle;
