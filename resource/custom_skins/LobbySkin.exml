@@ -58,8 +58,8 @@
 	<e:Image id="image_icon" width="150" height="150" left="54" bottom="46"  source="undefineHeadIcon_jpg"/>
 	<e:Label id="text_username" text="萧新一" width="150" bottom="8" left="54" size="20" bold="true" textAlign="center"            verticalAlign="middle" height="29"  fontFamily="SimHei"/>
 	<e:Image id="image_diamonds" width="214" height="45" left="204" bottom="52" source="lobbyUi.bg_diamonds" />
-	<e:Label id="text_diamonds_count" text="10000000" left="237" bottom="56" size="20" backgroundColor="0x000000"
-	         verticalAlign="middle" textAlign="center" width="138" height="37"  text.normal="0"/>
+	<e:Label id="text_diamonds_count" text="0" left="237" bottom="56" size="20" backgroundColor="0x000000"
+	         verticalAlign="middle" textAlign="center" width="138" height="37" />
 	<e:Button id="btn_diamonds_plus" width="43" height="33" left="366" bottom="58"   anchorOffsetY="0" anchorOffsetX="0" name.normal="btn_diamonds_plus">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
