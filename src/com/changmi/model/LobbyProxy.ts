@@ -11,6 +11,7 @@ module game {
 
 		public refreshUserData() {
 			NetController.getInstance().addSocketStateListener(NetController.CONNECTSUCCEED, this.connectLoginSuccess, this);
+            NetController.getInstance().addSocketStateListener(NetController.CONNECTERROR, this.connectLoginFailure, this);
             if (NetController.getInstance().isConnected(NetController.LOGINSOCKET)) {
 				this.sendUpdateUserDataRequest();
 			} else {
@@ -27,12 +28,25 @@ module game {
             }
         }
 
+        public connectLoginFailure(evt: egret.Event) {
+            switch (evt.data) {
+                //匹配服务连接成功发送用户id
+                case "login":
+                    NetController.getInstance().removeSocketStateListener(NetController.CONNECTSUCCEED, this.connectLoginSuccess, this);
+                    NetController.getInstance().removeSocketStateListener(NetController.CONNECTERROR, this.connectLoginFailure, this);
+                    TextUtils.showTextTip("请求失败，嗷了个嗷！！！");
+                    this.sendNotification(LobbyMediator.REFRESH_USERDATA);
+                    break;
+            }
+        }
+
 		public sendUpdateUserDataRequest() {
 			var data: BaseMsg = new BaseMsg();
 			data.command = Commands.REFRESH_DATA;
 			data.content = { "uid" : UserUtils.getInstance().getOwnUser().uId};
 			NetController.getInstance().sendData(NetController.LOGINSOCKET, data);
             NetController.getInstance().removeSocketStateListener(NetController.CONNECTSUCCEED, this.connectLoginSuccess, this);
+            NetController.getInstance().removeSocketStateListener(NetController.CONNECTERROR, this.connectLoginFailure, this);
 		}
 
         /**收到服务器消息*/
@@ -42,7 +56,7 @@ module game {
             switch (command) {
                 //游客登录
                 case Commands.REFRESH_DATA: {
-                    if (data.content.uid) {
+                    if (data.content) {
                         UserUtils.getInstance().getOwnUser().name = data.content.name;
                         UserUtils.getInstance().getOwnUser().uId = data.content.uid;
                         UserUtils.getInstance().getOwnUser().money = data.content.money;

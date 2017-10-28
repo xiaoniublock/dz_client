@@ -69,7 +69,7 @@ module game {
             function sendCardToUserTimer() {
                 SoundManager.getIns().playSound("Licensing_mp3");
                 index++;
-                if (index == this.sendCardToUserTimer.repeatCount) {
+                if (index == this.sendCardToUserTimer.repeatCount || index % userCount >= UserUtils.getInstance().getUsers().length) {
                     return;
                 }
                 if (UserUtils.getInstance().getUserFromIndex(index % userCount).seat == 3) {
