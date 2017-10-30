@@ -446,7 +446,6 @@ module game {
                 if (timer.currentCount == 0) {
                     return;
                 }
-                console.log(timer.currentCount);
                 
                 if (timer.currentCount % 5 == 1) {
                     SoundManager.getIns().playSound("Jackpot_short_mp3");

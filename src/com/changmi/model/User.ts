@@ -219,7 +219,6 @@ class User extends eui.Component {
 
 	public startrotate(lastTime: number) {
 		this.angle = (30 - lastTime) * 1000 / 30;
-		this.stage.frameRate = 50;
 		this.addEventListener(egret.Event.ENTER_FRAME, this.frameFun, this);
 	}
 

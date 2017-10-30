@@ -40,6 +40,9 @@ class Main extends eui.UILayer {
     }
 
     protected init(event: egret.Event): void {
+        //初始化帧率
+        this.stage.frameRate = 50;
+
         //inject the custom material parser
         //注入自定义的素材解析器
         let assetAdapter = new AssetAdapter();

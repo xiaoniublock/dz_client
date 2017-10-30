@@ -28,7 +28,6 @@ module game {
 		public startrotateAndChangeSource() {
 			this.addEventListener(egret.Event.ENTER_FRAME, this.chipTurn, this);
 			this.addEventListener(egret.Event.ENTER_FRAME, this.loadingTurn, this);
-			this.stage.frameRate = 30;
 		}
 
 		public stoprotate() {
@@ -37,7 +36,7 @@ module game {
 		}
 
 		public chipTurn() {
-			var speed = 40;     //旋转速度，数字越小速度越快
+			var speed = 65;     //旋转速度，数字越小速度越快
 			var index = this.playCount % speed;
 			var angle1 = (index * Math.PI / (speed / 2));
 			var angle2 = (index + 1) * Math.PI / (speed / 2);

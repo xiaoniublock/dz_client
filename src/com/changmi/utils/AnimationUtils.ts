@@ -39,7 +39,7 @@ class AnimationUtils {
         if (num) {
             egret.setTimeout(function () {
                 this.changeLabelNumber(label, num);
-            }, this, Math.abs(num) <= 5 ? 250 : 80);
+            }, this, Math.abs(num) <= 5 ? 150 : 80);
         }
     }
 
