@@ -146,7 +146,7 @@ module game {
             this.users[index].uId = user.uId;
             this.users[index].money = user.money;
             this.users[index].cardNum = 0;
-            this.users[index].angle = 1000;
+            this.users[index].angle = 0;
             this.users[index].visible = true;
             this.chips[index].chipNum = user.stake;
             this.chips[index].isRight = (index == 0 || index == 1 || index == 2);

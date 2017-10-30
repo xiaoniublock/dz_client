@@ -316,7 +316,7 @@ module game {
                 case StateCode.PASSBET:
                     this.gameScreen.passBtn.label = "让    牌";
                     CachePool.addObj("action", Actions.pass);
-                    if (preAction && (preAction == Actions.autoPass || preAction == Actions.giveUpOrPass)) {
+                    if (preAction && (preAction == Actions.autoPass || preAction == Actions.giveUpOrPass || preAction == Actions.followAny)) {
                         this.passAction();
                         preActionIsExecute = true;
                     }
@@ -328,6 +328,9 @@ module game {
                     this.gameScreen.addChipBtn.touchEnabled = false;
                     if (preAction && (preAction == Actions.giveUpOrPass)) {
                         this.giveupAction();
+                        preActionIsExecute = true;
+                    } else if (preAction && (preAction == Actions.followAny)) {
+                        this.passAction();
                         preActionIsExecute = true;
                     }
                     break;
