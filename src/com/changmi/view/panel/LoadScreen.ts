@@ -53,7 +53,7 @@ module game {
 		}
 
 		public loadingTurn() {
-			var speed = 3;     //加点速度，每N帧1次
+			var speed = 5;     //加点速度，每N帧1次
 			this.loadLabel.text = "loading";
 			for (var i = 0; i < this.playCount % (5 * speed); i += speed) {
 				this.loadLabel.text += ".";

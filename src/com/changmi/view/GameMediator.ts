@@ -204,6 +204,8 @@ module game {
                                 this.gameScreen.showUserCards(userArray[i].holeCards, user.seat);
                                 //改牌型文本
                                 this.gameScreen.changeUserNameLabelToCardShape(CardResult[userArray[i].pokerType - 1], user.seat);
+                            } else {
+                                AnimationUtils.getInstance().changeLabelNumber(this.gameScreen["baseChipNum"], -userArray[i].winStake);
                             }
                         }
                         //显示高亮牌
