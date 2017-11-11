@@ -89,6 +89,7 @@ module game {
             SoundManager.getIns().playSound("all_buttons_mp3");
             console.warn("点击返回");
             this.sendNotification(ApplicationMediator.ENTER_LOBBY);
+            AnimationUtils.getInstance().removeAllAnimation();
             this.gameScreen.stopMyRotate();
             this.timer_3.stop();
 
@@ -164,55 +165,43 @@ module game {
                     break;
                 }
                 case GameProxy.POP_PUBLICCARD: {
-                    var timer: egret.Timer = new egret.Timer(1000, 1);
-                    timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
-                        this.gameScreen.sendMoneyAnimation();
-                        this.gameScreen.sendPublicCard(data.times);
-                        this.gameScreen.changePlayer("", data.nextplayer);
+                    this.gameScreen.sendMoneyAnimation();
+                    this.gameScreen.sendPublicCard(data.times);
+                    this.gameScreen.changePlayer("", data.nextplayer);
 
-                        CachePool.clear("ownBet");
-                        if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
-                            if (!this.changeBtnState(data.operator, 0)) {
-                                this.gameScreen.switchBottomState("first_Bet");
-                            }
-                        } else {
-                            this.gameScreen.switchBottomState("three_choose");
+                    CachePool.clear("ownBet");
+                    if (data.nextplayer == UserUtils.getInstance().getOwnUser().uId) {
+                        if (!this.changeBtnState(data.operator, 0)) {
+                            this.gameScreen.switchBottomState("first_Bet");
                         }
-                    }, this);
-                    timer.start();
+                    } else {
+                        this.gameScreen.switchBottomState("three_choose");
+                    }
                     break;
                 }
                 case GameProxy.RESULT: {
                     this.gameScreen.changeToNoBottom();
                     this.gameScreen.stopMyRotate();
-                    var timer: egret.Timer = new egret.Timer(1000, 1);
-                    timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
-                        this.gameScreen.sendMoneyAnimation();
-                        timer_2.start();
-                    }, this);
-
-                    var timer_2: egret.Timer = new egret.Timer(1000, 1);
-                    timer_2.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function () {
-                        var userArray: Array<any> = data.user;
-                        //给钱动画和显示手牌
-                        for (var i = 0; i < userArray.length; i++) {
-                            var user: User = UserUtils.getInstance().getUserFromUid(userArray[i].uid);
-                            if (user) {
-                                //给钱
-                                this.gameScreen.giveChipAction(userArray[i].winStake, user.seat);
-                                //显示手牌
-                                this.gameScreen.showUserCards(userArray[i].holeCards, user.seat);
-                                //改牌型文本
-                                this.gameScreen.changeUserNameLabelToCardShape(CardResult[userArray[i].pokerType - 1], user.seat);
-                            } else {
-                                AnimationUtils.getInstance().changeLabelNumber(this.gameScreen["baseChipNum"], -userArray[i].winStake);
-                            }
+                    this.gameScreen.sendMoneyAnimation();
+                    
+                    var userArray: Array<any> = data.user;
+                    //给钱动画和显示手牌
+                    for (var i = 0; i < userArray.length; i++) {
+                        var user: User = UserUtils.getInstance().getUserFromUid(userArray[i].uid);
+                        if (user) {
+                            //给钱
+                            this.gameScreen.giveChipAction(userArray[i].winStake, user.seat);
+                            //显示手牌
+                            this.gameScreen.showUserCards(userArray[i].holeCards, user.seat);
+                            //改牌型文本
+                            this.gameScreen.changeUserNameLabelToCardShape(CardResult[userArray[i].pokerType - 1], user.seat);
+                        } else {
+                            AnimationUtils.getInstance().changeLabelNumber(this.gameScreen["baseChipNum"], -userArray[i].winStake);
                         }
-                        //显示高亮牌
-                        this.gameScreen.showHeightLightPublicCard(data.bestGroup, data.user);
-                    }, this);
+                    }
+                    //显示高亮牌
+                    this.gameScreen.showHeightLightPublicCard(data.bestGroup, data.user);
 
-                    timer.start();
                     this.timer_3.reset();
                     this.timer_3.start();
                     break;
@@ -351,7 +340,7 @@ module game {
 
             var ownBet = CachePool.getObj("ownBet") ? CachePool.getObj("ownBet") : 0;
             var minimun = stake - ownBet;
-            var maximum = this.gameScreen.users[3].money > 5000 ? 5000 : this.gameScreen.users[3].money;
+            var maximum = this.gameScreen.users[3].money > 5000 + minimun ? 5000 + minimun : this.gameScreen.users[3].money;
             this.gameScreen.RangeMoneySlider.minimum = minimun;
             this.gameScreen.RangeMoneySlider.snapInterval = 100;
             this.gameScreen.RangeMoneySlider.maximum = maximum;
