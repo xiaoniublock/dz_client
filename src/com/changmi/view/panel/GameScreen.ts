@@ -59,39 +59,26 @@ module game {
 
         private sendCardToUserTimer: egret.Timer;
         public beginAnimation() {
-            var index = -1;
+            //测试
             var userCount = UserUtils.getInstance().getUsers().length;
-            this.sendCardToUserTimer = new egret.Timer(300, 2 * userCount);
-            this.sendCardToUserTimer.addEventListener(egret.TimerEvent.TIMER, sendCardToUserTimer, this);
-            this.sendCardToUserTimer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, sendCardToUserTimerOver, this);
-            this.sendCardToUserTimer.start();
-
-            function sendCardToUserTimer() {
-                SoundManager.getIns().playSound("Licensing_mp3");
-                index++;
-                if (index == this.sendCardToUserTimer.repeatCount || index % userCount >= UserUtils.getInstance().getUsers().length) {
-                    return;
+            for (var i = 0;i < 2 * userCount;i++) {
+                if (i == 8 * userCount || i % userCount >= UserUtils.getInstance().getUsers().length) {
+                    continue;
                 }
-                if (UserUtils.getInstance().getUserFromIndex(index % userCount).seat == 3) {
-                    this.sendOwnCard(index / userCount, UserUtils.getInstance().getOwnUser().cards.cards[parseInt("" + index / userCount)]);
-                    return;
+                if (UserUtils.getInstance().getUserFromIndex(i % userCount).seat == 3) {
+                    this.sendOwnCard(i / userCount, UserUtils.getInstance().getOwnUser().cards.cards[parseInt("" + i / userCount)]);
+                    continue;
                 }
-                var userSeat: number = UserUtils.getInstance().getUserFromIndex(index % userCount).seat;
+                var userSeat: number = UserUtils.getInstance().getUserFromIndex(i % userCount).seat;
                 var x: number = this.users[userSeat].x + 102 + 104; //一个是group的位置偏移，一个是user位置偏移
                 var y: number = this.users[userSeat].y + 47 + 64;
                 if (this.users[userSeat].visible) {  //如果这个位置有人
-                    this.cardAnimationWithOrigin(x, y, this.sendCardFinish, [userSeat]);
+                    AnimationUtils.getInstance().addAnimation(this.cardAnimationWithOrigin, [x, y, this.sendCardFinish , [userSeat]], this, 300);
                 }
-            }
-
-            function sendCardToUserTimerOver() {
-                //游戏开始
-                //this.sendPublicCard(1, CardUtils.getInstance().getPublicCards);
             }
         }
 
-        public sendCardFinish(index: number, card: eui.Image) {
-            this.removeChild(card);
+        public sendCardFinish(index: number) {
             this.users[index].cardNum++;
         }
 
@@ -117,22 +104,13 @@ module game {
                 card.createCardSource(CardUtils.getInstance().getPublicCard(i).index, CardUtils.getInstance().getPublicCard(i).color)
                 card.visible = true;
             }
-            // let card1: Card = new Card(5, 2);
-            // let card2: Card = new Card(5, 3);
-            // let cardGroup: Array<Card> = [];
-            // cardGroup.push(card1);
-            // cardGroup.push(card2);
-            // this.showPlayerCards("10089", cardGroup);
             this["baseChipNum"].text = CachePool.getObj("jackpot");
             this.RangeMoneySlider["change"].mask = new egret.Rectangle(0, 0, 0, 0);
             this.RangeMoneySlider.addEventListener(egret.Event.CHANGE, this.onVSLiderChange, this);
-
-            // this.sendPublicCard(1, CardUtils.getInstance().getPublicCards());
         }
 
-        public sendCard(card: Card, card1: eui.Image) {
+        public sendCard(card: Card) {
             SoundManager.getIns().playSound("card_rotation_mp3");
-            this.removeChild(card1);
             card.visible = true;
             card.startrotateAndChangeSource();
         }
@@ -173,9 +151,7 @@ module game {
                         let card = (<Card>this.publicCardsGroup.getChildAt(i));
                         card.index = cards[i].index;
                         card.color = cards[i].color;
-                        egret.setTimeout(function (card: Card) {
-                            this.cardAnimationWithOrigin(this.publicCardsGroup.x + card.x, this.publicCardsGroup.y + card.y, this.sendCard, [card]);
-                        }, this, i * 300, card);
+                        AnimationUtils.getInstance().addAnimation(this.cardAnimationWithOrigin, [this.publicCardsGroup.x + card.x, this.publicCardsGroup.y + card.y, this.sendCard, [card]], this, 300);
                     }
                     break;
                 }
@@ -185,7 +161,7 @@ module game {
                     let card = (<Card>this.publicCardsGroup.getChildAt(index));
                     card.index = cards[index].index;
                     card.color = cards[index].color;
-                    this.cardAnimationWithOrigin(this.publicCardsGroup.x + card.x, this.publicCardsGroup.y + card.y, this.sendCard, [card]);
+                    AnimationUtils.getInstance().addAnimation(this.cardAnimationWithOrigin, [this.publicCardsGroup.x + card.x, this.publicCardsGroup.y + card.y, this.sendCard, [card]], this, 300);
                     break;
                 }
 
@@ -207,9 +183,9 @@ module game {
             let card = (<Card>this.userCardsGroup.getChildAt(index));
             card.index = data.index;
             card.color = data.color;
-            this.cardAnimationWithOrigin(this.userCardsGroup.x + card.x, this.userCardsGroup.y + card.y, this.sendCard, [card]);
+            AnimationUtils.getInstance().addAnimation(this.cardAnimationWithOrigin, [this.userCardsGroup.x + card.x, this.userCardsGroup.y + card.y, this.sendCard, [card]], this, 300);
         }
-        /**
+        /** 
          * 隐藏玩家手牌
          */
         public hideOwnCards() {
@@ -285,15 +261,18 @@ module game {
 
         //收钱动画
         public sendMoneyAnimation() {
-            for (var i = 0; i < 7; i++) {
-                if (this.chips[i].chipNum != 0) {
-                    this.chips[i].gotoBaseAnimation(this["baseChipNum"]);
+            AnimationUtils.getInstance().addAnimation(function() {
+                for (var i = 0; i < 7; i++) {
+                    if (this.chips[i].chipNum != 0) {
+                        this.chips[i].gotoBaseAnimation(this["baseChipNum"]);
+                    }
                 }
-            }
+            }, [this["baseChipNum"]], this, 800);
         }
 
         //通用发牌效果
         public cardAnimationWithOrigin(x: number, y: number, finishAnimationFunction: Function, params?: any[]) {
+            SoundManager.getIns().playSound("Licensing_mp3");
             var card: eui.Image = new eui.Image();
             card.texture = RES.getRes("gamescreen.poker_right");
             card.x = 652;
@@ -301,8 +280,15 @@ module game {
             this.addChild(card);
             var tween: egret.Tween = egret.Tween.get(card);
             tween.to({ x: x, y: y, scale: 0.5, alpha: 0.5 }, 300, egret.Ease.sineOut);
-            params.push(card);
             tween.call(finishAnimationFunction, this, params);
+
+            var timer = new egret.Timer(300,1);
+            timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, sendOver, this);
+            timer.start();
+            function sendOver(){
+                timer.stop();
+                this.removeChild(card);
+            }
         }
         /**
          * 停止上一个用户的转圈，开始下一个转圈
@@ -330,35 +316,35 @@ module game {
 
         //通用加注效果
         public addChipAnimation(chip: number, userPosition: number) {
-            if (chip == 0) {
-                return;
-            }
-            SoundManager.getIns().playSound("wager_sound_mp3");
-            var chipImg: eui.Image = new eui.Image();
-            chipImg.x = this.users[userPosition].x + 50;
-            chipImg.y = this.users[userPosition].y + 140;
-            this.UserGroup.addChild(chipImg);
+            AnimationUtils.getInstance().addAnimation(function() {
+                if (chip == 0) {
+                    return;
+                }
+                SoundManager.getIns().playSound("wager_sound_mp3");
+                var chipImg: eui.Image = new eui.Image();
+                chipImg.x = this.users[userPosition].x + 50;
+                chipImg.y = this.users[userPosition].y + 140;
+                this.UserGroup.addChild(chipImg);
 
-            if (chip <= 300) {
-                chipImg.texture = RES.getRes("gamescreen.chip_50-300");
-            } else if (chip <= 1000) {
-                chipImg.texture = RES.getRes("gamescreen.chip_300-1000");
-            } else if (chip <= 2500) {
-                chipImg.texture = RES.getRes("gamescreen.chip_1000-2500");
-            } else if (chip <= 5000) {
-                chipImg.texture = RES.getRes("gamescreen.chip_2500-5000");
-            } else {
-                chipImg.texture = RES.getRes("gamescreen.chip_5000_more");
-            }
-
-            this.users[userPosition].money -= chip;
-            var tween: egret.Tween = egret.Tween.get(chipImg);
-            tween.to({ x: this.chips[userPosition].x + 40, y: this.chips[userPosition].y, scale: 0.5, alpha: 0.5 }, 400, egret.Ease.sineOut);
-            tween.call(function () {
-                this.chips[userPosition].chipNum += chip;
-                this.UserGroup.removeChild(chipImg);
-            }, this);
-
+                if (chip <= 300) {
+                    chipImg.texture = RES.getRes("gamescreen.chip_50-300");
+                } else if (chip <= 1000) {
+                    chipImg.texture = RES.getRes("gamescreen.chip_300-1000");
+                } else if (chip <= 2500) {
+                    chipImg.texture = RES.getRes("gamescreen.chip_1000-2500");
+                } else if (chip <= 5000) {
+                    chipImg.texture = RES.getRes("gamescreen.chip_2500-5000");
+                } else {
+                    chipImg.texture = RES.getRes("gamescreen.chip_5000_more");
+                }
+                this.users[userPosition].money -= chip;
+                var tween: egret.Tween = egret.Tween.get(chipImg);
+                tween.to({ x: this.chips[userPosition].x + 40, y: this.chips[userPosition].y, scale: 0.5, alpha: 0.5 }, 400, egret.Ease.sineOut);
+                tween.call(function () {
+                    this.chips[userPosition].chipNum += chip;
+                    this.UserGroup.removeChild(chipImg);
+                }, this);
+            }, [], this, 500);
         }
 
         //显示高亮公共牌以及胜者高亮手牌
@@ -434,29 +420,31 @@ module game {
                 return;
             }
 
-            var timer = new egret.Timer(100, chipArray.length);
-            timer.addEventListener(egret.TimerEvent.TIMER, giveChip, this);
-            timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, timerComplete, this);
-            timer.start();
+            AnimationUtils.getInstance().addAnimation(function (){
+                var timer = new egret.Timer(100, chipArray.length);
+                timer.addEventListener(egret.TimerEvent.TIMER, giveChip, this);
+                timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, timerComplete, this);
+                timer.start();
 
-            AnimationUtils.getInstance().changeLabelNumber(this["baseChipNum"], -chip);
-            this.users[userPosition].addChip(chip);
+                AnimationUtils.getInstance().changeLabelNumber(this["baseChipNum"], -chip);
+                this.users[userPosition].addChip(chip);
 
-            function giveChip() {
-                if (timer.currentCount == 0) {
-                    return;
-                }
+                function giveChip() {
+                    if (timer.currentCount == 0) {
+                        return;
+                    }
                 
-                if (timer.currentCount % 5 == 1) {
-                    SoundManager.getIns().playSound("Jackpot_short_mp3");
+                    if (timer.currentCount % 5 == 1) {
+                        SoundManager.getIns().playSound("Jackpot_short_mp3");
+                    }
+                    this.giveChipAnimation(this.users[userPosition].x, this.users[userPosition].y, chipArray[timer.currentCount - 1]);
                 }
-                this.giveChipAnimation(this.users[userPosition].x, this.users[userPosition].y, chipArray[timer.currentCount - 1]);
-            }
 
-            function timerComplete() {
-                timer.removeEventListener(egret.TimerEvent.TIMER, giveChip, this);
-                timer.removeEventListener(egret.TimerEvent.TIMER_COMPLETE, timerComplete, this);
-            }
+                function timerComplete() {
+                    timer.removeEventListener(egret.TimerEvent.TIMER, giveChip, this);
+                    timer.removeEventListener(egret.TimerEvent.TIMER_COMPLETE, timerComplete, this);
+                }
+            }, [], this, chipArray.length * 100 + 300);
         }
 
         public giveChipAnimation(x: number, y: number, type: string) {
