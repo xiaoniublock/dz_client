@@ -73,7 +73,7 @@ module game {
                 var x: number = this.users[userSeat].x + 102 + 104; //一个是group的位置偏移，一个是user位置偏移
                 var y: number = this.users[userSeat].y + 47 + 64;
                 if (this.users[userSeat].visible) {  //如果这个位置有人
-                    AnimationUtils.getInstance().addAnimation(this.cardAnimationWithOrigin, [x, y, this.sendCardFinish , [userSeat]], this, 300);
+                    AnimationUtils.getInstance().addAnimation(this.cardAnimationWithOrigin, [x, y, this.sendCardFinish , [userSeat]], this, TimeInterval.SEND_CARD);
                 }
             }
         }
@@ -151,7 +151,7 @@ module game {
                         let card = (<Card>this.publicCardsGroup.getChildAt(i));
                         card.index = cards[i].index;
                         card.color = cards[i].color;
-                        AnimationUtils.getInstance().addAnimation(this.cardAnimationWithOrigin, [this.publicCardsGroup.x + card.x, this.publicCardsGroup.y + card.y, this.sendCard, [card]], this, 300);
+                        AnimationUtils.getInstance().addAnimation(this.cardAnimationWithOrigin, [this.publicCardsGroup.x + card.x, this.publicCardsGroup.y + card.y, this.sendCard, [card]], this, TimeInterval.SEND_CARD);
                     }
                     break;
                 }
@@ -161,7 +161,7 @@ module game {
                     let card = (<Card>this.publicCardsGroup.getChildAt(index));
                     card.index = cards[index].index;
                     card.color = cards[index].color;
-                    AnimationUtils.getInstance().addAnimation(this.cardAnimationWithOrigin, [this.publicCardsGroup.x + card.x, this.publicCardsGroup.y + card.y, this.sendCard, [card]], this, 300);
+                    AnimationUtils.getInstance().addAnimation(this.cardAnimationWithOrigin, [this.publicCardsGroup.x + card.x, this.publicCardsGroup.y + card.y, this.sendCard, [card]], this, TimeInterval.SEND_CARD);
                     break;
                 }
 
@@ -183,7 +183,7 @@ module game {
             let card = (<Card>this.userCardsGroup.getChildAt(index));
             card.index = data.index;
             card.color = data.color;
-            AnimationUtils.getInstance().addAnimation(this.cardAnimationWithOrigin, [this.userCardsGroup.x + card.x, this.userCardsGroup.y + card.y, this.sendCard, [card]], this, 300);
+            AnimationUtils.getInstance().addAnimation(this.cardAnimationWithOrigin, [this.userCardsGroup.x + card.x, this.userCardsGroup.y + card.y, this.sendCard, [card]], this, TimeInterval.SEND_CARD);
         }
         /** 
          * 隐藏玩家手牌
@@ -267,7 +267,7 @@ module game {
                         this.chips[i].gotoBaseAnimation(this["baseChipNum"]);
                     }
                 }
-            }, [this["baseChipNum"]], this, 800);
+            }, [this["baseChipNum"]], this, TimeInterval.BASE_GET_MONEY);
         }
 
         //通用发牌效果
@@ -344,7 +344,7 @@ module game {
                     this.chips[userPosition].chipNum += chip;
                     this.UserGroup.removeChild(chipImg);
                 }, this);
-            }, [], this, 500);
+            }, [], this, TimeInterval.ADD_CHIP);
         }
 
         //显示高亮公共牌以及胜者高亮手牌
@@ -444,7 +444,7 @@ module game {
                     timer.removeEventListener(egret.TimerEvent.TIMER, giveChip, this);
                     timer.removeEventListener(egret.TimerEvent.TIMER_COMPLETE, timerComplete, this);
                 }
-            }, [], this, chipArray.length * 100 + 300);
+            }, [], this, chipArray.length * TimeInterval.GIVE_CHIP_INTERVAL + TimeInterval.GIVE_CHIP_ADD);
         }
 
         public giveChipAnimation(x: number, y: number, type: string) {
@@ -461,4 +461,12 @@ module game {
             }, this);
         }
     }
+}
+
+class TimeInterval {
+    public static SEND_CARD = 300;          //发牌间隔
+    public static BASE_GET_MONEY = 1000;    //底池收钱间隔
+    public static ADD_CHIP = 500;           //加注间隔
+    public static GIVE_CHIP_INTERVAL = 100; //给钱时筹码间隔
+    public static GIVE_CHIP_ADD = 300;      //给钱时时间附加
 }
